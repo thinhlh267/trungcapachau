@@ -1,0 +1,241 @@
+/* ======================================= */
+/* 1. CORE & FONTS */
+/* ======================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-blue: #111c64;
+    --highlight-yellow: #fbbf00;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Be Vietnam Pro', 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9fafb;
+    color: #333;
+    overflow-x: hidden; /* Ngăn cuộn ngang ngoài ý muốn */
+}
+
+/* ======================================= */
+/* 2. HEADER & NAVIGATION */
+/* ======================================= */
+.font-bevietnam {
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+/* Hiệu ứng gạch chân menu */
+.menu-button {
+    position: relative;
+    color: var(--primary-blue);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.menu-button::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 3px;
+    background-color: var(--highlight-yellow);
+    transition: transform 0.3s ease;
+}
+
+.menu-button:hover,
+.menu-button.active {
+    color: var(--highlight-yellow);
+}
+
+.menu-button:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Logo link effect */
+.logo-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 3px;
+    background-color: var(--highlight-yellow);
+    transition: transform 0.3s ease;
+}
+
+.logo-link:hover {
+    color: var(--highlight-yellow);
+}
+
+.logo-link:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Dropdown Menu Animation */
+.group:hover .group-hover\:block {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================================= */
+/* 3. HERO & SLIDER */
+/* ======================================= */
+.hero {
+    position: relative;
+}
+
+.hero img {
+    transition: filter 0.8s ease;
+    filter: brightness(1.2);
+}
+
+.hero:hover img {
+    transform: scale(1.001) translateY(-0.5%);
+    transition: transform 0.5s ease;
+}
+
+.hero-text h1 {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero-text:hover {
+    text-shadow: 2px 2px 5px rgba(171, 0, 250, 0.5);
+    color: #ffffff;
+}
+
+.swiper-slide p,
+.swiper-slide h2 {
+    text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.9);
+}
+
+/* ======================================= */
+/* 4. COMPONENTS & SECTIONS */
+/* ======================================= */
+section {
+    margin-bottom: 40px;
+}
+
+/* Card Hover Effects */
+section img {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+section img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Chibi Line Divider */
+hr.chibi-line {
+    border: 0;
+    height: 4px;
+    background: linear-gradient(to right, #eef2ff, #3b82f6, #eef2ff);
+    border-radius: 5px;
+    margin: 2rem 0;
+}
+
+/* Gradient Text */
+.gradient-text {
+    background: linear-gradient(90deg, #1e40af, #2563eb, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ======================================= */
+/* 5. FAQ STYLES (MỚI - QUAN TRỌNG) */
+/* ======================================= */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.3s ease;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px; /* Đủ lớn để chứa nội dung */
+    padding-bottom: 1.5rem; /* px-6 py-4 tương đương */
+}
+
+.faq-icon {
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg); /* Xoay dấu + thành dấu x */
+    color: #ef4444; /* Chuyển sang màu đỏ (Tailwind red-500) */
+}
+
+.faq-item.active .faq-question {
+    background-color: #f0f9ff; /* Tailwind blue-50 */
+    color: #1e40af; /* Tailwind blue-800 */
+}
+
+/* ======================================= */
+/* 6. FOOTER */
+/* ======================================= */
+footer {
+    background: linear-gradient(to right, #005f99, #0077b6);
+    color: white;
+    padding-top: 50px;
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-container {
+    padding-left: 0; 
+}
+
+.footer-column h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    border-left: 4px solid #90e0ef;
+    padding-left: 10px;
+}
+
+.footer-column a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+    .footer-column {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Animation Glow cho nút CTA */
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+}
+.animate-glow {
+    animation: glow 2s infinite;
+}
