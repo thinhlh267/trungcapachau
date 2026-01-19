@@ -119,57 +119,67 @@ class MajorResource extends Resource
                                     ->image()
                                     ->directory('majors/why_us')
                                     ->columnSpan(1),
-                                
-                                // THAY ĐỔI TẠI ĐÂY:
-                                Forms\Components\Repeater::make('why_us_reasons')
-                                    ->label('Danh sách lý do (Hiển thị dạng bullet với icon)')
+                                                                Forms\Components\Repeater::make('why_us_reasons')
+                                    ->label('Danh sách lý do (Hiển thị dạng card với icon)')
                                     ->schema([
                                         Grid::make(2)->schema([
                                             Forms\Components\Select::make('icon')
                                                 ->label('Biểu tượng')
                                                 ->options([
-                                                    'fas fa-graduation-cap' => '🎓 Bằng cấp',
-                                                    'fas fa-user-tie' => '👔 Giảng viên',
+                                                    'fas fa-chalkboard-teacher' => '👨‍🏫 Giảng viên',
                                                     'fas fa-laptop-code' => '💻 Cơ sở vật chất',
+                                                    'fas fa-briefcase' => '💼 Việc làm',
                                                     'fas fa-handshake' => '🤝 Doanh nghiệp',
-                                                    'fas fa-briefcase' => '💼 Thực tập',
+                                                    'fas fa-graduation-cap' => '🎓 Bằng cấp',
                                                     'fas fa-money-bill-wave' => '💰 Học phí',
                                                     'fas fa-clock' => '⏰ Thời gian',
                                                     'fas fa-certificate' => '📜 Chứng chỉ',
-                                                    'fas fa-building' => '🏢 Trường lớp',
                                                     'fas fa-users' => '👥 Cộng đồng',
+                                                    'fas fa-building' => '🏢 Trường lớp',
+                                                    'fas fa-book-open' => '📚 Chương trình',
+                                                    'fas fa-shield-alt' => '🛡️ Chất lượng',
+                                                    'fas fa-map-marker-alt' => '📍 Vị trí',
+                                                    'fas fa-trophy' => '🏆 Thành tích',
+                                                    'fas fa-heart' => '❤️ Tận tâm',
+                                                    'fas fa-rocket' => '🚀 Phát triển',
+                                                    'fas fa-globe' => '🌍 Toàn cầu',
+                                                    'fas fa-comments' => '💬 Hỗ trợ',
                                                 ])
                                                 ->searchable()
-                                                ->required(),
+                                                ->required()
+                                                ->default('fas fa-check-circle'),
                                                 
                                             TextInput::make('title')
                                                 ->label('Tiêu đề lý do')
                                                 ->required()
                                                 ->placeholder('VD: Giảng viên giàu kinh nghiệm')
-                                                ->maxLength(100),
+                                                ->maxLength(80)
+                                                ->columnSpan(1),
                                         ]),
                                         
                                         Textarea::make('description')
                                             ->label('Mô tả chi tiết')
                                             ->rows(2)
                                             ->required()
-                                            ->placeholder('Mô tả ngắn gọn về lý do này...'),
+                                            ->placeholder('Mô tả ngắn gọn về lý do này...')
+                                            ->helperText('Khoảng 1-2 dòng, ngắn gọn và thuyết phục')
+                                            ->maxLength(200),
                                     ])
-                                    ->itemLabel(fn (array $state): ?string => $state['title'] ?? 'Lý do mới')
+                                    ->itemLabel(fn (array $state): ?string => 
+                                        ($state['title'] ?? 'Lý do mới') . ' - ' . ($state['icon'] ?? 'fas fa-check-circle')
+                                    )
                                     ->collapsible()
+                                    ->cloneable()
+                                    ->reorderable()
                                     ->defaultItems(3)
+                                    ->minItems(1)
+                                    ->maxItems(8)
+                                    ->grid(1)
                                     ->columnSpan(1),
                             ]),
-                            
-                            // VẪN GIỮ LẠI field cũ để tương thích với data hiện có
-                            RichEditor::make('why_us_content')
-                                ->label('Nội dung cũ (Legacy - Nếu có)')
-                                ->toolbarButtons(['bold', 'bulletList', 'checkList'])
-                                ->helperText('Chỉ sử dụng nếu có dữ liệu cũ. Khuyến nghị chuyển sang danh sách lý do bên trên.')
-                                ->columnSpanFull()
-                                ->disabled()
-                                ->dehydrated(),
-                        ])->collapsible(),
+                        ])
+                        ->description('Tối đa 8 lý do, mỗi lý do có icon + tiêu đề + mô tả ngắn')
+                        ->collapsible(),
 
                         // 4. CƠ HỘI NGHỀ NGHIỆP
                         Section::make('Cơ hội nghề nghiệp (Làm gì & Ở đâu?)')

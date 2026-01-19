@@ -72,31 +72,88 @@
         </div>
         @endif
 
-        {{-- 4. WHY US --}}
-        @if($major->why_us_content)
-        <div class="mb-24 bg-blue-50/50 rounded-3xl p-8 md:p-16 border border-blue-100">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative order-2 lg:order-1">
-                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-yellow-400 rounded-2xl z-0"></div>
-                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
-                        @if($major->why_us_image)
-                            <img src="{{ asset('storage/' . $major->why_us_image) }}" class="w-full h-full object-cover hover:scale-105 transition duration-700">
-                        @else
-                            <div class="bg-gray-200 h-80 flex items-center justify-center text-gray-400"><i class="fas fa-university text-6xl"></i></div>
-                        @endif
+        @if(!empty($major->why_us_reasons) && is_array($major->why_us_reasons) && count($major->why_us_reasons) > 0)
+<div class="mb-24 bg-gradient-to-br from-blue-50/70 to-cyan-50/70 rounded-3xl p-8 md:p-16 border border-blue-200 shadow-xl backdrop-blur-sm">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        {{-- ẢNH BÊN TRÁI --}}
+        <div class="relative order-2 lg:order-1">
+            <div class="absolute -top-4 -left-4 w-full h-full border-2 border-yellow-400 rounded-2xl z-0"></div>
+            <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl group/image">
+                @if($major->why_us_image)
+                    <img src="{{ asset('storage/' . $major->why_us_image) }}" 
+                         class="w-full h-full object-cover transition duration-700 group-hover/image:scale-105">
+                @else
+                    <div class="bg-gradient-to-br from-blue-100 to-cyan-100 h-[500px] flex items-center justify-center">
+                        <i class="fas fa-university text-7xl text-blue-300/50"></i>
                     </div>
-                </div>
-                <div class="order-1 lg:order-2">
-                    <h2 class="text-2xl md:text-4xl font-extrabold text-blue-900 mb-6 leading-tight text-balance">
-                        Lý do lựa chọn học ngành <span class="text-red-600">{{ $major->name }}</span> tại <span class="text-blue-600">Trung Cấp Á Châu</span>
-                    </h2>
-                    <div class="prose prose-lg prose-blue max-w-none text-gray-600 text-justify prose-li:marker:text-yellow-500 prose-li:marker:text-2xl">
-                        {!! $major->why_us_content !!}
-                    </div>
-                </div>
+                @endif
+                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover/image:opacity-100 transition duration-500"></div>
             </div>
         </div>
-        @endif
+        
+        {{-- DANH SÁCH LÝ DO BÊN PHẢI --}}
+        <div class="order-1 lg:order-2">
+            <div class="inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-md mb-8 border border-blue-100">
+                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                <span class="font-bold text-blue-800 uppercase text-sm tracking-wider">Điểm khác biệt</span>
+            </div>
+            
+            <h2 class="text-3xl md:text-4xl font-extrabold text-blue-900 mb-8 leading-tight">
+                <span class="text-red-600">Lý do</span> nên học {{ $major->name }}<br>
+                tại <span class="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Trung Cấp Á Châu</span>
+            </h2>
+            
+            {{-- LƯỚI LÝ DO --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-fr">
+                @foreach($major->why_us_reasons as $index => $reason)
+                <div class="bg-white p-5 rounded-xl border border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1">
+                    <div class="flex items-start gap-4 h-full">
+                        {{-- ICON --}}
+                        <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center group-hover:from-blue-600 group-hover:to-cyan-600 transition duration-300 shadow-md group-hover:shadow-lg">
+                            <i class="{{ $reason['icon'] ?? 'fas fa-check-circle' }} text-white text-lg"></i>
+                        </div>
+                        
+                        {{-- NỘI DUNG --}}
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg font-bold text-gray-800 mb-1.5 line-clamp-1 group-hover:text-blue-700 transition">
+                                {{ $reason['title'] ?? 'Lý do ' . ($index + 1) }}
+                            </h3>
+                            <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">
+                                {{ $reason['description'] ?? '' }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            
+            {{-- FOOTNOTE --}}
+            <div class="mt-8 pt-6 border-t border-blue-100">
+                <p class="text-gray-500 text-sm flex items-center gap-2">
+                    <i class="fas fa-info-circle text-blue-400"></i>
+                    <span class="font-medium">Và còn nhiều lợi ích khác đang chờ bạn khám phá!</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .line-clamp-1 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+    .line-clamp-2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+</style>
+@endif
 
         {{-- 5. CAREER (ZIG ZAG) --}}
         @if($major->career_titles || $major->career_places)
