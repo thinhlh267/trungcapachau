@@ -112,19 +112,64 @@ class MajorResource extends Resource
 
                         // 3. LÝ DO CHỌN TRƯỜNG (PHẦN BẠN BỊ THIẾU)
                         Section::make('Lý do chọn học tại Á Châu (Why Us?)')
-                            ->schema([
-                                Grid::make(2)->schema([
-                                    FileUpload::make('why_us_image')
-                                        ->label('Ảnh minh họa (Bên trái)')
-                                        ->image()
-                                        ->directory('majors/why_us')
-                                        ->columnSpan(1),
-                                    RichEditor::make('why_us_content')
-                                        ->label('Nội dung lý do (Bên phải)')
-                                        ->toolbarButtons(['bold', 'bulletList', 'checkList'])
-                                        ->columnSpan(1),
-                                ]),
-                            ])->collapsible(),
+                        ->schema([
+                            Grid::make(2)->schema([
+                                FileUpload::make('why_us_image')
+                                    ->label('Ảnh minh họa (Bên trái)')
+                                    ->image()
+                                    ->directory('majors/why_us')
+                                    ->columnSpan(1),
+                                
+                                // THAY ĐỔI TẠI ĐÂY:
+                                Forms\Components\Repeater::make('why_us_reasons')
+                                    ->label('Danh sách lý do (Hiển thị dạng bullet với icon)')
+                                    ->schema([
+                                        Grid::make(2)->schema([
+                                            Forms\Components\Select::make('icon')
+                                                ->label('Biểu tượng')
+                                                ->options([
+                                                    'fas fa-graduation-cap' => '🎓 Bằng cấp',
+                                                    'fas fa-user-tie' => '👔 Giảng viên',
+                                                    'fas fa-laptop-code' => '💻 Cơ sở vật chất',
+                                                    'fas fa-handshake' => '🤝 Doanh nghiệp',
+                                                    'fas fa-briefcase' => '💼 Thực tập',
+                                                    'fas fa-money-bill-wave' => '💰 Học phí',
+                                                    'fas fa-clock' => '⏰ Thời gian',
+                                                    'fas fa-certificate' => '📜 Chứng chỉ',
+                                                    'fas fa-building' => '🏢 Trường lớp',
+                                                    'fas fa-users' => '👥 Cộng đồng',
+                                                ])
+                                                ->searchable()
+                                                ->required(),
+                                                
+                                            TextInput::make('title')
+                                                ->label('Tiêu đề lý do')
+                                                ->required()
+                                                ->placeholder('VD: Giảng viên giàu kinh nghiệm')
+                                                ->maxLength(100),
+                                        ]),
+                                        
+                                        Textarea::make('description')
+                                            ->label('Mô tả chi tiết')
+                                            ->rows(2)
+                                            ->required()
+                                            ->placeholder('Mô tả ngắn gọn về lý do này...'),
+                                    ])
+                                    ->itemLabel(fn (array $state): ?string => $state['title'] ?? 'Lý do mới')
+                                    ->collapsible()
+                                    ->defaultItems(3)
+                                    ->columnSpan(1),
+                            ]),
+                            
+                            // VẪN GIỮ LẠI field cũ để tương thích với data hiện có
+                            RichEditor::make('why_us_content')
+                                ->label('Nội dung cũ (Legacy - Nếu có)')
+                                ->toolbarButtons(['bold', 'bulletList', 'checkList'])
+                                ->helperText('Chỉ sử dụng nếu có dữ liệu cũ. Khuyến nghị chuyển sang danh sách lý do bên trên.')
+                                ->columnSpanFull()
+                                ->disabled()
+                                ->dehydrated(),
+                        ])->collapsible(),
 
                         // 4. CƠ HỘI NGHỀ NGHIỆP
                         Section::make('Cơ hội nghề nghiệp (Làm gì & Ở đâu?)')
