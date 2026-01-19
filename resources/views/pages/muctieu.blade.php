@@ -239,8 +239,6 @@
                 </div>
             </div>
 
-            {{-- 7 Nội dung chính sách - ĐIỀU CHỈNH KHOẢNG CÁCH --}}
-            {{-- 7 Nội dung chính sách - ĐIỀU CHỈNH KHOẢNG CÁCH VÀ FIX POLICY SỐ 7 --}}
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
     @php
         $qualityPolicies = [
@@ -299,7 +297,6 @@
     
     @foreach($qualityPolicies as $policy)
         @if(isset($policy['full']) && $policy['full'])
-            {{-- POLICY SỐ 7 - THIẾT KẾ MỚI DỄ ĐỌC --}}
             <div class="md:col-span-2 lg:col-span-3">
                 <div class="relative overflow-hidden rounded-2xl shadow-xl border-2 border-yellow-400 bg-gradient-to-br from-blue-700 via-blue-800 to-blue-900 group hover:shadow-2xl transition-all duration-300">
                     

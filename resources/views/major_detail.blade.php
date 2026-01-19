@@ -72,88 +72,99 @@
         </div>
         @endif
 
+        {{-- 4. WHY US --}}
         @if(!empty($major->why_us_reasons) && is_array($major->why_us_reasons) && count($major->why_us_reasons) > 0)
-<div class="mb-24 bg-gradient-to-br from-blue-50/70 to-cyan-50/70 rounded-3xl p-8 md:p-16 border border-blue-200 shadow-xl backdrop-blur-sm">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        
-        {{-- ẢNH BÊN TRÁI --}}
-        <div class="relative order-2 lg:order-1">
-            <div class="absolute -top-4 -left-4 w-full h-full border-2 border-yellow-400 rounded-2xl z-0"></div>
-            <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl group/image">
-                @if($major->why_us_image)
-                    <img src="{{ asset('storage/' . $major->why_us_image) }}" 
-                         class="w-full h-full object-cover transition duration-700 group-hover/image:scale-105">
-                @else
-                    <div class="bg-gradient-to-br from-blue-100 to-cyan-100 h-[500px] flex items-center justify-center">
-                        <i class="fas fa-university text-7xl text-blue-300/50"></i>
+        <div class="mb-32 mt-16 bg-white relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-60 -z-10"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-50 rounded-full blur-3xl opacity-60 -z-10"></div>
+
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex flex-col lg:flex-row gap-16 items-stretch">
+                    
+                    {{-- ẢNH BÊN TRÁI --}}
+                    <div class="w-full lg:w-5/12 relative">
+                        <div class="sticky top-24">
+                            <div class="absolute -top-6 -left-6 w-24 h-24 bg-yellow-400/20 rounded-full blur-2xl animate-pulse"></div>
+                            <div class="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/5]">
+                                @if($major->why_us_image)
+                                    <img src="{{ asset('storage/' . $major->why_us_image) }}" 
+                                        class="w-full h-full object-cover transition duration-1000 hover:scale-110">
+                                @else
+                                    <div class="w-full h-full bg-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-graduation-cap text-8xl text-blue-200"></i>
+                                    </div>
+                                @endif
+                                <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-blue-900 via-blue-900/60 to-transparent">
+                                    <p class="text-white font-medium italic opacity-90">"Môi trường học tập năng động, bám sát thực tế doanh nghiệp."</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                @endif
-                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover/image:opacity-100 transition duration-500"></div>
-            </div>
-        </div>
-        
-        {{-- DANH SÁCH LÝ DO BÊN PHẢI --}}
-        <div class="order-1 lg:order-2">
-            <div class="inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-md mb-8 border border-blue-100">
-                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                <span class="font-bold text-blue-800 uppercase text-sm tracking-wider">Điểm khác biệt</span>
-            </div>
-            
-            <h2 class="text-3xl md:text-4xl font-extrabold text-blue-900 mb-8 leading-tight">
-                <span class="text-red-600">Lý do</span> nên học {{ $major->name }}<br>
-                tại <span class="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Trung Cấp Á Châu</span>
-            </h2>
-            
-            {{-- LƯỚI LÝ DO --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-fr">
-                @foreach($major->why_us_reasons as $index => $reason)
-                <div class="bg-white p-5 rounded-xl border border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1">
-                    <div class="flex items-start gap-4 h-full">
-                        {{-- ICON --}}
-                        <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center group-hover:from-blue-600 group-hover:to-cyan-600 transition duration-300 shadow-md group-hover:shadow-lg">
-                            <i class="{{ $reason['icon'] ?? 'fas fa-check-circle' }} text-white text-lg"></i>
+                    
+                    {{-- NỘI DUNG BÊN PHẢI --}}
+                    <div class="w-full lg:w-7/12 flex flex-col">
+                        <div class="mb-10">
+                            {{-- BADGE --}}
+                            <div class="inline-flex items-center gap-2 bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-4">
+                                <span class="w-2 h-2 bg-red-600 rounded-full"></span>
+                                Điểm khác biệt tại Á Châu
+                            </div>
+                            
+                            {{-- TIÊU ĐỀ - ĐÃ FIX MÀU --}}
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-blue-900 leading-tight text-balance">
+                                <span class="block text-gray-700">Lý do nên học</span>
+                                
+                                {{-- TÊN NGÀNH - HIỂN THỊ RÕ RÀNG --}}
+                                <span class="text-blue-700 bg-blue-50/80 px-3 py-2 rounded-xl border border-blue-200 
+                                        inline-block my-2 text-4xl md:text-5xl font-black">
+                                    {{ $major->name }}
+                                </span>
+                                
+                                <span class="block text-blue-800 mt-2">tại Trung Cấp Á Châu</span>
+                            </h2>
+                            
+                            {{-- GẠCH CHÂN --}}
+                            <div class="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-6"></div>
                         </div>
                         
-                        {{-- NỘI DUNG --}}
-                        <div class="flex-1 min-w-0">
-                            <h3 class="text-lg font-bold text-gray-800 mb-1.5 line-clamp-1 group-hover:text-blue-700 transition">
-                                {{ $reason['title'] ?? 'Lý do ' . ($index + 1) }}
-                            </h3>
-                            <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">
-                                {{ $reason['description'] ?? '' }}
-                            </p>
+                        {{-- Grid lý do --}}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            @foreach($major->why_us_reasons as $index => $reason)
+                            <div class="bg-white p-7 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-500 group">
+                                <div class="space-y-4">
+                                    {{-- Icon --}}
+                                    <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-inner">
+                                        <i class="{{ $reason['icon'] ?? 'fas fa-star' }} text-2xl"></i>
+                                    </div>
+                                    
+                                    <div class="space-y-2">
+                                        <h3 class="text-xl font-extrabold text-gray-900 group-hover:text-blue-700 transition duration-300 leading-tight">
+                                            {{ $reason['title'] ?? 'Lý do cốt lõi' }}
+                                        </h3>
+                                        <p class="text-gray-500 leading-relaxed text-sm">
+                                            {{ $reason['description'] ?? 'Nội dung chi tiết' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
+                        {{-- CTA --}}
+                        <div class="mt-10 p-6 bg-blue-900 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-blue-900/20">
+                            <div class="text-white text-center md:text-left">
+                                <p class="font-bold text-lg">Bạn còn thắc mắc về ngành học?</p>
+                                <p class="text-blue-200 text-sm">Đội ngũ tư vấn sẵn sàng hỗ trợ bạn ngay!</p>
+                            </div>
+                            <a href="#dang-ky" class="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-black px-8 py-3 rounded-2xl transition transform hover:scale-105 active:scale-95 whitespace-nowrap">
+                                Nhận tư vấn miễn phí
+                            </a>
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
-            
-            {{-- FOOTNOTE --}}
-            <div class="mt-8 pt-6 border-t border-blue-100">
-                <p class="text-gray-500 text-sm flex items-center gap-2">
-                    <i class="fas fa-info-circle text-blue-400"></i>
-                    <span class="font-medium">Và còn nhiều lợi ích khác đang chờ bạn khám phá!</span>
-                </p>
             </div>
         </div>
-    </div>
-</div>
-
-<style>
-    .line-clamp-1 {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
-    }
-    .line-clamp-2 {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-    }
-</style>
-@endif
+        @endif
 
         {{-- 5. CAREER (ZIG ZAG) --}}
         @if($major->career_titles || $major->career_places)
@@ -316,94 +327,77 @@
         </div>
         @endif
 
-        {{-- 8. FORM ĐĂNG KÝ (REDESIGN: MODERN GLASS STYLE) --}}
-        <div id="dang-ky" class="mt-32 mb-16 scroll-mt-24">
-            <div class="relative bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-950 rounded-3xl shadow-2xl p-8 md:p-14 overflow-hidden group">
-                
-                {{-- Trang trí nền (Background Effects) --}}
-                <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                <div class="absolute -top-24 -right-24 w-64 h-64 bg-yellow-500 rounded-full blur-[80px] opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-500 rounded-full blur-[80px] opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-
-                <div class="relative z-10 text-center max-w-4xl mx-auto">
-                    
-                    {{-- Tiêu đề Form --}}
-                    <span class="inline-block py-1 px-3 rounded-full bg-blue-800/50 border border-blue-400/30 text-blue-200 text-xs font-bold uppercase tracking-wider mb-4 shadow-sm backdrop-blur-sm">
-                        Cổng đăng ký trực tuyến
-                    </span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
-                        Xét tuyển ngành <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">{{ $major->name }}</span>
-                    </h2>
-                    <p class="text-blue-100 mb-10 text-lg font-light">
-                        Để lại thông tin ngay để nhận <span class="font-bold text-yellow-300">ưu đãi học phí</span> và được tư vấn lộ trình miễn phí từ chuyên gia.
-                    </p>
-
-                    {{-- THÔNG BÁO THÀNH CÔNG (HIỆN KHI CÓ SESSION SUCCESS) --}}
-                    @if(session('success'))
-                    <div class="mb-8 bg-green-500/20 border border-green-400/50 text-green-100 px-6 py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg backdrop-blur-md animate-fade-in-up">
-                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-check text-white"></i>
-                        </div>
-                        <span class="font-bold text-lg">{{ session('success') }}</span>
-                    </div>
-                    @endif
-
-                    {{-- FORM NHẬP LIỆU --}}
-                    <form action="{{ route('candidate.store') }}" method="POST" class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-xl">
-                        @csrf
-                        <input type="hidden" name="major_id" value="{{ $major->id }}">
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                            
-                            {{-- Input: Họ và tên --}}
-                            <div class="md:col-span-4 text-left">
-                                <label class="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Họ và tên học viên</label>
-                                <div class="relative group/input">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                        <i class="fas fa-user text-blue-300 group-focus-within/input:text-yellow-400 transition-colors"></i>
-                                    </div>
-                                    <input type="text" name="name" value="{{ old('name') }}" required placeholder="Nhập họ tên của bạn..." 
-                                           class="w-full pl-11 pr-4 py-4 rounded-xl bg-blue-950/50 border border-blue-400/30 text-white placeholder-blue-300/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all shadow-inner font-medium">
-                                </div>
-                                @error('name') 
-                                    <p class="text-red-300 text-xs mt-1 ml-1 italic"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p> 
-                                @enderror
-                            </div>
-
-                            {{-- Input: Số điện thoại --}}
-                            <div class="md:col-span-4 text-left">
-                                <label class="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Số điện thoại liên hệ</label>
-                                <div class="relative group/input">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                        <i class="fas fa-phone text-blue-300 group-focus-within/input:text-yellow-400 transition-colors"></i>
-                                    </div>
-                                    <input type="tel" name="phone" value="{{ old('phone') }}" required placeholder="VD: 0912 345 678" 
-                                           class="w-full pl-11 pr-4 py-4 rounded-xl bg-blue-950/50 border border-blue-400/30 text-white placeholder-blue-300/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all shadow-inner font-medium">
-                                </div>
-                                @error('phone') 
-                                    <p class="text-red-300 text-xs mt-1 ml-1 italic"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p> 
-                                @enderror
-                            </div>
-
-                            {{-- Nút Gửi (CTA) --}}
-                            <div class="md:col-span-4 flex items-end">
-                                <button type="submit" class="w-full h-[58px] bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-300 hover:to-yellow-500 text-blue-900 font-extrabold text-lg rounded-xl shadow-lg hover:shadow-yellow-500/50 transform hover:-translate-y-1 transition duration-300 flex items-center justify-center gap-3 uppercase tracking-wide group/btn">
-                                    <span>Gửi yêu cầu ngay</span>
-                                    <i class="fas fa-paper-plane group-hover/btn:translate-x-1 transition-transform"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    
-                    <div class="mt-6 flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-blue-200/80">
-                        <span class="flex items-center gap-2"><i class="fas fa-shield-alt text-green-400"></i> Bảo mật thông tin 100%</span>
-                        <span class="hidden md:inline">|</span>
-                        <span class="flex items-center gap-2"><i class="fas fa-headset text-yellow-400"></i> Hỗ trợ 24/7</span>
-                    </div>
-
-                </div>
+{{-- 9. FORM ĐĂNG KÝ XÉT TUYỂN (SIMPLE & CLEAN) --}}
+<section id="dang-ky" class="relative py-20 bg-blue-900 overflow-hidden mt-20">
+    
+    {{-- Họa tiết nền chìm (Giữ lại để bớt đơn điệu) --}}
+    <div class="absolute inset-0 opacity-10" 
+         style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); background-repeat: repeat;">
+    </div>
+    
+    {{-- Container chính --}}
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+        
+        {{-- Khối Form màu trắng nổi bật trên nền xanh --}}
+        <div class="bg-white rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] p-8 md:p-12 border border-blue-200">
+            
+            <div class="text-center mb-10">
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">
+                    Tuyển sinh 2024
+                </span>
+                <h2 class="text-2xl md:text-4xl font-black text-blue-900 uppercase leading-tight">
+                    Đăng ký học ngành <br>
+                    <span class="text-red-600">{{ $major->name }}</span>
+                </h2>
+                <div class="w-20 h-1.5 bg-yellow-400 mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-500 mt-4 text-sm md:text-base max-w-lg mx-auto">
+                    Để lại thông tin bên dưới, Phòng tuyển sinh sẽ liên hệ tư vấn lộ trình và ưu đãi học phí cho bạn trong vòng 5 phút.
+                </p>
             </div>
+
+            <form action="{{ route('candidate.store') }}" method="POST" class="space-y-6">
+                @csrf
+                <input type="hidden" name="major_id" value="{{ $major->id }}">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {{-- Ô Họ tên --}}
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-gray-500 uppercase ml-1">Họ và tên của bạn</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <input type="text" name="name" required placeholder="Ví dụ: Nguyễn Văn A" 
+                                   class="w-full pl-11 pr-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-bold text-gray-800">
+                        </div>
+                    </div>
+
+                    {{-- Ô Số điện thoại --}}
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-gray-500 uppercase ml-1">Số điện thoại liên hệ</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <input type="tel" name="phone" required placeholder="Ví dụ: 0912 345 678" 
+                                   class="w-full pl-11 pr-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-bold text-gray-800">
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Nút Gửi --}}
+                <button type="submit" class="w-full py-5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-lg rounded-xl shadow-lg shadow-red-600/30 transform hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 uppercase tracking-wider group">
+                    <span>Gửi đăng ký ngay</span>
+                    <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                
+                <p class="text-center text-xs text-gray-400 italic">
+                    * Nhà trường cam kết bảo mật thông tin cá nhân của bạn tuyệt đối.
+                </p>
+            </form>
         </div>
+    </div>
+</section>
 
     </div>
 </main>
