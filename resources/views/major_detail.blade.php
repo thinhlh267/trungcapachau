@@ -326,75 +326,204 @@
             </div>
         </div>
         @endif
+        </div> {{-- Đóng container max-w-7xl --}}
+</main>
 
-{{-- 9. FORM ĐĂNG KÝ XÉT TUYỂN (SIMPLE & CLEAN) --}}
-<section id="dang-ky" class="relative py-20 bg-blue-900 overflow-hidden mt-20">
+{{-- 8. FORM ĐĂNG KÝ NGÀNH HỌC (MẪU MỚI - ĐẸP & CHUYÊN NGHIỆP) --}}
+<section id="dang-ky" class="relative py-16 md:py-24 bg-blue-900 text-white overflow-hidden mt-24">
     
-    {{-- Họa tiết nền chìm (Giữ lại để bớt đơn điệu) --}}
+    {{-- Lớp nền họa tiết --}}
     <div class="absolute inset-0 opacity-10" 
          style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); background-repeat: repeat;">
     </div>
-    
-    {{-- Container chính --}}
-    <div class="relative z-10 max-w-4xl mx-auto px-4">
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-900/50 to-blue-950/80 pointer-events-none"></div>
+
+    <div class="relative z-10">
         
-        {{-- Khối Form màu trắng nổi bật trên nền xanh --}}
-        <div class="bg-white rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] p-8 md:p-12 border border-blue-200">
-            
-            <div class="text-center mb-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-widest mb-3">
-                    Tuyển sinh 2024
-                </span>
-                <h2 class="text-2xl md:text-4xl font-black text-blue-900 uppercase leading-tight">
-                    Đăng ký học ngành <br>
-                    <span class="text-red-600">{{ $major->name }}</span>
-                </h2>
-                <div class="w-20 h-1.5 bg-yellow-400 mx-auto mt-4 rounded-full"></div>
-                <p class="text-gray-500 mt-4 text-sm md:text-base max-w-lg mx-auto">
-                    Để lại thông tin bên dưới, Phòng tuyển sinh sẽ liên hệ tư vấn lộ trình và ưu đãi học phí cho bạn trong vòng 5 phút.
-                </p>
+        {{-- Header --}}
+        <div class="text-center mb-12 max-w-5xl mx-auto px-4 md:px-8 lg:px-12">
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-5 py-2.5 rounded-full mb-6">
+                <i class="fas fa-graduation-cap text-yellow-300"></i>
+                <span class="font-bold text-sm uppercase tracking-widest">Cổng Đăng Ký Trực Tuyến</span>
             </div>
+            
+            <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight">
+                Đăng ký xét tuyển<br>
+                <span class="text-yellow-400">Ngành {{ $major->name }}</span>
+            </h2>
+            
+            <p class="text-blue-100 text-lg md:text-xl mb-12 leading-relaxed font-light max-w-3xl mx-auto">
+                Để lại thông tin để nhận <span class="font-bold text-yellow-300">tư vấn chi tiết</span> và 
+                <span class="font-bold text-yellow-300">ưu đãi học phí đặc biệt</span> từ Trường Trung cấp Á Châu.
+            </p>
+        </div>
 
-            <form action="{{ route('candidate.store') }}" method="POST" class="space-y-6">
-                @csrf
-                <input type="hidden" name="major_id" value="{{ $major->id }}">
+        {{-- Main Content: Quote + Form --}}
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl mb-12">
+            <div class="max-w-5xl mx-auto p-8 md:p-12 relative overflow-hidden">
+                
+                {{-- Dấu ngoặc kép trang trí chìm --}}
+                <i class="fas fa-quote-left text-white opacity-10 text-[8rem] absolute -top-4 -left-4 pointer-events-none"></i>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {{-- Ô Họ tên --}}
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-500 uppercase ml-1">Họ và tên của bạn</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
-                                <i class="fas fa-user"></i>
+                <div class="flex flex-col-reverse md:flex-row items-start gap-8 md:gap-12 relative z-10">
+                    
+                    {{-- 1. Phần Quote/Thông điệp (Bên Trái) --}}
+                    <div class="flex-1">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold mb-4 text-white">Tại sao nên đăng ký ngay?</h3>
+                            <ul class="space-y-3 text-blue-100">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                                    <span>Nhận tư vấn lộ trình học tập cá nhân hóa</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                                    <span>Ưu đãi học phí lên đến <span class="text-yellow-300 font-bold">30%</span></span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                                    <span>Đảm bảo việc làm sau tốt nghiệp</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                                    <span>Hỗ trợ thủ tục nhập học nhanh chóng</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        {{-- Quote from Director --}}
+                        <div class="border-l-4 border-yellow-400 pl-4 py-2 bg-white/5 rounded-r-lg">
+                            <p class="text-white italic mb-2">
+                                "Chúng tôi cam kết đồng hành cùng bạn trên hành trình phát triển nghề nghiệp."
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                                    <i class="fas fa-user-tie text-xs"></i>
+                                </div>
+                                <span class="text-blue-200 text-sm font-medium">Ban tuyển sinh</span>
                             </div>
-                            <input type="text" name="name" required placeholder="Ví dụ: Nguyễn Văn A" 
-                                   class="w-full pl-11 pr-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-bold text-gray-800">
                         </div>
                     </div>
 
-                    {{-- Ô Số điện thoại --}}
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-500 uppercase ml-1">Số điện thoại liên hệ</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
-                                <i class="fas fa-phone"></i>
+                    {{-- 2. Form Đăng Ký (Bên Phải) --}}
+                    <div class="flex-shrink-0 w-full md:w-1/2">
+                        
+                        {{-- Success Message --}}
+                        @if(session('success'))
+                        <div class="mb-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm border border-green-400/30 rounded-xl p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-white">{{ session('success') }}</p>
+                                    <p class="text-green-200 text-sm">Chúng tôi sẽ liên hệ bạn trong 5 phút!</p>
+                                </div>
                             </div>
-                            <input type="tel" name="phone" required placeholder="Ví dụ: 0912 345 678" 
-                                   class="w-full pl-11 pr-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-bold text-gray-800">
                         </div>
+                        @endif
+
+                        {{-- Form --}}
+                        <form action="{{ route('candidate.store') }}" method="POST" class="space-y-6">
+                            @csrf
+                            <input type="hidden" name="major_id" value="{{ $major->id }}">
+                            
+                            {{-- Họ và tên --}}
+                            <div class="space-y-2">
+                                <label class="text-sm font-semibold text-blue-200 flex items-center gap-2">
+                                    <i class="fas fa-user-circle"></i>
+                                    Họ và tên học viên
+                                </label>
+                                <input type="text" 
+                                       name="name" 
+                                       value="{{ old('name') }}" 
+                                       required 
+                                       placeholder="Nhập họ tên của bạn"
+                                       class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-blue-300/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all font-medium">
+                                @error('name')
+                                <p class="text-red-300 text-xs mt-1 flex items-center gap-1">
+                                    <i class="fas fa-exclamation-circle"></i>{{ $message }}
+                                </p>
+                                @enderror
+                            </div>
+                            
+                            {{-- Số điện thoại --}}
+                            <div class="space-y-2">
+                                <label class="text-sm font-semibold text-blue-200 flex items-center gap-2">
+                                    <i class="fas fa-phone-alt"></i>
+                                    Số điện thoại liên hệ
+                                </label>
+                                <input type="tel" 
+                                       name="phone" 
+                                       value="{{ old('phone') }}" 
+                                       required 
+                                       placeholder="0912 345 678"
+                                       class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-blue-300/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all font-medium">
+                                @error('phone')
+                                <p class="text-red-300 text-xs mt-1 flex items-center gap-1">
+                                    <i class="fas fa-exclamation-circle"></i>{{ $message }}
+                                </p>
+                                @enderror
+                            </div>
+                            
+                            {{-- Nút Gửi --}}
+                            <button type="submit" 
+                                    class="w-full py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-blue-900 font-bold text-lg rounded-lg shadow-lg hover:shadow-yellow-500/30 transform hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 group">
+                                <span>GỬI ĐĂNG KÝ NGAY</span>
+                                <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                            
+                            {{-- Assurance --}}
+                            <div class="pt-4 border-t border-white/10">
+                                <p class="text-center text-blue-200 text-xs">
+                                    <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                                    Thông tin được bảo mật tuyệt đối
+                                </p>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                {{-- Nút Gửi --}}
-                <button type="submit" class="w-full py-5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-lg rounded-xl shadow-lg shadow-red-600/30 transform hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 uppercase tracking-wider group">
-                    <span>Gửi đăng ký ngay</span>
-                    <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
-                </button>
+            </div>
+        </div>
+        
+        {{-- Contact Info & CTA --}}
+        <div class="text-center max-w-5xl mx-auto px-4 md:px-8 lg:px-12">
+            <div class="inline-flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
+                <div class="flex items-center gap-3 bg-white/5 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10">
+                    <i class="fas fa-headset text-yellow-300 text-xl"></i>
+                    <div class="text-left">
+                        <p class="text-sm text-blue-200">Hotline hỗ trợ 24/7</p>
+                        <a href="tel:02836221199" class="text-white font-bold hover:text-yellow-300 transition">(028) 3622 1199</a>
+                    </div>
+                </div>
                 
-                <p class="text-center text-xs text-gray-400 italic">
-                    * Nhà trường cam kết bảo mật thông tin cá nhân của bạn tuyệt đối.
-                </p>
-            </form>
+                <div class="flex items-center gap-3 bg-white/5 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10">
+                    <i class="fas fa-clock text-yellow-300 text-xl"></i>
+                    <div class="text-left">
+                        <p class="text-sm text-blue-200">Thời gian xử lý</p>
+                        <p class="text-white font-bold">5 - 15 phút</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="#roadmap" 
+                   class="group bg-transparent border-2 border-white/30 hover:border-white hover:bg-white/10 text-white 
+                          font-bold px-8 py-3 rounded-full transition-all duration-300 
+                          flex items-center gap-3 w-full md:w-auto justify-center">
+                    <i class="fas fa-road text-yellow-400"></i>
+                    <span>Xem lại lộ trình học tập</span>
+                </a>
+                
+                <a href="{{ route('home') }}" 
+                   class="group bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold px-8 py-3 
+                          rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.5)] 
+                          hover:shadow-[0_0_30px_rgba(234,179,8,0.7)] flex items-center gap-3 w-full md:w-auto justify-center hover:-translate-y-1">
+                    <i class="fas fa-home text-xl"></i>
+                    <span>Về trang chủ</span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
         </div>
     </div>
 </section>
