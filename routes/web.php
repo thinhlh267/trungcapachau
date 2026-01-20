@@ -43,3 +43,7 @@ Route::get('/nganh-dao-tao/{slug}', [MajorController::class, 'detail'])->name('m
 
 // 5. XỬ LÝ FORM ĐĂNG KÝ (CandidateController)
 Route::post('/dang-ky-tu-van', [CandidateController::class, 'store'])->name('candidate.store');
+
+Route::get('/thu-ngo', function () {
+    return view('pages.thungo');
+})->name('page.thungo');

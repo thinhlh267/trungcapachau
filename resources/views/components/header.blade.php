@@ -101,17 +101,51 @@
         
         {{-- 1. TỔNG QUAN --}}
         <div class="menu-dropdown-container">
-            <a href="#" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
-                Tổng quan <i class="fas fa-chevron-down ml-2 text-xs"></i>
+    {{-- Nút Menu chính --}}
+    <a href="#" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
+        Tổng quan <i class="fas fa-chevron-down ml-2 text-xs"></i>
+    </a>
+
+    {{-- DROPDOWN MENU --}}
+    <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
+        
+        {{-- 1. Giới thiệu chung --}}
+        <li>
+            <a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                <i class="fas fa-university mr-3 text-yellow-500 w-5"></i> Giới thiệu chung
             </a>
-            {{-- DROPDOWN căn giữa chính xác --}}
-            <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
-                <li><a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-university mr-3 text-yellow-500 w-5"></i> Giới thiệu chung</a></li>
-                <li><a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-compass mr-3 text-yellow-500 w-5"></i> Sứ mệnh - Tầm nhìn</a></li>
-                <li><a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-bullseye mr-3 text-yellow-500 w-5"></i> Mục tiêu giáo dục</a></li>
-                <li><a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center"><i class="fas fa-award mr-3 text-yellow-500 w-5"></i> Chứng nhận</a></li>
-            </ul>
-        </div>
+        </li>
+
+        {{-- 2. Sứ mệnh - Tầm nhìn --}}
+        <li>
+            <a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                <i class="fas fa-compass mr-3 text-yellow-500 w-5"></i> Sứ mệnh - Tầm nhìn
+            </a>
+        </li>
+
+        {{-- 3. Mục tiêu giáo dục --}}
+        <li>
+            <a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                <i class="fas fa-bullseye mr-3 text-yellow-500 w-5"></i> Mục tiêu giáo dục
+            </a>
+        </li>
+
+        {{-- 4. Chứng nhận (Đã thêm border-b để ngăn cách với Thư ngỏ) --}}
+        <li>
+            <a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                <i class="fas fa-award mr-3 text-yellow-500 w-5"></i> Chứng nhận
+            </a>
+        </li>
+
+        {{-- 5. Thư ngỏ (Mới thêm - Style đồng bộ) --}}
+        <li>
+            <a href="{{ route('page.thungo') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5"></i> Thư ngỏ
+            </a>
+        </li>
+
+    </ul>
+</div>
 
         {{-- 2. NGÀNH ĐÀO TẠO --}}
         <div class="menu-dropdown-container">
@@ -241,22 +275,19 @@
         </div>
     </div>
 
-    {{-- SUB-NAV BAR (CHỈ CÒN TỔNG QUAN & TUYỂN SINH) --}}
-    @if (in_array($currentPage, $tongquanPages))
-    <div class="w-full bg-white shadow-lg flex flex-wrap justify-center gap-4 md:gap-16 items-center text-sm md:text-base font-semibold uppercase font-bevietnam py-4 px-2 border-t border-gray-200">
-        <a href="{{ route('page.gioithieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('gioithieu', $currentPage) }}">Giới thiệu</a>
-        <a href="{{ route('page.sumenh') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('sumenh', $currentPage) }}">Sứ mệnh & Tầm nhìn</a>
-        <a href="{{ route('page.muctieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('muctieu', $currentPage) }}">Mục tiêu giáo dục</a>
-        <a href="{{ route('page.chungnhan') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('chungnhan', $currentPage) }}">Chứng nhận</a>
-    </div>
-    @elseif (in_array($currentPage, $tuyensinhPages))
-    <div class="w-full bg-white shadow-lg flex flex-wrap justify-center gap-4 md:gap-16 items-center text-sm md:text-base font-semibold uppercase font-bevietnam py-4 px-2 border-t border-gray-200">
-        <a href="tuyensinh.php" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('tuyensinh_main', $currentPage) }}">Thông báo Tuyển sinh</a>
-        <a href="quytrinhtuyensinh.php" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('quytrinh', $currentPage) }}">Quy trình Tuyển sinh</a>
-        <a href="cauhoithuonggap.php" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('faq', $currentPage) }}">Câu hỏi thường gặp</a>
-        <a href="dangkytuvan.php" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('dangkytuvan', $currentPage) }}">Đăng ký Tư vấn</a>
-    </div>
-    @endif
+{{-- SUB-NAV BAR (CHỈ CÒN TỔNG QUAN & TUYỂN SINH) --}}
+@php
+    $excludeFromSubNav = ['muctieu', 'chungnhan'];
+@endphp
+
+@if (in_array($currentPage, $tongquanPages) && !in_array($currentPage, $excludeFromSubNav))
+<div class="w-full bg-white shadow-lg flex flex-wrap justify-center gap-4 md:gap-16 items-center text-sm md:text-base font-semibold uppercase font-bevietnam py-4 px-2 border-t border-gray-200">
+    <a href="{{ route('page.gioithieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('gioithieu', $currentPage) }}">Giới thiệu</a>
+    <a href="{{ route('page.sumenh') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('sumenh', $currentPage) }}">Sứ mệnh & Tầm nhìn</a>
+    <a href="{{ route('page.muctieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('muctieu', $currentPage) }}">Mục tiêu giáo dục</a>
+    <a href="{{ route('page.chungnhan') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('chungnhan', $currentPage) }}">Chứng nhận</a>
+</div>
+@endif
 
     {{-- SCRIPTS --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
