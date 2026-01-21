@@ -143,6 +143,11 @@
                 <i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5"></i> Thư ngỏ
             </a>
         </li>
+        <li>
+    <a href="{{ route('page.sodotochuc') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+        <i class="fas fa-sitemap mr-3 text-yellow-500 w-5"></i> Sơ đồ tổ chức
+    </a>
+</li>
 
     </ul>
 </div>

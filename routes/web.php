@@ -47,3 +47,6 @@ Route::post('/dang-ky-tu-van', [CandidateController::class, 'store'])->name('can
 Route::get('/thu-ngo', function () {
     return view('pages.thungo');
 })->name('page.thungo');
+Route::get('/so-do-to-chuc', function () {
+    return view('pages.sodotochuc');
+})->name('page.sodotochuc');
