@@ -85,7 +85,7 @@
                     {{-- TRƯỜNG HỢP 1: LÀ KHỐI VĂN BẢN --}}
                     @if($block['type'] === 'doan_van')
                         <div class="mb-6 text-justify">
-                            {!! $block['data']['noi_dung'] !!}
+                            {!! \App\Helpers\HtmlHelper::clean($block['data']['noi_dung']) !!}
                         </div>
                     
                     {{-- TRƯỜNG HỢP 2: LÀ KHỐI HÌNH ẢNH --}}
@@ -109,7 +109,7 @@
                 @endforeach
             @else
                 {{-- Fallback: Nếu bài cũ chưa chuyển đổi thì hiện bình thường --}}
-                {!! $post->content !!}
+                {!! \App\Helpers\HtmlHelper::clean($post->content) !!}
             @endif
         </div>
 

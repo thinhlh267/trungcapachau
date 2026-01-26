@@ -60,7 +60,7 @@
                                 } else { $summary = $post->content; }
                             @endphp
                             <div class="text-sm text-gray-600 line-clamp-3 mb-4 text-justify">
-                                {!! Str::limit(strip_tags($summary), 120) !!}
+                                {{ Str::limit(App\Helpers\HtmlHelper::plain($summary), 120) }}
                             </div>
 
                             <div class="mt-auto pt-4 border-t border-gray-100 flex items-center text-blue-600 font-semibold text-sm">

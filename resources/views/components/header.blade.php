@@ -181,7 +181,7 @@
             </a>
             {{-- DROPDOWN căn giữa chính xác --}}
             <div class="menu-dropdown dropdown-center bg-white shadow-lg rounded-lg w-64 border-t-4 border-yellow-500">
-                <a href="tuyensinh.php" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 transition duration-200 flex items-center">
+                <a href="{{ route('page.tuyensinh.thongbao') }}" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 transition duration-200 flex items-center">
                     <i class="fas fa-bullhorn mr-3 text-yellow-500 w-5"></i> Thông báo Tuyển sinh
                 </a>
                 <a href="quytrinhtuyensinh.php" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 transition duration-200 flex items-center">

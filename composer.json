@@ -11,6 +11,7 @@
         "intervention/image": "^3.11",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "mews/purifier": "^3.4",
         "spatie/laravel-backup": "*",
         "spatie/laravel-sitemap": "^7.3"
     },
@@ -29,7 +30,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+    "files": [
+        "app/Helpers/HtmlHelper.php"
+    ]
     },
     "autoload-dev": {
         "psr-4": {

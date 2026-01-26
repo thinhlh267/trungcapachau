@@ -192,7 +192,7 @@
 
                         <div class="text-sm text-gray-700 leading-normal line-clamp-3 text-justify mb-4">
                             {{-- Giờ thì strip_tags() sẽ luôn nhận được chuỗi, không bao giờ lỗi nữa --}}
-                            {!! Str::limit(strip_tags($summary), 150) !!}
+                            {{ Str::limit(\App\Helpers\HtmlHelper::plain($summary), 150) }}
                         </div>
                         {{-- --- KẾT THÚC ĐOẠN SỬA LỖI --- --}}
                         

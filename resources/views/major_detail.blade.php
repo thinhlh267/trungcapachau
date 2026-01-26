@@ -29,7 +29,7 @@
                 </div>
                 <h2 class="text-3xl md:text-5xl font-extrabold text-blue-900 leading-tight text-balance">{{ $major->name }}</h2>
                 <div class="text-gray-600 text-lg leading-relaxed text-justify prose prose-blue max-w-none">
-                    {!! $major->description ?? 'Nội dung đang được cập nhật...' !!}
+                    {!! \App\Helpers\HtmlHelper::clean($major->description ?? 'Nội dung đang được cập nhật...') !!}
                 </div>
                 <div class="pt-4 flex flex-wrap gap-4">
                     <a href="#dang-ky" class="bg-red-600 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:bg-red-700 transition transform hover:-translate-y-1">Đăng ký ngay</a>
@@ -59,7 +59,7 @@
             </div>
             
             {{-- SỬA Ở ĐÂY: thay md:text-center bằng text-justify --}}
-            <div class="prose prose-lg max-w-4xl mx-auto text-gray-600 leading-relaxed text-justify mb-12">{!! $major->overview !!}</div>
+            <div class="prose prose-lg max-w-4xl mx-auto text-gray-600 leading-relaxed text-justify mb-12">{!! \App\Helpers\HtmlHelper::clean($major->overview) !!}</div>
             
             @if(!empty($major->gallery) && count($major->gallery) > 0)
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -181,7 +181,7 @@
                         <div class="w-1.5 h-12 bg-red-600 rounded-full"></div>
                         <h3 class="text-2xl font-bold text-gray-800 leading-tight">Ngành <span class="text-blue-700">{{ $major->name }}</span> ra trường làm nghề gì?</h3>
                     </div>
-                    <div class="career-content prose prose-lg text-gray-600">{!! $major->career_titles !!}</div>
+                    <div class="career-content prose prose-lg text-gray-600">{!! \App\Helpers\HtmlHelper::clean($major->career_titles) !!}</div>
                 </div>
             </div>
             @endif
@@ -193,7 +193,7 @@
                         <div class="w-1.5 h-12 bg-red-600 rounded-full"></div>
                         <h3 class="text-2xl font-bold text-gray-800 leading-tight">Ngành <span class="text-blue-700">{{ $major->name }}</span> ra trường làm ở đâu?</h3>
                     </div>
-                    <div class="career-content prose prose-lg text-gray-600">{!! $major->career_places !!}</div>
+                    <div class="career-content prose prose-lg text-gray-600">{!! \App\Helpers\HtmlHelper::clean($major->career_places) !!}</div>
                 </div>
                 <div class="relative group h-full min-h-[350px] order-1 lg:order-2">
                     <div class="absolute inset-0 bg-yellow-50 rounded-tl-[80px] rounded-br-[80px] transform -rotate-3 transition duration-500 group-hover:rotate-0 border-2 border-dashed border-yellow-200"></div>
