@@ -176,25 +176,42 @@
 
         {{-- 3. TUYỂN SINH --}}
         <div class="menu-dropdown-container">
-            <a href="tuyensinh.php" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tuyensinh' || in_array($currentPage, $tuyensinhPages)) ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
-                Tuyển sinh <i class="fas fa-chevron-down text-xs ml-2"></i>
+    {{-- Link cha: Bấm vào thì ra trang danh sách tổng --}}
+    <a href="{{ route('admission.index') }}" 
+       class="menu-button ... {{ request()->routeIs('admission.*') ? 'text-yellow-500' : 'text-blue-900' }}">
+        TUYỂN SINH <i class="fas fa-chevron-down ml-1 text-xs"></i>
+    </a>
+
+    {{-- DROPDOWN MENU ĐỘNG TỪ DATABASE --}}
+    <ul class="menu-dropdown ...">
+        
+        {{-- Loop qua danh mục lấy từ AppServiceProvider --}}
+        @if(isset($admissionMenu) && count($admissionMenu) > 0)
+            @foreach($admissionMenu as $cat)
+            <li>
+                {{-- Link lọc theo category: /tuyen-sinh?category=trung-cap --}}
+                <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
+                   class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                    <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> 
+                    {{ $cat->name }}
+                </a>
+            </li>
+            @endforeach
+        @endif
+
+        {{-- Các link tĩnh bổ trợ (nếu muốn giữ lại) --}}
+        <li>
+            <a href="{{ route('page.tuyensinh.thongbao') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                <i class="fas fa-bullhorn mr-3 text-yellow-500 w-5"></i> Thông báo chung
             </a>
-            {{-- DROPDOWN căn giữa chính xác --}}
-            <div class="menu-dropdown dropdown-center bg-white shadow-lg rounded-lg w-64 border-t-4 border-yellow-500">
-                <a href="{{ route('page.tuyensinh.thongbao') }}" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 transition duration-200 flex items-center">
-                    <i class="fas fa-bullhorn mr-3 text-yellow-500 w-5"></i> Thông báo Tuyển sinh
-                </a>
-                <a href="quytrinhtuyensinh.php" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 transition duration-200 flex items-center">
-                    <i class="fas fa-list-ol mr-3 text-yellow-500 w-5"></i> Quy trình tuyển sinh
-                </a>
-                <a href="cauhoithuonggap.php" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 transition duration-200 flex items-center">
-                    <i class="fas fa-question-circle mr-3 text-yellow-500 w-5"></i> Câu hỏi thường gặp
-                </a>
-                <a href="dangkytuvan.php" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 transition duration-200 flex items-center">
-                    <i class="fas fa-edit mr-3 text-yellow-500 w-5"></i> Đăng ký Tư vấn
-                </a>
-            </div>
-        </div>
+        </li>
+        <li>
+            <a href="#" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i class="fas fa-question-circle mr-3 text-yellow-500 w-5"></i> Câu hỏi thường gặp
+            </a>
+        </li>
+    </ul>
+</div>
         
         {{-- 4. TIN TỨC --}}
         <div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\AdmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,12 @@ Route::get('/thong-bao-tuyen-sinh', function () {
     $headerMajors = \App\Models\Major::where('is_active', true)->get();
     return view('pages.tuyensinh_thongbao', compact('headerMajors'));
 })->name('page.tuyensinh.thongbao');
+
+// MODULE TUYỂN SINH (DYNAMIC)
+Route::prefix('tuyen-sinh')->group(function () {
+    // Trang danh sách chung: domain.com/tuyen-sinh
+    Route::get('/', [AdmissionController::class, 'index'])->name('admission.index');
+    
+    // Xem chi tiết: domain.com/tuyen-sinh/bai-viet-abc
+    Route::get('/{slug}', [AdmissionController::class, 'detail'])->name('admission.detail');
+});
