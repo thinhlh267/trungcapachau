@@ -46,11 +46,7 @@ Route::get('/so-do-to-chuc', function () {
     $headerMajors = \App\Models\Major::where('is_active', true)->get();
     return view('pages.sodotochuc', compact('headerMajors'));
 })->name('page.sodotochuc');
-Route::get('/thong-bao-tuyen-sinh', function () {
-    // Lấy danh sách ngành để đổ vào select box trong form
-    $headerMajors = \App\Models\Major::where('is_active', true)->get();
-    return view('pages.tuyensinh_thongbao', compact('headerMajors'));
-})->name('page.tuyensinh.thongbao');
+
 
 // MODULE TUYỂN SINH (DYNAMIC)
 Route::prefix('tuyen-sinh')->group(function () {

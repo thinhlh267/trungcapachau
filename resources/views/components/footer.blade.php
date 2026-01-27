@@ -1,17 +1,14 @@
-{{-- 1. NÚT NỔI (FLOATING BUTTONS) - PHIÊN BẢN MỚI (AlpineJS + Tailwind) --}}
+{{-- 1. NÚT NỔI (FLOATING BUTTONS) - GIỮ NGUYÊN --}}
 <div class="fixed bottom-6 right-4 md:right-6 z-50 flex flex-col gap-3 items-center" 
      x-data="{ showTop: false }" 
      @scroll.window="showTop = (window.pageYOffset > 300)">
 
-    {{-- Nút Gọi điện (Hiệu ứng rung) --}}
+    {{-- Nút Gọi điện --}}
     <a href="tel:0937404060" class="group relative w-12 h-12 md:w-14 md:h-14 bg-white rounded-full shadow-xl flex items-center justify-center text-green-600 border-2 border-green-500 animate-bounce-slow z-50">
-        {{-- Tooltip --}}
         <span class="absolute right-full mr-3 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap shadow-md">
             Hotline: 093.740.4060
         </span>
-        {{-- Icon --}}
         <i class="fas fa-phone-alt text-xl md:text-2xl animate-tada"></i>
-        {{-- Sóng lan tỏa --}}
         <span class="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-20 animate-ping"></span>
     </a>
 
@@ -31,7 +28,7 @@
         Z
     </a>
 
-    {{-- Nút Lên đầu trang (AlpineJS xử lý ẩn hiện) --}}
+    {{-- Nút Lên đầu trang --}}
     <button @click="window.scrollTo({top: 0, behavior: 'smooth'})" 
             x-show="showTop" 
             x-transition:enter="transition ease-out duration-300"
@@ -46,7 +43,6 @@
 
 </div>
 
-{{-- CSS Animation cho nút gọi --}}
 <style>
     @keyframes tada {
         0% { transform: scale(1); }
@@ -59,73 +55,92 @@
     .animate-bounce-slow { animation: bounce 3s infinite; }
 </style>
 
-{{-- 2. MAIN FOOTER (ĐỔI MÀU NỀN) --}}
-<footer class="bg-gray-800 text-white mx-auto mt-12 relative z-10"> {{-- ĐỔI bg-blue-700 thành bg-gray-800 --}}
-    <div class="footer-container grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 max-w-[98%] xl:max-w-[95%] mx-auto px-4 py-8">
+{{-- 2. MAIN FOOTER --}}
+<footer class="bg-gray-800 text-white mx-auto mt-12 relative z-10 font-bevietnam">
+    
+    {{-- ĐÃ SỬA: max-w-[96%] để rộng ra rìa, py-8 để giảm khoảng cách trên dưới --}}
+    <div class="footer-container grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 w-full max-w-[96%] mx-auto px-4 py-8">
         
+        {{-- CỘT 1: THÔNG TIN LIÊN HỆ --}}
         <div class="footer-column">
-            <h3 class="font-bold text-lg mb-4 text-yellow-400 uppercase border-b border-gray-700 pb-2 inline-block"> {{-- ĐỔI border-blue-500 thành border-gray-700 --}}
+            <h3 class="font-bold text-lg mb-4 text-yellow-400 uppercase border-b border-gray-600 pb-2 inline-block">
                 Thông tin liên hệ
             </h3>
             
-            <p class="mb-3 font-bold text-lg uppercase">Trường Trung cấp Á Châu</p>
+            <p class="mb-3 font-bold text-xl uppercase tracking-wide">Trường Trung cấp Á Châu</p>
             
-            <ul class="space-y-3 text-sm mb-6">
+            <ul class="space-y-3 text-sm text-gray-300 mb-4">
                 <li class="flex items-start">
-                    <i class="fas fa-map-marker-alt mt-1 mr-2 text-yellow-400 w-5 flex-shrink-0"></i>
+                    <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400 w-5 flex-shrink-0"></i>
                     <span><strong>Trụ sở chính:</strong> Khu phố Phước Đức A, Phường Gia Lộc, Tỉnh Tây Ninh.</span>
                 </li>
                 <li class="flex items-start">
-                    <i class="fas fa-map-marker-alt mt-1 mr-2 text-yellow-400 w-5 flex-shrink-0"></i>
+                    <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400 w-5 flex-shrink-0"></i>
                     <span><strong>Cơ sở 2:</strong> 278 Hùng Vương, Khu phố Xóm Mới, Phường Gò Dầu, Tỉnh Tây Ninh.</span>
                 </li>
                 <li class="flex items-start">
-                    <i class="fas fa-map-marker-alt mt-1 mr-2 text-yellow-400 w-5 flex-shrink-0"></i>
+                    <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400 w-5 flex-shrink-0"></i>
                     <span><strong>Cơ sở 3:</strong> Khu phố Tân Lộc, Phường Gia Lộc, Tây Ninh.</span>
                 </li>
             </ul>
 
-            <div class="space-y-2 text-sm border-t border-blue-600 pt-4">
-                <p><i class="fas fa-phone-alt mr-2 w-5 text-yellow-400"></i><a href="tel:+84937404060" class="hover:text-yellow-300 transition font-bold text-base">093 740 40 60</a></p>
-                <p><i class="fas fa-envelope mr-2 w-5 text-yellow-400"></i><a href="mailto:gdtxachau@gmail.com" class="hover:text-yellow-300 transition">truongtrungcapachautayninh.edu.vn</a></p>
+            <div class="space-y-2 text-sm border-t border-gray-600 pt-3">
+                <p class="flex items-center">
+                    <i class="fas fa-phone-alt mr-3 w-5 text-yellow-400"></i>
+                    <a href="tel:0937404060" class="hover:text-yellow-300 transition font-bold text-lg text-white">093 740 40 60</a>
+                </p>
+                <p class="flex items-center text-gray-300 hover:text-white transition">
+                    <i class="fas fa-envelope mr-3 w-5 text-yellow-400"></i>
+                    <a href="mailto:gdtxachau@gmail.com">gdtxachau@gmail.com</a>
+                </p>
+                <p class="flex items-center text-gray-300 hover:text-white transition">
+                    <i class="fas fa-globe mr-3 w-5 text-yellow-400"></i>
+                    <a href="/" target="_blank">trungcapachau.edu.vn</a>
+                </p>
             </div>
         </div>
 
-        <div class="footer-column lg:pl-10">
-            <h3 class="font-bold text-lg mb-4 text-yellow-400 uppercase border-b border-blue-500 pb-2 inline-block">
+        {{-- CỘT 2: HỆ THỐNG ĐÀO TẠO --}}
+        <div class="footer-column lg:pl-4"> {{-- Giảm padding-left một chút --}}
+            <h3 class="font-bold text-lg mb-4 text-yellow-400 uppercase border-b border-gray-600 pb-2 inline-block">
                 Hệ thống Giáo dục Á Châu
             </h3>
-            <ul class="pl-0 list-none space-y-2 text-sm">
-                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 transition-transform group-hover:translate-x-1"></i>Trường Trung cấp Á Châu</a></li>
-                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 transition-transform group-hover:translate-x-1"></i>Trường Mầm non Á Châu - KCN Phước Đông</a></li>
-                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 transition-transform group-hover:translate-x-1"></i>Trường Mầm non Á Châu - Thanh Phước</a></li>
-                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 transition-transform group-hover:translate-x-1"></i>Trường Mầm non Sao Mai</a></li>
-                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 transition-transform group-hover:translate-x-1"></i>Trung tâm ngoại ngữ tin học Tây Âu</a></li>
+            <ul class="pl-0 list-none space-y-2 text-sm text-gray-300">
+                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 text-gray-500 group-hover:text-yellow-400 transition"></i>Trường Trung cấp Á Châu</a></li>
+                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 text-gray-500 group-hover:text-yellow-400 transition"></i>Trường Mầm non Á Châu - KCN Phước Đông</a></li>
+                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 text-gray-500 group-hover:text-yellow-400 transition"></i>Trường Mầm non Á Châu - Thanh Phước</a></li>
+                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 text-gray-500 group-hover:text-yellow-400 transition"></i>Trường Mầm non Sao Mai</a></li>
+                <li><a href="#" class="hover:text-yellow-300 transition flex items-center group"><i class="fas fa-angle-right mr-2 text-gray-500 group-hover:text-yellow-400 transition"></i>Trung tâm ngoại ngữ tin học Tây Âu</a></li>
             </ul>
         </div>
 
+        {{-- CỘT 3: BẢN ĐỒ & KẾT NỐI --}}
         <div class="footer-column">
-            <h3 class="font-bold text-lg mb-4 text-yellow-400 uppercase border-b border-blue-500 pb-2 inline-block">
+            <h3 class="font-bold text-lg mb-4 text-yellow-400 uppercase border-b border-gray-600 pb-2 inline-block">
                 Kết nối & Bản đồ
             </h3>
             
-            <div class="flex space-x-4 mt-2 mb-4">
-                <a href="#" target="_blank" class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-blue-600 hover:scale-110 transition shadow-md"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank" class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-blue-600 hover:scale-110 transition shadow-md"><i class="fas fa-comment-dots"></i></a>
-                <a href="#" target="_blank" class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-red-600 hover:scale-110 transition shadow-md"><i class="fab fa-youtube"></i></a>
+            <div class="flex space-x-4 mt-1 mb-4">
+                <a href="#" target="_blank" class="bg-blue-600 w-9 h-9 rounded-full flex items-center justify-center text-white hover:bg-blue-500 hover:-translate-y-1 transition shadow-lg"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" class="bg-blue-400 w-9 h-9 rounded-full flex items-center justify-center text-white hover:bg-blue-300 hover:-translate-y-1 transition shadow-lg"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" class="bg-red-600 w-9 h-9 rounded-full flex items-center justify-center text-white hover:bg-red-500 hover:-translate-y-1 transition shadow-lg"><i class="fab fa-youtube"></i></a>
             </div>
             
-            <div class="w-full h-48 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg bg-gray-200 relative group">
+            {{-- BẢN ĐỒ --}}
+            <div class="w-full h-48 rounded-xl overflow-hidden border-2 border-gray-600 shadow-xl bg-gray-700 relative group">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d64131.05789329909!2d106.31321383119845!3d11.097405989665864!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310b395e78d984a1%3A0x7761a97b5c450056!2zVHLGsOG7nW5nIFRydW5nIEPhuqVwIMOBIENow6J1!5e1!3m2!1svi!2sus!4v1766716418049!5m2!1svi!2sus" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.6724647367375!2d106.36398931475134!3d11.034567992147314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310b4f5a3b3b3b3b%3A0x3b3b3b3b3b3b3b3b!2sTrang%20Bang%2C%20Tay%20Ninh!5e0!3m2!1sen!2s!4v1625641234567!5m2!1sen!2s" 
                     width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                    class="group-hover:opacity-90 transition">
+                    class="group-hover:opacity-90 transition duration-500">
                 </iframe>
             </div>
         </div>
     </div>
     
-    <div class="footer-bottom text-center text-sm mt-8 border-t border-gray-700 pt-4 pb-6 bg-gray-900"> {{-- ĐỔI border-blue-600/50 thành border-gray-700, bg-blue-800/40 thành bg-gray-900 --}}
-        © 2025 Trường Trung Cấp Á Châu. All Rights Reserved.
+    <div class="footer-bottom text-center text-gray-400 text-sm mt-0 border-t border-gray-700 pt-4 pb-6 bg-gray-900">
+        <div class="w-full max-w-[96%] mx-auto px-4">
+            <p>© 2026 Trường Trung Cấp Á Châu. All Rights Reserved.</p>
+            <p class="mt-1 text-xs opacity-60">Khoa Kỹ thuật Công nghệ.</p>
+        </div>
     </div>
 </footer>

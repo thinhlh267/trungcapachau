@@ -11,11 +11,11 @@
         return $menu === $current ? 'bg-yellow-500 text-white font-bold shadow-md' : 'hover:text-yellow-500 hover:bg-gray-50 text-gray-800';
     };
 
-    // Định nghĩa các nhóm trang (ĐÃ XÓA NHÓM HỆ THỐNG)
-    $tongquanPages = ['gioithieu', 'sumenh', 'muctieu', 'chungnhan'];
+    // Định nghĩa các nhóm trang
+    $tongquanPages = ['gioithieu', 'sumenh', 'muctieu', 'chungnhan', 'sodotochuc', 'thungo'];
     $tuyensinhPages = ['tuyensinh_main', 'quytrinh', 'faq', 'dangkytuvan'];
 
-    // Logic SEO Title
+    // Logic SEO Title (Có thể mở rộng thêm)
     $pageTitles = [
         'index' => 'Trang chủ - Trường Trung cấp Á Châu',
         'gioithieu' => 'Giới thiệu chung - Trường Trung cấp Á Châu',
@@ -96,75 +96,36 @@
        TRƯỜNG TRUNG CẤP Á CHÂU
     </a>
     
-    {{-- DESKTOP MENU - ĐÃ FIX CĂN CHỈNH DROPDOWN CHÍNH XÁC --}}
+    {{-- DESKTOP MENU --}}
     <div class="hidden lg:flex flex-1 items-center justify-center gap-8 xl:gap-12 whitespace-nowrap px-4">
         
         {{-- 1. TỔNG QUAN --}}
         <div class="menu-dropdown-container">
-    {{-- Nút Menu chính --}}
-    <a href="#" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
-        Tổng quan <i class="fas fa-chevron-down ml-2 text-xs"></i>
-    </a>
-
-    {{-- DROPDOWN MENU --}}
-    <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
-        
-        {{-- 1. Giới thiệu chung --}}
-        <li>
-            <a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
-                <i class="fas fa-university mr-3 text-yellow-500 w-5"></i> Giới thiệu chung
+            <a href="#" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
+                Tổng quan <i class="fas fa-chevron-down ml-2 text-xs"></i>
             </a>
-        </li>
 
-        {{-- 2. Sứ mệnh - Tầm nhìn --}}
-        <li>
-            <a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
-                <i class="fas fa-compass mr-3 text-yellow-500 w-5"></i> Sứ mệnh - Tầm nhìn
-            </a>
-        </li>
-
-        {{-- 3. Mục tiêu giáo dục --}}
-        <li>
-            <a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
-                <i class="fas fa-bullseye mr-3 text-yellow-500 w-5"></i> Mục tiêu giáo dục
-            </a>
-        </li>
-
-        {{-- 4. Chứng nhận (Đã thêm border-b để ngăn cách với Thư ngỏ) --}}
-        <li>
-            <a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
-                <i class="fas fa-award mr-3 text-yellow-500 w-5"></i> Chứng nhận
-            </a>
-        </li>
-
-        {{-- 5. Thư ngỏ (Mới thêm - Style đồng bộ) --}}
-        <li>
-            <a href="{{ route('page.thungo') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5"></i> Thư ngỏ
-            </a>
-        </li>
-        <li>
-    <a href="{{ route('page.sodotochuc') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
-        <i class="fas fa-sitemap mr-3 text-yellow-500 w-5"></i> Sơ đồ tổ chức
-    </a>
-</li>
-
-    </ul>
-</div>
+            <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
+                <li><a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-university mr-3 text-yellow-500 w-5"></i> Giới thiệu chung</a></li>
+                <li><a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-compass mr-3 text-yellow-500 w-5"></i> Sứ mệnh - Tầm nhìn</a></li>
+                <li><a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-bullseye mr-3 text-yellow-500 w-5"></i> Mục tiêu giáo dục</a></li>
+                <li><a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-award mr-3 text-yellow-500 w-5"></i> Chứng nhận</a></li>
+                <li><a href="{{ route('page.thungo') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5"></i> Thư ngỏ</a></li>
+                <li><a href="{{ route('page.sodotochuc') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center"><i class="fas fa-sitemap mr-3 text-yellow-500 w-5"></i> Sơ đồ tổ chức</a></li>
+            </ul>
+        </div>
 
         {{-- 2. NGÀNH ĐÀO TẠO --}}
         <div class="menu-dropdown-container">
             <a href="#" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold text-blue-900 hover:text-yellow-500 flex items-center justify-center gap-1">
                 Ngành Đào Tạo <i class="fas fa-chevron-down text-xs ml-2"></i>
             </a>
-            {{-- DROPDOWN rộng hơn và căn giữa chính xác --}}
             <div class="menu-dropdown dropdown-center dropdown-wide bg-white shadow-lg rounded-lg border-t-4 border-yellow-500">
                 <div class="max-h-[400px] overflow-y-auto">
                     @if(isset($headerMajors) && $headerMajors->count() > 0)
                         @foreach($headerMajors as $major)
                             <a href="{{ route('major.detail', $major->slug) }}" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 hover:text-yellow-600 border-b border-gray-100 last:border-0 transition duration-200 whitespace-normal">
-                                <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i>
-                                {{ $major->name }}
+                                <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> {{ $major->name }}
                             </a>
                         @endforeach
                     @else
@@ -174,44 +135,46 @@
             </div>
         </div>
 
-        {{-- 3. TUYỂN SINH --}}
+        {{-- 3. TUYỂN SINH (ĐÃ SỬA CSS CHO ĐỒNG BỘ) --}}
         <div class="menu-dropdown-container">
-    {{-- Link cha: Bấm vào thì ra trang danh sách tổng --}}
-    <a href="{{ route('admission.index') }}" 
-       class="menu-button ... {{ request()->routeIs('admission.*') ? 'text-yellow-500' : 'text-blue-900' }}">
-        TUYỂN SINH <i class="fas fa-chevron-down ml-1 text-xs"></i>
-    </a>
-
-    {{-- DROPDOWN MENU ĐỘNG TỪ DATABASE --}}
-    <ul class="menu-dropdown ...">
-        
-        {{-- Loop qua danh mục lấy từ AppServiceProvider --}}
-        @if(isset($admissionMenu) && count($admissionMenu) > 0)
-            @foreach($admissionMenu as $cat)
-            <li>
-                {{-- Link lọc theo category: /tuyen-sinh?category=trung-cap --}}
-                <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
-                   class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
-                    <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> 
-                    {{ $cat->name }}
-                </a>
-            </li>
-            @endforeach
-        @endif
-
-        {{-- Các link tĩnh bổ trợ (nếu muốn giữ lại) --}}
-        <li>
-            <a href="{{ route('page.tuyensinh.thongbao') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
-                <i class="fas fa-bullhorn mr-3 text-yellow-500 w-5"></i> Thông báo chung
+            {{-- Link cha --}}
+            <a href="{{ route('admission.index') }}" 
+               class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold flex items-center justify-center gap-1 {{ request()->routeIs('admission.*') ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }}">
+                TUYỂN SINH <i class="fas fa-chevron-down text-xs ml-2"></i>
             </a>
-        </li>
-        <li>
-            <a href="#" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i class="fas fa-question-circle mr-3 text-yellow-500 w-5"></i> Câu hỏi thường gặp
-            </a>
-        </li>
-    </ul>
-</div>
+
+            {{-- Dropdown Menu --}}
+            <ul class="menu-dropdown dropdown-center dropdown-wide bg-white text-gray-800 shadow-xl rounded-lg border-t-4 border-yellow-500 overflow-hidden list-none p-0 min-w-[280px]">
+                
+                {{-- Loop qua danh mục động --}}
+                @if(isset($admissionMenu) && count($admissionMenu) > 0)
+                    @foreach($admissionMenu as $cat)
+                    <li>
+                        <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
+                           class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                            <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> 
+                            {{ $cat->name }}
+                        </a>
+                    </li>
+                    @endforeach
+                @else
+                    <li><span class="block px-6 py-3 text-gray-400 italic text-sm">Đang cập nhật hệ đào tạo...</span></li>
+                @endif
+
+                {{-- Các link tĩnh --}}
+                
+                <li>
+                    <a href="#" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                        <i class="fas fa-question-circle mr-3 text-yellow-500 w-5"></i> Câu hỏi thường gặp
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admission.index') }}#dang-ky" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                        <i class="fas fa-edit mr-3 text-yellow-500 w-5"></i> Đăng ký Tư vấn
+                    </a>
+                </li>
+            </ul>
+        </div>
         
         {{-- 4. TIN TỨC --}}
         <div>
@@ -265,6 +228,8 @@
                     <a href="{{ route('page.sumenh') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Sứ mệnh & Tầm nhìn</a>
                     <a href="{{ route('page.muctieu') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Mục tiêu giáo dục</a>
                     <a href="{{ route('page.chungnhan') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Chứng nhận</a>
+                    <a href="{{ route('page.thungo') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Thư ngỏ</a>
+                    <a href="{{ route('page.sodotochuc') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Sơ đồ tổ chức</a>
                 </div>
 
                 {{-- Mobile: NGÀNH ĐÀO TẠO --}}
@@ -279,10 +244,22 @@
                     @endif
                 </div>
 
+                {{-- Mobile: TUYỂN SINH (ĐÃ SỬA LẠI THÀNH MENU ĐỘNG) --}}
                 <div class="space-y-2">
-                    <p class="font-bold text-blue-900 uppercase text-sm">Tuyển sinh</p>
-                    <a href="tuyensinh.php" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Thông báo Tuyển sinh</a>
-                    <a href="dangkytuvan.php" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Đăng ký Tư vấn</a>
+                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2">Tuyển sinh</p>
+                    
+                    {{-- Loop danh mục động --}}
+                    @if(isset($admissionMenu) && count($admissionMenu) > 0)
+                        @foreach($admissionMenu as $cat)
+                            <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
+                               class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1 font-medium">
+                               • {{ $cat->name }}
+                            </a>
+                        @endforeach
+                    @endif
+
+                    <a href="#" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Câu hỏi thường gặp</a>
+                    <a href="{{ route('admission.index') }}#dang-ky" class="block pl-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 py-1">Đăng ký Tư vấn</a>
                 </div>
 
                 <a href="{{ route('news.index') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2">Tin tức</a>
@@ -297,9 +274,9 @@
         </div>
     </div>
 
-{{-- SUB-NAV BAR (CHỈ CÒN TỔNG QUAN & TUYỂN SINH) --}}
+{{-- SUB-NAV BAR (Giữ nguyên logic cũ) --}}
 @php
-    $excludeFromSubNav = ['muctieu', 'chungnhan'];
+    $excludeFromSubNav = ['muctieu', 'chungnhan', 'thungo', 'sodotochuc'];
 @endphp
 
 @if (in_array($currentPage, $tongquanPages) && !in_array($currentPage, $excludeFromSubNav))
