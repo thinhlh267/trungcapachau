@@ -19,9 +19,22 @@
     $pageTitles = [
         'index' => 'Trang chủ - Trường Trung cấp Á Châu',
         'gioithieu' => 'Giới thiệu chung - Trường Trung cấp Á Châu',
+        'sumenh' => 'Sứ mệnh & Tầm nhìn - Trường Trung cấp Á Châu',
+        'muctieu' => 'Mục tiêu giáo dục - Trường Trung cấp Á Châu',
+        'chungnhan' => 'Chứng nhận chất lượng - Trường Trung cấp Á Châu',
+        'thungo' => 'Thư ngỏ - Trường Trung cấp Á Châu',
+        'sodotochuc' => 'Sơ đồ tổ chức - Trường Trung cấp Á Châu',
+        'tuyensinh' => 'Thông tin tuyển sinh - Trường Trung cấp Á Châu',
+        'tintuc' => 'Tin tức & Sự kiện - Trường Trung cấp Á Châu',
+        'lienhe' => 'Liên hệ - Trường Trung cấp Á Châu',
     ];
+    
     $currentTitle = $title ?? ($pageTitles[$currentPage] ?? 'Trường Trung cấp Á Châu - Đào tạo nghề & Văn hóa');
-    $metaDesc = "Trường Trung cấp Á Châu. Đào tạo đa ngành nghề, kết hợp văn hóa và kỹ năng thực tế.";
+    $metaDesc = $description ?? "Trường Trung cấp Á Châu Tây Ninh - Đào tạo đa ngành nghề chất lượng cao, kết hợp văn hóa và kỹ năng thực tế. Đào tạo hệ 9+, 12+, liên thông Đại học.";
+    
+    // Tạo URL canonical và OG image
+    $canonicalUrl = url()->current();
+    $ogImage = asset('assets/images/og-image.jpg'); // Bạn cần tạo file này sau
 @endphp
 
 <!DOCTYPE html>
@@ -30,14 +43,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+  {{-- TITLE & BASIC META --}}
   <title>{{ $currentTitle }}</title>
   <meta name="description" content="{{ $metaDesc }}">
-  <meta name="keywords" content="Trung cấp Á Châu, Tuyển sinh trung cấp, Học nghề, Đào tạo nghề Tây Ninh">
+  <meta name="keywords" content="Trung cấp Á Châu, Tuyển sinh trung cấp, Học nghề, Đào tạo nghề Tây Ninh, Trường nghề Tây Ninh, Đào tạo hệ 9+, Đào tạo hệ 12+, Liên thông Đại học">
   <meta name="author" content="Trường Trung cấp Á Châu">
   <meta name="robots" content="index, follow">
   
-  <link rel="icon" type="image/png" href="{{ asset('assets/images/trungcapachau.png') }}">
-
+  {{-- CANONICAL URL --}}
+  <link rel="canonical" href="{{ $canonicalUrl }}">
+  
+  {{-- FAVICON --}}
+  <link rel="icon" type="image/png" href="{{ asset('assets/images/trungcapachau.jpg') }}">
+  
+  {{-- OPEN GRAPH (Facebook, Zalo, LinkedIn) --}}
+  <meta property="og:title" content="{{ $currentTitle }}">
+  <meta property="og:description" content="{{ $metaDesc }}">
+  <meta property="og:image" content="{{ $ogImage }}">
+  <meta property="og:url" content="{{ $canonicalUrl }}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="Trường Trung cấp Á Châu">
+  
+  {{-- TWITTER CARD --}}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ $currentTitle }}">
+  <meta name="twitter:description" content="{{ $metaDesc }}">
+  <meta name="twitter:image" content="{{ $ogImage }}">
+  
+  {{-- THEME COLOR (Mobile Browser) --}}
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="msapplication-navbutton-color" content="#1e3a8a">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#1e3a8a">
+  
+  {{-- PRELOAD & PREFETCH FOR PERFORMANCE --}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  
+  {{-- STYLESHEETS --}}
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -84,15 +129,38 @@
       min-width: 320px;
       max-width: 400px;
     }
+    
+    /* SMOOTH SCROLL */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* BETTER FOCUS FOR ACCESSIBILITY */
+    *:focus {
+      outline: 2px solid #f59e0b;
+      outline-offset: 2px;
+    }
+    
+    /* PREVENT FONT FLASH */
+    body {
+      font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+    }
   </style>
 </head>
 
 <body class="bg-gray-50">
-<nav id="navbar" class="w-full bg-white shadow sticky top-0 z-50 transition-transform duration-500">
+{{-- NAVIGATION WITH ARIA ATTRIBUTES --}}
+<nav id="navbar" class="w-full bg-white shadow sticky top-0 z-50 transition-all duration-300" 
+     aria-label="Menu chính">
+  
+  {{-- ĐÃ XÓA PHẦN BREADCRUMB Ở ĐÂY --}}
+  
   <div class="w-full px-4 md:px-8 flex items-center h-24 justify-between">
     
     {{-- LOGO --}}
-    <a href="{{ route('home') }}" class="flex-shrink-0 logo-link group text-blue-900 font-bold text-xl md:text-2xl lg:text-3xl relative inline-block transition duration-300 whitespace-nowrap">
+    <a href="{{ route('home') }}" 
+       class="flex-shrink-0 logo-link group text-blue-900 font-bold text-xl md:text-2xl lg:text-3xl relative inline-block transition duration-300 whitespace-nowrap"
+       aria-label="Trang chủ - Trường Trung cấp Á Châu">
        TRƯỜNG TRUNG CẤP Á CHÂU
     </a>
     
@@ -100,31 +168,45 @@
     <div class="hidden lg:flex flex-1 items-center justify-center gap-8 xl:gap-12 whitespace-nowrap px-4">
         
         {{-- 1. TỔNG QUAN --}}
-        <div class="menu-dropdown-container">
-            <a href="#" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
+        <div class="menu-dropdown-container" role="menuitem">
+            <button type="button"
+                    class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center focus:outline-none"
+                    aria-haspopup="true" 
+                    aria-expanded="false"
+                    aria-label="Tổng quan, có menu con">
                 Tổng quan <i class="fas fa-chevron-down ml-2 text-xs"></i>
-            </a>
+            </button>
 
-            <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
-                <li><a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-university mr-3 text-yellow-500 w-5"></i> Giới thiệu chung</a></li>
-                <li><a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-compass mr-3 text-yellow-500 w-5"></i> Sứ mệnh - Tầm nhìn</a></li>
-                <li><a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-bullseye mr-3 text-yellow-500 w-5"></i> Mục tiêu giáo dục</a></li>
-                <li><a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-award mr-3 text-yellow-500 w-5"></i> Chứng nhận</a></li>
-                <li><a href="{{ route('page.thungo') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"><i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5"></i> Thư ngỏ</a></li>
-                <li><a href="{{ route('page.sodotochuc') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center"><i class="fas fa-sitemap mr-3 text-yellow-500 w-5"></i> Sơ đồ tổ chức</a></li>
+            <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0"
+                role="menu"
+                aria-label="Menu con Tổng quan">
+                <li role="none"><a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-university mr-3 text-yellow-500 w-5"></i> Giới thiệu chung</a></li>
+                <li role="none"><a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-compass mr-3 text-yellow-500 w-5"></i> Sứ mệnh - Tầm nhìn</a></li>
+                <li role="none"><a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-bullseye mr-3 text-yellow-500 w-5"></i> Mục tiêu giáo dục</a></li>
+                <li role="none"><a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-award mr-3 text-yellow-500 w-5"></i> Chứng nhận</a></li>
+                <li role="none"><a href="{{ route('page.thungo') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5"></i> Thư ngỏ</a></li>
+                <li role="none"><a href="{{ route('page.sodotochuc') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center" role="menuitem"><i class="fas fa-sitemap mr-3 text-yellow-500 w-5"></i> Sơ đồ tổ chức</a></li>
             </ul>
         </div>
 
         {{-- 2. NGÀNH ĐÀO TẠO --}}
-        <div class="menu-dropdown-container">
-            <a href="#" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold text-blue-900 hover:text-yellow-500 flex items-center justify-center gap-1">
+        <div class="menu-dropdown-container" role="menuitem">
+            <button type="button"
+                    class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold text-blue-900 hover:text-yellow-500 flex items-center justify-center gap-1 focus:outline-none"
+                    aria-haspopup="true" 
+                    aria-expanded="false"
+                    aria-label="Ngành Đào Tạo, có menu con">
                 Ngành Đào Tạo <i class="fas fa-chevron-down text-xs ml-2"></i>
-            </a>
-            <div class="menu-dropdown dropdown-center dropdown-wide bg-white shadow-lg rounded-lg border-t-4 border-yellow-500">
+            </button>
+            <div class="menu-dropdown dropdown-center dropdown-wide bg-white shadow-lg rounded-lg border-t-4 border-yellow-500"
+                 role="menu"
+                 aria-label="Danh sách ngành đào tạo">
                 <div class="max-h-[400px] overflow-y-auto">
                     @if(isset($headerMajors) && $headerMajors->count() > 0)
                         @foreach($headerMajors as $major)
-                            <a href="{{ route('major.detail', $major->slug) }}" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 hover:text-yellow-600 border-b border-gray-100 last:border-0 transition duration-200 whitespace-normal">
+                            <a href="{{ route('major.detail', $major->slug) }}" 
+                               class="block px-6 py-3 text-blue-900 hover:bg-gray-50 hover:text-yellow-600 border-b border-gray-100 last:border-0 transition duration-200 whitespace-normal"
+                               role="menuitem">
                                 <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> {{ $major->name }}
                             </a>
                         @endforeach
@@ -135,41 +217,44 @@
             </div>
         </div>
 
-        {{-- 3. TUYỂN SINH (ĐÃ SỬA CSS CHO ĐỒNG BỘ) --}}
-        <div class="menu-dropdown-container">
-            {{-- Link cha --}}
-            <a href="{{ route('admission.index') }}" 
-               class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold flex items-center justify-center gap-1 {{ request()->routeIs('admission.*') ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }}">
+        {{-- 3. TUYỂN SINH --}}
+        <div class="menu-dropdown-container" role="menuitem">
+            <button type="button"
+                    class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold flex items-center justify-center gap-1 focus:outline-none {{ request()->routeIs('admission.*') ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }}"
+                    aria-haspopup="true" 
+                    aria-expanded="false"
+                    aria-label="Tuyển sinh, có menu con">
                 TUYỂN SINH <i class="fas fa-chevron-down text-xs ml-2"></i>
-            </a>
+            </button>
 
-            {{-- Dropdown Menu --}}
-            <ul class="menu-dropdown dropdown-center dropdown-wide bg-white text-gray-800 shadow-xl rounded-lg border-t-4 border-yellow-500 overflow-hidden list-none p-0 min-w-[280px]">
+            <ul class="menu-dropdown dropdown-center dropdown-wide bg-white text-gray-800 shadow-xl rounded-lg border-t-4 border-yellow-500 overflow-hidden list-none p-0 min-w-[280px]"
+                role="menu"
+                aria-label="Menu con Tuyển sinh">
                 
                 {{-- Loop qua danh mục động --}}
                 @if(isset($admissionMenu) && count($admissionMenu) > 0)
                     @foreach($admissionMenu as $cat)
-                    <li>
+                    <li role="none">
                         <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
-                           class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                           class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"
+                           role="menuitem">
                             <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> 
                             {{ $cat->name }}
                         </a>
                     </li>
                     @endforeach
                 @else
-                    <li><span class="block px-6 py-3 text-gray-400 italic text-sm">Đang cập nhật hệ đào tạo...</span></li>
+                    <li role="none"><span class="block px-6 py-3 text-gray-400 italic text-sm">Đang cập nhật hệ đào tạo...</span></li>
                 @endif
 
                 {{-- Các link tĩnh --}}
-                
-                <li>
-                    <a href="#" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center">
+                <li role="none">
+                    <a href="{{ route('page.faq') }}" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem">
                         <i class="fas fa-question-circle mr-3 text-yellow-500 w-5"></i> Câu hỏi thường gặp
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('admission.index') }}#dang-ky" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <li role="none">
+                    <a href="{{ route('page.register') }}" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center" role="menuitem">
                         <i class="fas fa-edit mr-3 text-yellow-500 w-5"></i> Đăng ký Tư vấn
                     </a>
                 </li>
@@ -177,97 +262,125 @@
         </div>
         
         {{-- 4. TIN TỨC --}}
-        <div>
-            <a href="{{ route('news.index') }}" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'tintuc' ? 'text-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
+        <div role="menuitem">
+            <a href="{{ route('news.index') }}" 
+               class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'tintuc' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center"
+               aria-label="Tin tức">
                 Tin tức
             </a>
         </div>
 
-        {{-- 5. LIÊN HỆ --}}
-        <div>
-            <a href="{{ route('page.lienhe') }}" class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline hover:text-yellow-500 transition duration-300 uppercase font-semibold flex items-center justify-center">
-                Liên hệ
+        {{-- 5. HỌC SINH --}}
+        <div role="menuitem">
+            <a href="#" 
+               class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'hocsinh' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center"
+               aria-label="Học sinh">
+                Học sinh
             </a>
         </div>
     </div>
     
     {{-- MOBILE BUTTON --}}
     <div class="lg:hidden ml-auto">
-        <button id="mobile-menu-btn" class="text-blue-900 text-2xl focus:outline-none p-2 hover:text-yellow-500 transition">
+        <button id="mobile-menu-btn" 
+                class="text-blue-900 text-2xl focus:outline-none p-2 hover:text-yellow-500 transition"
+                aria-label="Mở menu di động"
+                aria-expanded="false"
+                aria-controls="mobile-menu-content">
             <i class="fas fa-bars"></i>
         </button>
     </div>
     
-    {{-- HOTLINE --}}
-    <div class="hidden lg:block w-auto">
-         <a href="tel:0937404060" class="flex items-center gap-2 bg-yellow-400 text-blue-900 px-4 py-3 rounded-full font-bold shadow hover:bg-yellow-500 transition transform hover:scale-105 whitespace-nowrap">
-            <i class="fas fa-phone-alt"></i> <span class="font-semibold">093 740 40 60</span>
+    {{-- LIÊN HỆ --}}
+    <div class="hidden lg:block w-auto" role="menuitem">
+        <a href="{{ route('page.lienhe') }}" 
+           class="menu-button font-bevietnam text-base xl:text-lg px-4 py-3 no-underline hover:text-yellow-500 transition duration-300 uppercase font-semibold flex items-center justify-center whitespace-nowrap"
+           aria-label="Liên hệ">
+            Liên hệ
         </a>
     </div>
   </div>
 </nav>
 
     {{-- MOBILE MENU OVERLAY --}}
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-[999] hidden transition-opacity duration-300 opacity-0">
-        <div id="mobile-menu-content" class="absolute top-0 right-0 w-[80%] max-w-[300px] h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div id="mobile-menu-overlay" 
+         class="fixed inset-0 bg-black/50 z-[999] hidden transition-opacity duration-300 opacity-0"
+         aria-hidden="true">
+         
+        <div id="mobile-menu-content" 
+             class="absolute top-0 right-0 w-[80%] max-w-[300px] h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="mobile-menu-title">
             
             <div class="flex items-center justify-between p-4 border-b border-gray-200 bg-blue-50">
-                <span class="font-bold text-blue-900 text-lg">MENU</span>
-                <button id="close-mobile-menu" class="text-red-500 text-2xl hover:rotate-90 transition-transform duration-300">
+                <span id="mobile-menu-title" class="font-bold text-blue-900 text-lg">MENU CHÍNH</span>
+                <button id="close-mobile-menu" 
+                        class="text-red-500 text-2xl hover:rotate-90 transition-transform duration-300 focus:outline-none"
+                        aria-label="Đóng menu">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
 
-            <div class="flex-1 overflow-y-auto p-4 space-y-4 font-bevietnam">
-                <a href="{{ route('home') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-b pb-2">Trang chủ</a>
+            <div class="flex-1 overflow-y-auto p-4 space-y-4 font-bevietnam" role="menu">
+                <a href="{{ route('home') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-b pb-2" role="menuitem">Trang chủ</a>
                 
                 {{-- Mobile: TỔNG QUAN --}}
-                <div class="space-y-2">
-                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2">Tổng quan</p>
-                    <a href="{{ route('page.gioithieu') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Giới thiệu chung</a>
-                    <a href="{{ route('page.sumenh') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Sứ mệnh & Tầm nhìn</a>
-                    <a href="{{ route('page.muctieu') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Mục tiêu giáo dục</a>
-                    <a href="{{ route('page.chungnhan') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Chứng nhận</a>
-                    <a href="{{ route('page.thungo') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Thư ngỏ</a>
-                    <a href="{{ route('page.sodotochuc') }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Sơ đồ tổ chức</a>
+                <div>
+                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2 mb-2">Tổng quan</p>
+                    <div class="pl-4 space-y-1" role="group" aria-label="Menu Tổng quan">
+                        <a href="{{ route('page.gioithieu') }}" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Giới thiệu chung</a>
+                        <a href="{{ route('page.sumenh') }}" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Sứ mệnh & Tầm nhìn</a>
+                        <a href="{{ route('page.muctieu') }}" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Mục tiêu giáo dục</a>
+                        <a href="{{ route('page.chungnhan') }}" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Chứng nhận</a>
+                        <a href="{{ route('page.thungo') }}" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Thư ngỏ</a>
+                        <a href="{{ route('page.sodotochuc') }}" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Sơ đồ tổ chức</a>
+                    </div>
                 </div>
 
                 {{-- Mobile: NGÀNH ĐÀO TẠO --}}
-                <div class="space-y-2">
-                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2">Ngành Đào Tạo</p>
-                    @if(isset($headerMajors) && $headerMajors->count() > 0)
-                        @foreach($headerMajors as $major)
-                            <a href="{{ route('major.detail', $major->slug) }}" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1 font-medium">• {{ $major->name }}</a>
-                        @endforeach
-                    @else
-                        <span class="block pl-4 text-sm text-gray-400 italic">Đang cập nhật...</span>
-                    @endif
+                <div>
+                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2 mb-2">Ngành Đào Tạo</p>
+                    <div class="pl-4 space-y-1" role="group" aria-label="Ngành đào tạo">
+                        @if(isset($headerMajors) && $headerMajors->count() > 0)
+                            @foreach($headerMajors as $major)
+                                <a href="{{ route('major.detail', $major->slug) }}" class="block text-sm text-gray-600 hover:text-blue-600 py-1 font-medium" role="menuitem">• {{ $major->name }}</a>
+                            @endforeach
+                        @else
+                            <span class="block pl-4 text-sm text-gray-400 italic">Đang cập nhật...</span>
+                        @endif
+                    </div>
                 </div>
 
-                {{-- Mobile: TUYỂN SINH (ĐÃ SỬA LẠI THÀNH MENU ĐỘNG) --}}
-                <div class="space-y-2">
-                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2">Tuyển sinh</p>
-                    
-                    {{-- Loop danh mục động --}}
-                    @if(isset($admissionMenu) && count($admissionMenu) > 0)
-                        @foreach($admissionMenu as $cat)
-                            <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
-                               class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1 font-medium">
-                               • {{ $cat->name }}
-                            </a>
-                        @endforeach
-                    @endif
+                {{-- Mobile: TUYỂN SINH --}}
+                <div>
+                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2 mb-2">Tuyển sinh</p>
+                    <div class="pl-4 space-y-1" role="group" aria-label="Tuyển sinh">
+                        {{-- Loop danh mục động --}}
+                        @if(isset($admissionMenu) && count($admissionMenu) > 0)
+                            @foreach($admissionMenu as $cat)
+                                <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
+                                   class="block text-sm text-gray-600 hover:text-blue-600 py-1 font-medium"
+                                   role="menuitem">
+                                   • {{ $cat->name }}
+                                </a>
+                            @endforeach
+                        @endif
 
-                    <a href="#" class="block pl-4 text-sm text-gray-600 hover:text-blue-600 py-1">Câu hỏi thường gặp</a>
-                    <a href="{{ route('admission.index') }}#dang-ky" class="block pl-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 py-1">Đăng ký Tư vấn</a>
+                        <a href="#" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Câu hỏi thường gặp</a>
+                        <a href="{{ route('admission.index') }}#dang-ky" class="block text-sm text-yellow-600 font-bold hover:text-yellow-700 py-1" role="menuitem">Đăng ký Tư vấn</a>
+                    </div>
                 </div>
 
-                <a href="{{ route('news.index') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2">Tin tức</a>
-                <a href="{{ route('page.lienhe') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2">Liên hệ</a>
+                <a href="{{ route('news.index') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2" role="menuitem">Tin tức</a>
+                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2" role="menuitem">Học sinh</a>
+                <a href="{{ route('page.lienhe') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2" role="menuitem">Liên hệ</a>
             </div>
             
             <div class="p-4 bg-gray-50 border-t border-gray-200 text-center">
-                <a href="tel:0937404060" class="inline-block bg-yellow-400 text-blue-900 px-6 py-2 rounded-full font-bold shadow hover:bg-yellow-500 w-full">
+                <a href="tel:0937404060" 
+                   class="inline-block bg-yellow-400 text-blue-900 px-6 py-2 rounded-full font-bold shadow hover:bg-yellow-500 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                   aria-label="Gọi hotline 093 740 40 60">
                     <i class="fas fa-phone-alt mr-2"></i> 093 740 40 60
                 </a>
             </div>
@@ -281,10 +394,10 @@
 
 @if (in_array($currentPage, $tongquanPages) && !in_array($currentPage, $excludeFromSubNav))
 <div class="w-full bg-white shadow-lg flex flex-wrap justify-center gap-4 md:gap-16 items-center text-sm md:text-base font-semibold uppercase font-bevietnam py-4 px-2 border-t border-gray-200">
-    <a href="{{ route('page.gioithieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('gioithieu', $currentPage) }}">Giới thiệu</a>
-    <a href="{{ route('page.sumenh') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('sumenh', $currentPage) }}">Sứ mệnh & Tầm nhìn</a>
-    <a href="{{ route('page.muctieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('muctieu', $currentPage) }}">Mục tiêu giáo dục</a>
-    <a href="{{ route('page.chungnhan') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('chungnhan', $currentPage) }}">Chứng nhận</a>
+    <a href="{{ route('page.gioithieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('gioithieu', $currentPage) }} focus:outline-none focus:ring-2 focus:ring-yellow-500">Giới thiệu</a>
+    <a href="{{ route('page.sumenh') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('sumenh', $currentPage) }} focus:outline-none focus:ring-2 focus:ring-yellow-500">Sứ mệnh & Tầm nhìn</a>
+    <a href="{{ route('page.muctieu') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('muctieu', $currentPage) }} focus:outline-none focus:ring-2 focus:ring-yellow-500">Mục tiêu giáo dục</a>
+    <a href="{{ route('page.chungnhan') }}" class="px-4 py-2 rounded-full transition duration-200 text-center {{ $isSubNavActive('chungnhan', $currentPage) }} focus:outline-none focus:ring-2 focus:ring-yellow-500">Chứng nhận</a>
 </div>
 @endif
 
@@ -303,6 +416,8 @@
             // Mở mobile menu
             mobileMenuBtn.addEventListener('click', function() {
                 mobileMenuOverlay.classList.remove('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                mobileMenuOverlay.setAttribute('aria-hidden', 'false');
                 setTimeout(() => {
                     mobileMenuOverlay.classList.remove('opacity-0');
                     mobileMenuContent.classList.remove('translate-x-full');
@@ -313,6 +428,8 @@
             function closeMenu() {
                 mobileMenuOverlay.classList.add('opacity-0');
                 mobileMenuContent.classList.add('translate-x-full');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuOverlay.setAttribute('aria-hidden', 'true');
                 setTimeout(() => {
                     mobileMenuOverlay.classList.add('hidden');
                 }, 300);
@@ -321,6 +438,13 @@
             closeMobileMenu.addEventListener('click', closeMenu);
             mobileMenuOverlay.addEventListener('click', function(e) {
                 if (e.target === mobileMenuOverlay) {
+                    closeMenu();
+                }
+            });
+            
+            // ESC key để đóng menu
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !mobileMenuOverlay.classList.contains('hidden')) {
                     closeMenu();
                 }
             });

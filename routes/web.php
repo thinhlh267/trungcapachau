@@ -56,3 +56,5 @@ Route::prefix('tuyen-sinh')->group(function () {
     // Xem chi tiết: domain.com/tuyen-sinh/bai-viet-abc
     Route::get('/{slug}', [AdmissionController::class, 'detail'])->name('admission.detail');
 });
+Route::get('/cau-hoi-thuong-gap', [App\Http\Controllers\PageController::class, 'faq'])->name('page.faq');
+Route::get('/dang-ky-tu-van', [App\Http\Controllers\PageController::class, 'register'])->name('page.register');

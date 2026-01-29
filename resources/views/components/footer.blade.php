@@ -129,14 +129,13 @@
             {{-- BẢN ĐỒ --}}
             <div class="w-full h-48 rounded-xl overflow-hidden border-2 border-gray-600 shadow-xl bg-gray-700 relative group">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.6724647367375!2d106.36398931475134!3d11.034567992147314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310b4f5a3b3b3b3b%3A0x3b3b3b3b3b3b3b3b!2sTrang%20Bang%2C%20Tay%20Ninh!5e0!3m2!1sen!2s!4v1625641234567!5m2!1sen!2s" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4766.154154406799!2d106.31606191136234!3d11.122824452661611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310b395e78d984a1%3A0x7761a97b5c450056!2zVHLGsOG7nW5nIFRydW5nIEPhuqVwIMOBIENow6J1!5e1!3m2!1sen!2sus!4v1769559679124!5m2!1sen!2sus" 
                     width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                     class="group-hover:opacity-90 transition duration-500">
                 </iframe>
             </div>
         </div>
     </div>
-    
     <div class="footer-bottom text-center text-gray-400 text-sm mt-0 border-t border-gray-700 pt-4 pb-6 bg-gray-900">
         <div class="w-full max-w-[96%] mx-auto px-4">
             <p>© 2026 Trường Trung Cấp Á Châu. All Rights Reserved.</p>
