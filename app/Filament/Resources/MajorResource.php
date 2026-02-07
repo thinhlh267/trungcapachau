@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MajorResource\Pages;
-use App\Filament\Resources\MajorResource\RelationManagers;
 use App\Models\Major;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -41,12 +38,12 @@ class MajorResource extends Resource
                 // --- KHỐI 1: THÔNG TIN CƠ BẢN ---
                 Section::make('Thông tin chung')
                     ->schema([
-                        Grid::make(2) 
+                        Grid::make(2)
                             ->schema([
                                 TextInput::make('name')
                                     ->label('Tên Ngành Đào Tạo')
                                     ->required()
-                                    ->live(onBlur: true) 
+                                    ->live(onBlur: true)
                                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
 
                                 TextInput::make('slug')
@@ -58,7 +55,7 @@ class MajorResource extends Resource
                                     ->label('Tên Khoa / Tổ bộ môn')
                                     ->placeholder('VD: Khoa Công nghệ Thông tin')
                                     ->columnSpanFull(),
-                                    
+
                                 TextInput::make('duration')
                                     ->label('Thời gian đào tạo')
                                     ->default('2 năm')
@@ -71,14 +68,14 @@ class MajorResource extends Resource
 
                         RichEditor::make('description')
                             ->label('Mô tả ngắn (Intro Text - Hiển thị ở thẻ đầu trang)')
-                            ->toolbarButtons(['bold', 'italic', 'underline']) // Chỉ cần nút cơ bản
+                            ->toolbarButtons(['bold', 'italic', 'underline'])
                             ->columnSpanFull(),
                     ]),
 
                 // --- KHỐI 2: HÌNH ẢNH & NỘI DUNG CHI TIẾT ---
                 Section::make('Nội dung chi tiết từng phần')
                     ->schema([
-                        
+
                         // 1. HEADER & INTRO
                         Grid::make(2)->schema([
                             FileUpload::make('image')
@@ -99,7 +96,7 @@ class MajorResource extends Resource
                                 RichEditor::make('overview')
                                     ->label('Nội dung định nghĩa')
                                     ->columnSpanFull(),
-                                    
+
                                 FileUpload::make('gallery')
                                     ->label('3 Ảnh minh họa (Hiển thị ngay dưới định nghĩa)')
                                     ->image()
@@ -110,82 +107,81 @@ class MajorResource extends Resource
                                     ->columnSpanFull(),
                             ])->collapsible(),
 
-                        // 3. LÝ DO CHỌN TRƯỜNG (PHẦN BẠN BỊ THIẾU)
+                        // 3. LÝ DO CHỌN TRƯỜNG
                         Section::make('Lý do chọn học tại Á Châu (Why Us?)')
-                        ->schema([
-                            Grid::make(2)->schema([
-                                FileUpload::make('why_us_image')
-                                    ->label('Ảnh minh họa (Bên trái)')
-                                    ->image()
-                                    ->directory('majors/why_us')
-                                    ->columnSpan(1),
-                                                                Forms\Components\Repeater::make('why_us_reasons')
-                                    ->label('Danh sách lý do (Hiển thị dạng card với icon)')
-                                    ->schema([
-                                        Grid::make(2)->schema([
-                                            Forms\Components\Select::make('icon')
-                                                ->label('Biểu tượng')
-                                                ->options([
-                                                    'fas fa-chalkboard-teacher' => '👨‍🏫 Giảng viên',
-                                                    'fas fa-laptop-code' => '💻 Cơ sở vật chất',
-                                                    'fas fa-briefcase' => '💼 Việc làm',
-                                                    'fas fa-handshake' => '🤝 Doanh nghiệp',
-                                                    'fas fa-graduation-cap' => '🎓 Bằng cấp',
-                                                    'fas fa-money-bill-wave' => '💰 Học phí',
-                                                    'fas fa-clock' => '⏰ Thời gian',
-                                                    'fas fa-certificate' => '📜 Chứng chỉ',
-                                                    'fas fa-users' => '👥 Cộng đồng',
-                                                    'fas fa-building' => '🏢 Trường lớp',
-                                                    'fas fa-book-open' => '📚 Chương trình',
-                                                    'fas fa-shield-alt' => '🛡️ Chất lượng',
-                                                    'fas fa-map-marker-alt' => '📍 Vị trí',
-                                                    'fas fa-trophy' => '🏆 Thành tích',
-                                                    'fas fa-heart' => '❤️ Tận tâm',
-                                                    'fas fa-rocket' => '🚀 Phát triển',
-                                                    'fas fa-globe' => '🌍 Toàn cầu',
-                                                    'fas fa-comments' => '💬 Hỗ trợ',
-                                                ])
-                                                ->searchable()
+                            ->schema([
+                                Grid::make(2)->schema([
+                                    FileUpload::make('why_us_image')
+                                        ->label('Ảnh minh họa (Bên trái)')
+                                        ->image()
+                                        ->directory('majors/why_us')
+                                        ->columnSpan(1),
+
+                                    Forms\Components\Repeater::make('why_us_reasons')
+                                        ->label('Danh sách lý do (Hiển thị dạng card với icon)')
+                                        ->schema([
+                                            Grid::make(2)->schema([
+                                                Forms\Components\Select::make('icon')
+                                                    ->label('Biểu tượng')
+                                                    ->options([
+                                                        'fas fa-chalkboard-teacher' => '👨‍🏫 Giảng viên',
+                                                        'fas fa-laptop-code' => '💻 Cơ sở vật chất',
+                                                        'fas fa-briefcase' => '💼 Việc làm',
+                                                        'fas fa-handshake' => '🤝 Doanh nghiệp',
+                                                        'fas fa-graduation-cap' => '🎓 Bằng cấp',
+                                                        'fas fa-money-bill-wave' => '💰 Học phí',
+                                                        'fas fa-clock' => '⏰ Thời gian',
+                                                        'fas fa-certificate' => '📜 Chứng chỉ',
+                                                        'fas fa-users' => '👥 Cộng đồng',
+                                                        'fas fa-building' => '🏢 Trường lớp',
+                                                        'fas fa-book-open' => '📚 Chương trình',
+                                                        'fas fa-shield-alt' => '🛡️ Chất lượng',
+                                                        'fas fa-map-marker-alt' => '📍 Vị trí',
+                                                        'fas fa-trophy' => '🏆 Thành tích',
+                                                        'fas fa-heart' => '❤️ Tận tâm',
+                                                        'fas fa-rocket' => '🚀 Phát triển',
+                                                        'fas fa-globe' => '🌍 Toàn cầu',
+                                                        'fas fa-comments' => '💬 Hỗ trợ',
+                                                    ])
+                                                    ->searchable()
+                                                    ->required()
+                                                    ->default('fas fa-check-circle'),
+
+                                                TextInput::make('title')
+                                                    ->label('Tiêu đề lý do')
+                                                    ->required()
+                                                    ->placeholder('VD: Giảng viên giàu kinh nghiệm')
+                                                    ->maxLength(80)
+                                                    ->columnSpan(1),
+                                            ]),
+
+                                            Textarea::make('description')
+                                                ->label('Mô tả chi tiết')
+                                                ->rows(2)
                                                 ->required()
-                                                ->default('fas fa-check-circle'),
-                                                
-                                            TextInput::make('title')
-                                                ->label('Tiêu đề lý do')
-                                                ->required()
-                                                ->placeholder('VD: Giảng viên giàu kinh nghiệm')
-                                                ->maxLength(80)
-                                                ->columnSpan(1),
-                                        ]),
-                                        
-                                        Textarea::make('description')
-                                            ->label('Mô tả chi tiết')
-                                            ->rows(2)
-                                            ->required()
-                                            ->placeholder('Mô tả ngắn gọn về lý do này...')
-                                            ->helperText('Khoảng 1-2 dòng, ngắn gọn và thuyết phục')
-                                            ->maxLength(200),
-                                    ])
-                                    ->itemLabel(fn (array $state): ?string => 
-                                        ($state['title'] ?? 'Lý do mới') . ' - ' . ($state['icon'] ?? 'fas fa-check-circle')
-                                    )
-                                    ->collapsible()
-                                    ->cloneable()
-                                    ->reorderable()
-                                    ->defaultItems(3)
-                                    ->minItems(1)
-                                    ->maxItems(8)
-                                    ->grid(1)
-                                    ->columnSpan(1),
-                            ]),
-                        ])
-                        ->description('Tối đa 8 lý do, mỗi lý do có icon + tiêu đề + mô tả ngắn')
-                        ->collapsible(),
+                                                ->placeholder('Mô tả ngắn gọn về lý do này...')
+                                                ->helperText('Khoảng 1-2 dòng, ngắn gọn và thuyết phục')
+                                                ->maxLength(200),
+                                        ])
+                                        // UPDATED: Show only the title in the collapsed header
+                                        ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
+                                        ->collapsible()
+                                        ->cloneable()
+                                        ->reorderable()
+                                        ->defaultItems(3)
+                                        ->minItems(1)
+                                        ->maxItems(8)
+                                        ->grid(1)
+                                        ->columnSpan(1),
+                                ]),
+                            ])
+                            ->description('Tối đa 8 lý do, mỗi lý do có icon + tiêu đề + mô tả ngắn')
+                            ->collapsible(),
 
                         // 4. CƠ HỘI NGHỀ NGHIỆP
                         Section::make('Cơ hội nghề nghiệp (Làm gì & Ở đâu?)')
                             ->schema([
                                 Grid::make(2)->schema([
-                                    // Làm nghề gì
                                     FileUpload::make('career_titles_image')
                                         ->label('Ảnh minh họa (Làm gì)')
                                         ->image()
@@ -195,8 +191,7 @@ class MajorResource extends Resource
                                         ->label('Danh sách nghề nghiệp')
                                         ->toolbarButtons(['bold', 'bulletList'])
                                         ->columnSpan(1),
-                                        
-                                    // Làm ở đâu
+
                                     RichEditor::make('career_places')
                                         ->label('Danh sách nơi làm việc')
                                         ->toolbarButtons(['bold', 'bulletList'])
@@ -230,66 +225,58 @@ class MajorResource extends Resource
                                     ->toolbarButtons(['bold', 'bulletList'])
                                     ->columnSpanFull(),
                             ])->collapsible(),
-                            
-                        // 6. Ưu điểm 
-                        Section::make('Điểm nổi bật của ngành (Hiển thị dạng lưới thẻ)')
-                        ->schema([
-                            // ...
-                            Forms\Components\Repeater::make('program_advantages')
-                                ->label('Danh sách các điểm nổi bật')
-                                ->schema([
-                                    // 1. Ô CHỌN ICON (Mới thêm)
-                                    Forms\Components\Select::make('icon')
-                                        ->label('Chọn biểu tượng (Icon)')
-                                        ->options([
-                                            // Nhóm Cơ sở vật chất / Công nghệ
-                                            'fas fa-laptop-code' => '💻 Máy tính / Lập trình',
-                                            'fas fa-server' => '🗄️ Server / Hệ thống',
-                                            'fas fa-wifi' => '📡 Mạng / Wifi',
-                                            'fas fa-microchip' => '💾 Công nghệ cao',
-                                            'fas fa-layer-group' => '📚 Cơ sở vật chất',
-                                            
-                                            // Nhóm Tiền / Thời gian
-                                            'fas fa-coins' => '💰 Học phí / Chi phí',
-                                            'fas fa-wallet' => '👛 Tiết kiệm',
-                                            'fas fa-clock' => '⏰ Thời gian / Ngắn hạn',
-                                            'fas fa-calendar-alt' => '📅 Lịch học linh hoạt',
-                                            
-                                            // Nhóm Việc làm / Doanh nghiệp
-                                            'fas fa-handshake' => '🤝 Hợp tác doanh nghiệp',
-                                            'fas fa-briefcase' => '💼 Việc làm / Thực tập',
-                                            'fas fa-user-tie' => '👔 Chuyên nghiệp / Giám đốc',
-                                            'fas fa-building' => '🏢 Công ty lớn',
-                                            
-                                            // Nhóm Đào tạo / Bằng cấp
-                                            'fas fa-graduation-cap' => '🎓 Bằng cấp / Tốt nghiệp',
-                                            'fas fa-book-reader' => '📖 Chương trình học',
-                                            'fas fa-certificate' => '📜 Chứng chỉ',
-                                            'fas fa-user-graduate' => '👨‍🎓 Sinh viên',
-                                            'fas fa-chalkboard-teacher' => '👨‍🏫 Giảng viên',
-                                        ])
-                                        ->searchable() // Cho phép tìm kiếm icon
-                                        ->required()
-                                        ->columnSpanFull(),
 
-                                    TextInput::make('title')
-                                        ->label('Tiêu đề (VD: Cơ sở vật chất hiện đại)')
-                                        ->required(),
-                                    
-                                    Textarea::make('description')
-                                        ->label('Mô tả ngắn')
-                                        ->rows(2)
-                                        ->required(),
-                                ])
-                                ->grid(2)
-                                ->columnSpanFull(),
-                            // ...
-                        ])
-                        ->collapsible(),
-                        
-                        Toggle::make('is_active')
-                            ->label('Hiển thị trên web')
-                            ->default(true),
+                        // 6. ĐIỂM NỔI BẬT (Updated with Icons)
+                        Section::make('Điểm nổi bật của ngành (Hiển thị dạng lưới thẻ)')
+                            ->schema([
+                                Forms\Components\Repeater::make('program_advantages')
+                                    ->label('Danh sách các điểm nổi bật')
+                                    ->schema([
+                                        Forms\Components\Select::make('icon')
+                                            ->label('Chọn biểu tượng (Icon)')
+                                            ->options([
+                                                'fas fa-laptop-code' => '💻 Máy tính / Lập trình',
+                                                'fas fa-server' => '🗄️ Server / Hệ thống',
+                                                'fas fa-wifi' => '📡 Mạng / Wifi',
+                                                'fas fa-microchip' => '💾 Công nghệ cao',
+                                                'fas fa-layer-group' => '📚 Cơ sở vật chất',
+                                                'fas fa-coins' => '💰 Học phí / Chi phí',
+                                                'fas fa-wallet' => '👛 Tiết kiệm',
+                                                'fas fa-clock' => '⏰ Thời gian / Ngắn hạn',
+                                                'fas fa-calendar-alt' => '📅 Lịch học linh hoạt',
+                                                'fas fa-handshake' => '🤝 Hợp tác doanh nghiệp',
+                                                'fas fa-briefcase' => '💼 Việc làm / Thực tập',
+                                                'fas fa-user-tie' => '👔 Chuyên nghiệp / Giám đốc',
+                                                'fas fa-building' => '🏢 Công ty lớn',
+                                                'fas fa-graduation-cap' => '🎓 Bằng cấp / Tốt nghiệp',
+                                                'fas fa-book-reader' => '📖 Chương trình học',
+                                                'fas fa-certificate' => '📜 Chứng chỉ',
+                                                'fas fa-user-graduate' => '👨‍🎓 Sinh viên',
+                                                'fas fa-chalkboard-teacher' => '👨‍🏫 Giảng viên',
+                                            ])
+                                            ->searchable()
+                                            ->required()
+                                            ->columnSpanFull(),
+
+                                        TextInput::make('title')
+                                            ->label('Tiêu đề (VD: Cơ sở vật chất hiện đại)')
+                                            ->required(),
+
+                                        Textarea::make('description')
+                                            ->label('Mô tả ngắn')
+                                            ->rows(2)
+                                            ->required(),
+                                    ])
+                                    ->grid(2)
+                                    ->columnSpanFull()
+                                    // UPDATED: Simple item label for program advantages as well
+                                    ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
+                                    ->collapsible(),
+
+                                Toggle::make('is_active')
+                                    ->label('Hiển thị trên web')
+                                    ->default(true),
+                            ]),
                     ]),
             ]);
     }

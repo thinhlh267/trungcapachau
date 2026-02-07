@@ -32,19 +32,19 @@
                 {{-- Quick Stats --}}
                 <div class="flex flex-wrap justify-center gap-4 md:gap-6 mt-10">
                     <div class="text-center px-4 py-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <div class="text-2xl md:text-3xl font-black text-white">15+</div>
+                        <div class="text-2xl md:text-3xl font-black text-white">10+</div>
                         <div class="text-blue-200 text-xs md:text-sm">Năm kinh nghiệm</div>
                     </div>
                     <div class="text-center px-4 py-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <div class="text-2xl md:text-3xl font-black text-white">5.000+</div>
+                        <div class="text-2xl md:text-3xl font-black text-white">3.000+</div>
                         <div class="text-blue-200 text-xs md:text-sm">Sinh viên tốt nghiệp</div>
                     </div>
                     <div class="text-center px-4 py-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <div class="text-2xl md:text-3xl font-black text-white">100%</div>
+                        <div class="text-2xl md:text-3xl font-black text-white">Gần 90%</div>
                         <div class="text-blue-200 text-xs md:text-sm">Có việc làm</div>
                     </div>
                     <div class="text-center px-4 py-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <div class="text-2xl md:text-3xl font-black text-white">50+</div>
+                        <div class="text-2xl md:text-3xl font-black text-white">Hơn</div>
                         <div class="text-blue-200 text-xs md:text-sm">Đối tác doanh nghiệp</div>
                     </div>
                 </div>
@@ -59,14 +59,9 @@
             <div class="lg:col-span-4 space-y-6">
                 {{-- Benefits Card --}}
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 lg:p-7">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
-                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center shadow-md">
-                            <i class="fas fa-award text-white text-lg"></i>
-                        </div>
-                        <div>
-                            <h2 class="text-xl font-bold text-gray-900">Lợi ích khi đăng ký</h2>
-                            <p class="text-xs text-gray-500 mt-1">Những ưu đãi đặc biệt dành riêng cho bạn</p>
-                        </div>
+                    <div class="mb-6 pb-4 border-b border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-900">Lợi ích khi đăng ký</h2>
+                        <p class="text-xs text-gray-500 mt-1 font-medium italic">Những ưu đãi đặc biệt dành riêng cho bạn</p>
                     </div>
                     
                     <div class="space-y-5">
@@ -85,8 +80,8 @@
                                 <i class="fas fa-calendar-alt text-green-700 text-lg"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800 group-hover:text-green-800 text-base">Lịch học linh hoạt</h3>
-                                <p class="text-sm text-gray-600 mt-1.5 leading-relaxed">Ca sáng/chiều/tối phù hợp với mọi đối tượng</p>
+                                <h3 class="font-bold text-gray-800 group-hover:text-green-800 text-base">Lộ trình học tập rõ ràng</h3>
+                                <p class="text-sm text-gray-600 mt-1.5 leading-relaxed">Nắm được lộ trình từ Trung cấp đến các bậc học cao hơn</p>
                             </div>
                         </div>
                         
@@ -96,7 +91,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-800 group-hover:text-orange-800 text-base">Cam kết việc làm</h3>
-                                <p class="text-sm text-gray-600 mt-1.5 leading-relaxed">100% sinh viên được giới thiệu việc làm sau tốt nghiệp</p>
+                                <p class="text-sm text-gray-600 mt-1.5 leading-relaxed">gần 90% học sinh có việc làm sau tốt nghiệp</p>
                             </div>
                         </div>
                         
@@ -115,9 +110,7 @@
                 {{-- Quick Contact Card --}}
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100/80 rounded-2xl border border-blue-200 p-6 lg:p-7 shadow-lg">
                     <div class="flex items-center gap-3 mb-5">
-                        <div class="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center shadow-sm">
-                            <i class="fas fa-headset text-white text-base"></i>
-                        </div>
+                        {{-- Bỏ icon headset ở đây nếu không hiện --}}
                         <div>
                             <h3 class="text-lg font-bold text-gray-900">Cần hỗ trợ nhanh?</h3>
                             <p class="text-xs text-gray-600 mt-0.5">Chúng tôi luôn sẵn sàng hỗ trợ bạn</p>
@@ -125,26 +118,21 @@
                     </div>
                     
                     <a href="tel:0937404060" class="block group">
-                        <div class="bg-white rounded-xl p-4 border border-blue-300 hover:border-blue-500 hover:shadow-xl transition-all duration-300 shadow-md">
-                            <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-gradient-to-r from-green-600 to-emerald-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                                    <i class="fas fa-phone-alt text-white text-xl"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-gray-900 text-xl tracking-tight">093 740 40 60</div>
-                                    <div class="text-sm text-gray-600 mt-1 flex items-center gap-2">
-                                        <span class="flex items-center gap-1">
-                                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                                            <span>Hotline 24/7</span>
-                                        </span>
-                                    </div>
+                        <div class="bg-white rounded-xl p-6 border border-blue-300 hover:border-blue-500 hover:shadow-xl transition-all duration-300 shadow-md">
+                            <div class="text-center"> {{-- Căn giữa nội dung cho đẹp khi không có icon --}}
+                                <div class="font-bold text-gray-900 text-2xl tracking-tight">093 740 40 60</div>
+                                <div class="text-sm text-gray-600 mt-2 flex items-center justify-center gap-2">
+                                    <span class="flex items-center gap-1">
+                                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                        <span class="font-medium">Hotline 24/7</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </a>
                     
                     <p class="text-sm text-gray-700 mt-4 text-center font-medium">
-                        <i class="fas fa-bolt text-yellow-500 mr-1"></i> Phản hồi ngay lập tức
+                        ⚡ Phản hồi ngay lập tức
                     </p>
                 </div>
             </div>
@@ -208,7 +196,7 @@
                                     <h4 class="font-bold text-green-800 text-lg">Đăng ký thành công! 🎉</h4>
                                     <p class="text-green-700 mt-1 font-medium">{{ session('success') }}</p>
                                     <p class="text-sm text-green-600 mt-2 flex items-center gap-1 font-medium">
-                                        <i class="fas fa-clock"></i> Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ
+                                        <i class="fas fa-clock"></i> Chúng tôi sẽ liên hệ với bạn sớm nhất !
                                     </p>
                                 </div>
                             </div>

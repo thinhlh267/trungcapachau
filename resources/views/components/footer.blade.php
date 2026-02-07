@@ -91,11 +91,11 @@
                 </p>
                 <p class="flex items-center text-gray-300 hover:text-white transition">
                     <i class="fas fa-envelope mr-3 w-5 text-yellow-400"></i>
-                    <a href="mailto:gdtxachau@gmail.com">gdtxachau@gmail.com</a>
+                    <a href="mailto:trungcapachau@gmail.com">trungcapachau@gmail.com</a>
                 </p>
                 <p class="flex items-center text-gray-300 hover:text-white transition">
                     <i class="fas fa-globe mr-3 w-5 text-yellow-400"></i>
-                    <a href="/" target="_blank">trungcapachau.edu.vn</a>
+                    <a href="/" target="_blank">acv.edu.vn</a>
                 </p>
             </div>
         </div>
