@@ -51,19 +51,18 @@ class MajorResource extends Resource
                                     ->required()
                                     ->unique(ignoreRecord: true),
 
-                                TextInput::make('department')
-                                    ->label('Tên Khoa / Tổ bộ môn')
-                                    ->placeholder('VD: Khoa Công nghệ Thông tin')
-                                    ->columnSpanFull(),
+                                Forms\Components\Select::make('department')
+                                ->label('Thuộc Khoa / Tổ bộ môn')
+                                ->options(fn () => \App\Models\Department::where('type', 'khoa')->pluck('name', 'name'))
+                                ->searchable()
+                                ->preload()
+                                ->placeholder('Chọn một Khoa đã tạo...')
+                                ->columnSpanFull(),
 
                                 TextInput::make('duration')
                                     ->label('Thời gian đào tạo')
                                     ->default('2 năm')
                                     ->placeholder('VD: 1.5 năm, 2 năm...'),
-
-                                TextInput::make('tuition')
-                                    ->label('Học phí tham khảo')
-                                    ->placeholder('VD: 5.000.000đ/kỳ'),
                             ]),
 
                         RichEditor::make('description')
@@ -269,7 +268,6 @@ class MajorResource extends Resource
                                     ])
                                     ->grid(2)
                                     ->columnSpanFull()
-                                    // UPDATED: Simple item label for program advantages as well
                                     ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
                                     ->collapsible(),
 

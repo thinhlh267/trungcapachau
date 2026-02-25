@@ -36,47 +36,56 @@
                     <a href="#roadmap" class="text-blue-700 font-bold px-6 py-3 hover:underline flex items-center gap-2">Xem lộ trình <i class="fas fa-arrow-down"></i></a>
                 </div>
             </div>
-            <div class="w-full lg:w-5/12 relative z-10 flex justify-center">
-                <div class="relative w-full max-w-md aspect-square">
-                    <div class="absolute inset-0 bg-blue-600 rounded-full opacity-10 scale-110 animate-pulse"></div>
-                    <div class="absolute inset-4 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full shadow-2xl overflow-hidden border-4 border-white">
-                        @if($major->intro_image)
-                            <img src="{{ asset('storage/' . $major->intro_image) }}" class="w-full h-full object-cover hover:scale-110 transition duration-700">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-blue-100 text-blue-300"><i class="fas fa-image text-4xl"></i></div>
-                        @endif
-                    </div>
+            {{-- CỘT BÊN PHẢI: KHUNG ẢNH INTRO (ĐÃ ĐỔI SANG KHUNG CHỮ NHẬT BO GÓC) --}}
+            <div class="w-full lg:w-5/12 relative z-10 flex justify-center items-center py-6">
+                
+                {{-- Các mảng màu trang trí phía sau (Tùy chỉnh lại cho hợp hình chữ nhật) --}}
+                <div class="absolute w-[110%] h-[110%] bg-blue-50 rounded-[3rem] opacity-60 -z-20 rotate-3"></div>
+                <div class="absolute w-[105%] h-[105%] bg-blue-100 rounded-[2.5rem] opacity-80 -z-10 -rotate-3"></div>
+                
+                {{-- Khung chứa ảnh chính: Bỏ rounded-full, dùng rounded-3xl --}}
+                <div class="relative w-full shadow-2xl border-[8px] border-white bg-white overflow-hidden group rounded-3xl">
+                    @if($major->intro_image)
+                        {{-- H-auto để ảnh tự điều chỉnh chiều cao theo tỷ lệ gốc --}}
+                        <img src="{{ asset('storage/' . $major->intro_image) }}" 
+                             class="w-full h-auto object-cover group-hover:scale-105 transition duration-700" 
+                             alt="Hình ảnh {{ $major->name }}">
+                    @else
+                        {{-- Placeholder --}}
+                        <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
+                            <i class="fas fa-graduation-cap text-6xl text-blue-300"></i>
+                        </div>
+                    @endif
                 </div>
+                
             </div>
         </div>
 
         {{-- 3. ĐỊNH NGHĨA NGÀNH --}}
-        @if($major->overview)
-        <div class="mb-24">
-            <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Ngành <span class="text-blue-600">{{ $major->name }}</span> là gì?</h2>
-                <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mb-8"></div>
-            </div>
-            
-            {{-- SỬA Ở ĐÂY: thay md:text-center bằng text-justify --}}
-            <div class="prose prose-lg max-w-4xl mx-auto text-gray-600 leading-relaxed text-justify mb-12">{!! \App\Helpers\HtmlHelper::clean($major->overview) !!}</div>
-            
             @if(!empty($major->gallery) && count($major->gallery) > 0)
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($major->gallery as $key => $img)
                 @if($key < 3) 
-                <div class="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg cursor-pointer hover:-translate-y-2 transition duration-300">
-                    <img src="{{ asset('storage/' . $img) }}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center pb-6">
-                        <span class="text-white font-bold uppercase tracking-wider text-sm border border-white px-4 py-2 rounded-full">Xem ảnh</span>
+                {{-- KHUNG ẢNH THUMBNAIL: Ép tỷ lệ 4:3 và gọi hàm openModal khi click --}}
+                <div onclick="openModal('{{ asset('storage/' . $img) }}')" 
+                     class="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer hover:-translate-y-2 transition-all duration-300 border border-gray-100 bg-gray-50">
+                    
+                    {{-- Dùng object-cover để lấp đầy khung mà không méo ảnh --}}
+                    <img src="{{ asset('storage/' . $img) }}" 
+                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
+                         alt="Hình ảnh ngành {{ $major->name }}">
+                    
+                    {{-- Overlay hiệu ứng khi di chuột --}}
+                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                        <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-sm bg-black/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <i class="fas fa-search-plus mr-2"></i> Xem ảnh
+                        </span>
                     </div>
                 </div>
                 @endif
                 @endforeach
             </div>
             @endif
-        </div>
-        @endif
 
         {{-- 4. WHY US (PREMIUM SPLIT LAYOUT) --}}
         @if(!empty($major->why_us_reasons) && is_array($major->why_us_reasons) && count($major->why_us_reasons) > 0)
@@ -90,18 +99,37 @@
                     {{-- ẢNH BÊN TRÁI --}}
                     <div class="w-full lg:w-5/12 relative">
                         <div class="sticky top-24">
+                            {{-- Hiệu ứng phát sáng phía sau --}}
                             <div class="absolute -top-6 -left-6 w-24 h-24 bg-yellow-400/20 rounded-full blur-2xl animate-pulse"></div>
-                            <div class="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/5]">
+                            
+                            {{-- Khung ảnh chính --}}
+                            <div class="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/5] group {{ $major->why_us_image ? 'cursor-pointer' : '' }}"
+                                 @if($major->why_us_image) onclick="openModal('{{ asset('storage/' . $major->why_us_image) }}')" @endif>
+                                
                                 @if($major->why_us_image)
+                                    {{-- Ảnh hiển thị ngoài (object-cover để lấp đầy tỷ lệ 4:5) --}}
                                     <img src="{{ asset('storage/' . $major->why_us_image) }}" 
-                                         class="w-full h-full object-cover transition duration-1000 hover:scale-110">
+                                         class="w-full h-full object-cover transition duration-1000 group-hover:scale-110"
+                                         alt="Vì sao chọn {{ $major->name }}">
+                                         
+                                    {{-- Lớp phủ tối màu khi hover --}}
+                                    <div class="absolute inset-0 bg-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                                    
+                                    {{-- Nút Xem ảnh gốc ở chính giữa --}}
+                                    <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-md bg-black/40 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
+                                            <i class="fas fa-search-plus mr-2"></i> Xem ảnh 
+                                        </span>
+                                    </div>
                                 @else
                                     <div class="w-full h-full bg-blue-100 flex items-center justify-center">
                                         <i class="fas fa-graduation-cap text-8xl text-blue-200"></i>
                                     </div>
                                 @endif
-                                <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-blue-900 via-blue-900/60 to-transparent">
-                                    <p class="text-white font-medium italic opacity-90">"Môi trường học tập năng động, bám sát thực tế doanh nghiệp."</p>
+                                
+                                {{-- Quote ở dưới cùng (dùng z-30 để luôn nổi lên trên, pointer-events-none để không chặn click) --}}
+                                <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-blue-900 via-blue-900/70 to-transparent z-30 pointer-events-none">
+                                    <p class="text-white font-medium italic opacity-100 drop-shadow-md">"Môi trường học tập năng động, bám sát thực tế doanh nghiệp."</p>
                                 </div>
                             </div>
                         </div>
@@ -160,55 +188,144 @@
         </div>
         @endif
 
-        {{-- 5. CAREER (ZIG ZAG) --}}
+       {{-- 5. CAREER (ZIG ZAG) --}}
         @if($major->career_titles || $major->career_places)
-        <div class="mb-24 space-y-20">
+        <div class="mb-32 space-y-24 mt-16">
+            {{-- TIÊU ĐỀ CHÍNH --}}
             <div class="text-center mb-16 relative">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-blue-900 uppercase inline-block relative z-10 bg-white px-4">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-blue-900 uppercase inline-block relative z-10 bg-white px-6">
                     Cơ hội nghề nghiệp của ngành <span class="text-blue-500">{{ $major->name }}</span>
                 </h2>
-                <div class="absolute top-1/2 left-0 w-full h-px bg-blue-100 -z-0"></div>
+                <div class="absolute top-1/2 left-0 w-full h-px bg-blue-200 -z-0"></div>
             </div>
 
+            {{-- PHẦN 1: LÀM NGHỀ GÌ? --}}
             @if($major->career_titles)
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative group h-full min-h-[350px]">
-                    <div class="absolute inset-0 bg-blue-50 rounded-tr-[80px] rounded-bl-[80px] transform rotate-3 transition duration-500 group-hover:rotate-0 border-2 border-dashed border-blue-200"></div>
-                    <img src="{{ $major->career_titles_image ? asset('storage/' . $major->career_titles_image) : 'https://via.placeholder.com/600x400' }}" class="relative z-10 w-full h-full rounded-tr-[80px] rounded-bl-[80px] shadow-xl object-cover transform transition duration-500 hover:scale-[1.02]">
-                </div>
-                <div class="pl-0 lg:pl-6">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-1.5 h-12 bg-red-600 rounded-full"></div>
-                        <h3 class="text-2xl font-bold text-gray-800 leading-tight">Ngành <span class="text-blue-700">{{ $major->name }}</span> ra trường làm nghề gì?</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                
+                {{-- ẢNH BÊN TRÁI --}}
+                <div class="relative group">
+                    {{-- Khối màu vàng trang trí phía sau --}}
+                    <div class="absolute -top-6 -bottom-6 -left-6 right-12 bg-yellow-100/50 rounded-[2rem] -z-10 transform -rotate-2"></div>
+                    
+                    {{-- Khung ảnh chính --}}
+                    <div class="relative z-10 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100 transition-transform duration-500 hover:-translate-y-2 {{ $major->career_titles_image ? 'cursor-pointer' : '' }}"
+                         @if($major->career_titles_image) onclick="openModal('{{ asset('storage/' . $major->career_titles_image) }}')" @endif>
+                        
+                        {{-- Dùng object-cover và tỷ lệ cố định (vd: 4/3 hoặc vuông) nếu muốn ảnh đều nhau, hoặc để h-auto nếu muốn giữ nguyên tỷ lệ gốc --}}
+                        <img src="{{ $major->career_titles_image ? asset('storage/' . $major->career_titles_image) : 'https://via.placeholder.com/600x600' }}" 
+                             class="w-full h-auto object-cover" alt="Nghề nghiệp ngành {{ $major->name }}">
+                        
+                        @if($major->career_titles_image)
+                            {{-- Lớp phủ và nút XEM ẢNH GỐC --}}
+                            <div class="absolute inset-0 bg-blue-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                            <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-md bg-black/40 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
+                                    <i class="fas fa-search-plus mr-2"></i> Xem ảnh 
+                                </span>
+                            </div>
+                        @endif
                     </div>
-                    <div class="career-content prose prose-lg text-gray-600">{!! \App\Helpers\HtmlHelper::clean($major->career_titles) !!}</div>
+                </div>
+
+                {{-- NỘI DUNG BÊN PHẢI --}}
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-1.5 h-10 bg-red-600 rounded-full"></div>
+                        <h3 class="text-2xl font-bold text-blue-900 leading-tight">Ngành <span class="text-blue-600">{{ $major->name }}</span> ra trường làm nghề gì?</h3>
+                    </div>
+                    <div class="career-content prose prose-lg text-gray-600 max-w-none">
+                        {!! \App\Helpers\HtmlHelper::clean($major->career_titles) !!}
+                    </div>
                 </div>
             </div>
             @endif
 
+            {{-- PHẦN 2: LÀM Ở ĐÂU? --}}
             @if($major->career_places)
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="order-2 lg:order-1 pr-0 lg:pr-6">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-1.5 h-12 bg-red-600 rounded-full"></div>
-                        <h3 class="text-2xl font-bold text-gray-800 leading-tight">Ngành <span class="text-blue-700">{{ $major->name }}</span> ra trường làm ở đâu?</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                
+                {{-- NỘI DUNG BÊN TRÁI --}}
+                <div class="order-2 lg:order-1">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-1.5 h-10 bg-red-600 rounded-full"></div>
+                        <h3 class="text-2xl font-bold text-blue-900 leading-tight">Ngành <span class="text-blue-600">{{ $major->name }}</span> ra trường làm ở đâu?</h3>
                     </div>
-                    <div class="career-content prose prose-lg text-gray-600">{!! \App\Helpers\HtmlHelper::clean($major->career_places) !!}</div>
+                    <div class="career-content prose prose-lg text-gray-600 max-w-none">
+                        {!! \App\Helpers\HtmlHelper::clean($major->career_places) !!}
+                    </div>
                 </div>
-                <div class="relative group h-full min-h-[350px] order-1 lg:order-2">
-                    <div class="absolute inset-0 bg-yellow-50 rounded-tl-[80px] rounded-br-[80px] transform -rotate-3 transition duration-500 group-hover:rotate-0 border-2 border-dashed border-yellow-200"></div>
-                    <img src="{{ $major->career_places_image ? asset('storage/' . $major->career_places_image) : 'https://via.placeholder.com/600x400' }}" class="relative z-10 w-full h-full rounded-tl-[80px] rounded-br-[80px] shadow-xl object-cover transform transition duration-500 hover:scale-[1.02]">
+
+                {{-- ẢNH BÊN PHẢI --}}
+                <div class="relative group order-1 lg:order-2">
+                    {{-- Khối màu vàng trang trí phía sau (cắt xéo) --}}
+                    <div class="absolute -top-8 -bottom-8 left-12 -right-6 bg-yellow-50 rounded-3xl -z-10 transform rotate-3" style="clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);"></div>
+                    
+                    {{-- Khung ảnh chính --}}
+                    <div class="relative z-10 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100 transition-transform duration-500 hover:-translate-y-2 {{ $major->career_places_image ? 'cursor-pointer' : '' }}"
+                         @if($major->career_places_image) onclick="openModal('{{ asset('storage/' . $major->career_places_image) }}')" @endif>
+                        
+                        <img src="{{ $major->career_places_image ? asset('storage/' . $major->career_places_image) : 'https://via.placeholder.com/600x500' }}" 
+                             class="w-full h-auto object-cover" alt="Nơi làm việc ngành {{ $major->name }}">
+                        
+                        @if($major->career_places_image)
+                            {{-- Lớp phủ và nút XEM ẢNH GỐC --}}
+                            <div class="absolute inset-0 bg-blue-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                            <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-md bg-black/40 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
+                                    <i class="fas fa-search-plus mr-2"></i> Xem ảnh 
+                                </span>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
             @endif
         </div>
+        
+        {{-- CSS TUỲ CHỈNH CHO LIST TRONG PHẦN CAREER --}}
         <style>
-            .career-content ul { list-style: none !important; padding-left: 0 !important; }
-            .career-content ul li { position: relative; padding-left: 2rem; margin-bottom: 0.75rem; line-height: 1.6; }
-            .career-content ul li::before { content: '✓'; position: absolute; left: 0; top: 0; color: #2563eb; font-weight: 900; font-size: 1.1rem; background-color: #eff6ff; width: 1.5rem; height: 1.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+            .career-content p {
+                margin-bottom: 1.5rem;
+                text-align: justify;
+                line-height: 1.7;
+            }
+            .career-content strong {
+                color: #1e3a8a; /* blue-900 */
+                display: block;
+                margin-bottom: 1rem;
+                font-size: 1.125rem;
+            }
+            .career-content ul { 
+                list-style: none !important; 
+                padding-left: 0 !important; 
+            }
+            .career-content ul li { 
+                position: relative; 
+                padding-left: 2.5rem; 
+                margin-bottom: 1rem; 
+                line-height: 1.6;
+                color: #4b5563; /* gray-600 */
+            }
+            .career-content ul li::before { 
+                content: '\f00c'; /* Unicode của dấu tick FontAwesome */
+                font-family: 'Font Awesome 5 Free'; /* Hoặc Font Awesome 6 Free */
+                font-weight: 900;
+                position: absolute; 
+                left: 0; 
+                top: 0.2rem; 
+                color: #3b82f6; /* blue-500 */
+                font-size: 1rem; 
+                background-color: #eff6ff; /* blue-50 */
+                width: 1.75rem; 
+                height: 1.75rem; 
+                border-radius: 50%; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+            }
         </style>
         @endif
-
         {{-- 6. LỘ TRÌNH HỌC TẬP --}}
         @if(!empty($major->roadmap))
         <div id="roadmap" class="mb-24 scroll-mt-24">
@@ -466,5 +583,59 @@
         100% { left: 125%; }
     }
 </style>
+{{-- LIGHTBOX MODAL ĐỂ XEM ẢNH GỐC --}}
+<div id="imageModal" class="fixed inset-0 z-[9999] bg-black/95 hidden flex-col items-center justify-center backdrop-blur-md transition-opacity duration-300 opacity-0" onclick="closeModal()">
+    
+    {{-- Nút đóng --}}
+    <button class="absolute top-6 right-6 text-white/70 hover:text-white text-5xl font-light cursor-pointer focus:outline-none transition-colors duration-200 z-50">
+        &times;
+    </button>
+    
+    {{-- Nội dung ảnh (Chứa ảnh gốc không bị cắt xén) --}}
+    <div class="relative w-full h-full flex items-center justify-center p-4 md:p-12">
+        {{-- Dùng object-contain để hiển thị toàn bộ ảnh gốc (ngang/dọc/vuông) --}}
+        <img id="modalImg" src="" class="max-w-full max-h-full rounded-xl shadow-2xl transform scale-95 transition-transform duration-300 object-contain" alt="Phóng to ảnh">
+    </div>
+</div>
 
+<script>
+    // Logic xử lý bật/tắt Modal ảnh
+    function openModal(src) {
+        const modal = document.getElementById('imageModal');
+        const img = document.getElementById('modalImg');
+        
+        img.src = src; // Gắn link ảnh gốc vào popup
+        modal.classList.remove('hidden'); // Hiển thị khung popup
+        
+        // Timeout nhỏ để tạo hiệu ứng mượt mà
+        requestAnimationFrame(() => {
+            modal.classList.remove('opacity-0');
+            img.classList.replace('scale-95', 'scale-100');
+        });
+        
+        // Khóa cuộn trang khi đang xem ảnh
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        const img = document.getElementById('modalImg');
+        
+        modal.classList.add('opacity-0');
+        img.classList.replace('scale-100', 'scale-95');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            img.src = ''; // Xóa source cũ đi
+            document.body.style.overflow = ''; // Mở lại cuộn trang
+        }, 300);
+    }
+    
+    // Đóng popup bằng nút ESC trên bàn phím
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('imageModal').classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+</script>
 @include('components.footer')

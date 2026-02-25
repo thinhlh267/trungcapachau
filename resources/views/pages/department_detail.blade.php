@@ -76,10 +76,9 @@
                                         {{ $major->name }}
                                     </a>
                                 </h3>
-                                <div class="flex items-center text-sm text-gray-500 mb-4">
-                                    <i class="fas fa-money-bill-wave mr-2 text-green-500"></i> 
-                                    <span>Học phí: <span class="font-semibold text-gray-700">{{ $major->tuition ?? 'Miễn 100% theo Quy định' }}</span></span>
-                                </div>
+                                <div class="flex items-center text-sm text-green-700 font-bold mb-4 bg-green-50 border border-green-200 w-fit px-3 py-1.5 rounded-full shadow-sm">
+    <i class="fas fa-check-circle mr-2"></i> Miễn 100% học phí (Hệ 9+)
+</div>
                                 <a href="{{ route('major.detail', $major->slug) }}" class="block w-full text-center py-2 rounded border border-blue-600 text-blue-600 font-bold hover:bg-blue-600 hover:text-white transition uppercase text-sm">
                                     Xem chi tiết
                                 </a>
