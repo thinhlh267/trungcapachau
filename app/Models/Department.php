@@ -13,7 +13,18 @@ class Department extends Model
         'name',
         'slug',
         'type',
-        'description',
+        'image',          
+        'description',     
+        'content',         
+        'contact_info',   
         'is_active',
+        'sort_order',      
+        'seo_title',       
+        'seo_description', 
+    ];
+
+    protected $casts = [
+        'contact_info' => 'array',
+        'is_active' => 'boolean',
     ];
 }

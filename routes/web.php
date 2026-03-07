@@ -10,7 +10,6 @@ use App\Http\Controllers\MajorController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\DepartmentController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,3 +60,4 @@ Route::get('/cau-hoi-thuong-gap', [App\Http\Controllers\PageController::class, '
 Route::get('/dang-ky-tu-van', [App\Http\Controllers\PageController::class, 'register'])->name('page.register');
 Route::get('/khoa/{slug}', [DepartmentController::class, 'detail'])->name('department.detail.khoa');
 Route::get('/phong-ban/{slug}', [DepartmentController::class, 'detail'])->name('department.detail.phongban');
+Route::get('/tra-cuu/van-bang', [PageController::class, 'tracuuVanbang'])->name('page.tracuu.vanbang');

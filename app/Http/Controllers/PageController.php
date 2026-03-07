@@ -57,4 +57,38 @@ class PageController extends Controller
         
         return view('pages.register', compact('majors'));
     }
+    public function tracuuVanbang(\Illuminate\Http\Request $request)
+    {
+        // Xác định đang tra cứu theo tab nào (mặc định là 'don_vi')
+        $searchType = $request->input('search_type', 'don_vi');
+        
+        // Nhận dữ liệu từ form
+        $degreeCode = $request->input('degree_code'); // Cả 2 tab đều dùng chung trường này
+        $issuingBody = $request->input('issuing_body'); // Dùng cho tab 1
+        $studentName = $request->input('student_name'); // Dùng cho tab 2
+        
+        $results = collect();
+        $searched = false;
+
+        // XỬ LÝ LOGIC TÌM KIẾM
+        if ($searchType === 'don_vi' && $degreeCode && $issuingBody) {
+            $searched = true;
+            $results = \App\Models\Degree::where('degree_code', $degreeCode)
+                        ->where('issuing_body', 'like', '%' . $issuingBody . '%')
+                        ->get();
+        } elseif ($searchType === 'ho_ten' && $degreeCode && $studentName) {
+            $searched = true;
+            $results = \App\Models\Degree::where('degree_code', $degreeCode)
+                        ->where('student_name', 'like', '%' . $studentName . '%')
+                        ->get();
+        }
+
+        // Truyền SEO cơ bản
+        $title = 'Tra cứu Văn bằng - Chứng chỉ | Trường Trung cấp Á Châu';
+
+        return view('pages.tracuu_vanbang', compact(
+            'results', 'searched', 'searchType', 
+            'degreeCode', 'issuingBody', 'studentName', 'title'
+        ));
+    }
 }

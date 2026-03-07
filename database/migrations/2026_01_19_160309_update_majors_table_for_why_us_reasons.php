@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::table('majors', function (Blueprint $table) {
             // 1. Thêm column mới cho JSON reasons
-            $table->json('why_us_reasons')->nullable()->after('why_us_image');
+            $table->json('why_us_reasons')->nullable();
             
-            // 2. Xóa column cũ (optional - có thể comment nếu muốn backup)
-            $table->dropColumn('why_us_content');
+            // 2. Xóa column cũ (Đã thêm // để vô hiệu hóa vì DB mới không còn cột này)
+            // $table->dropColumn('why_us_content');
             
             // Hoặc nếu muốn rename để backup trước:
             // $table->renameColumn('why_us_content', 'why_us_content_backup');
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('majors', function (Blueprint $table) {
             // Khôi phục lại nếu rollback
-            $table->text('why_us_content')->nullable();
+            // $table->text('why_us_content')->nullable();
             $table->dropColumn('why_us_reasons');
         });
     }

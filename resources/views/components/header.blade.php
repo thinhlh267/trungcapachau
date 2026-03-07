@@ -151,161 +151,151 @@
 
 <body class="bg-gray-50">
 {{-- NAVIGATION WITH ARIA ATTRIBUTES --}}
-<nav id="navbar" class="w-full bg-white shadow sticky top-0 z-50 transition-all duration-300" 
-     aria-label="Menu chính">
-  
-  {{-- ĐÃ XÓA PHẦN BREADCRUMB Ở ĐÂY --}}
-  
-  <div class="w-full px-4 md:px-8 flex items-center h-24 justify-between">
+<nav id="navbar" class="w-full bg-white shadow sticky top-0 z-50 transition-all duration-300" aria-label="Menu chính">
+  <div class="w-full max-w-[1920px] mx-auto px-4 md:px-6 lg:px-4 xl:px-8 flex items-center h-20 md:h-24 justify-between">
     
-    {{-- LOGO --}}
+    {{-- LOGO (Tự động thu nhỏ trên màn hình vừa, phóng to trên màn hình rộng) --}}
     <a href="{{ route('home') }}" 
-       class="flex-shrink-0 logo-link group text-blue-900 font-bold text-xl md:text-2xl lg:text-3xl relative inline-block transition duration-300 whitespace-nowrap"
+       class="flex-shrink-0 logo-link group text-blue-900 font-extrabold text-lg md:text-xl lg:text-[1.1rem] xl:text-2xl 2xl:text-3xl relative inline-block transition duration-300 whitespace-nowrap"
        aria-label="Trang chủ - Trường Trung cấp Á Châu">
-       TRƯỜNG TRUNG CẤP Á CHÂU
+       TRUNG CẤP Á CHÂU
     </a>
     
-{{-- DESKTOP MENU --}}
-<div class="hidden lg:flex flex-1 items-center justify-center gap-6 xl:gap-10 whitespace-nowrap px-2">
-    
-    {{-- 1. TỔNG QUAN --}}
-    <div class="menu-dropdown-container relative group" role="menuitem">
-        <button type="button"
-                class="menu-button font-bevietnam text-base xl:text-lg px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center focus:outline-none"
-                aria-haspopup="true" 
-                aria-expanded="false">
-            Tổng quan <i class="fas fa-chevron-down ml-2 text-xs"></i>
-        </button>
+    {{-- DESKTOP MENU (Đã thiết lập flex-shrink và điều chỉnh gap/padding tự động) --}}
+    <div class="hidden lg:flex flex-1 items-center justify-end lg:gap-1 xl:gap-4 2xl:gap-8 pl-4">
+        
+        {{-- 1. TỔNG QUAN --}}
+        <div class="menu-dropdown-container relative group flex-shrink-0" role="menuitem">
+            <button type="button"
+                    class="menu-button font-bevietnam lg:text-[13px] xl:text-[15px] 2xl:text-lg lg:px-2 xl:px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ ($mainMenu === 'tongquan' || in_array($currentPage, $tongquanPages)) ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center focus:outline-none whitespace-nowrap"
+                    aria-haspopup="true" aria-expanded="false">
+                Tổng quan <i class="fas fa-chevron-down ml-1 xl:ml-2 text-[10px] xl:text-xs"></i>
+            </button>
+            <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
+                <li role="none"><a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem"><i class="fas fa-university mr-3 text-yellow-500 w-5 text-center"></i> Giới thiệu chung</a></li>
+                <li role="none"><a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem"><i class="fas fa-compass mr-3 text-yellow-500 w-5 text-center"></i> Sứ mệnh - Tầm nhìn</a></li>
+                <li role="none"><a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem"><i class="fas fa-bullseye mr-3 text-yellow-500 w-5 text-center"></i> Mục tiêu giáo dục</a></li>
+                <li role="none"><a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem"><i class="fas fa-award mr-3 text-yellow-500 w-5 text-center"></i> Chứng nhận</a></li>
+                <li role="none"><a href="{{ route('page.thungo') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem"><i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5 text-center"></i> Thư ngỏ</a></li>
+                <li role="none"><a href="{{ route('page.sodotochuc') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center text-sm" role="menuitem"><i class="fas fa-sitemap mr-3 text-yellow-500 w-5 text-center"></i> Sơ đồ tổ chức</a></li>
+            </ul>
+        </div>
 
-        <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-64 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
-            <li role="none"><a href="{{ route('page.gioithieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-university mr-3 text-yellow-500 w-5"></i> Giới thiệu chung</a></li>
-            <li role="none"><a href="{{ route('page.sumenh') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-compass mr-3 text-yellow-500 w-5"></i> Sứ mệnh - Tầm nhìn</a></li>
-            <li role="none"><a href="{{ route('page.muctieu') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-bullseye mr-3 text-yellow-500 w-5"></i> Mục tiêu giáo dục</a></li>
-            <li role="none"><a href="{{ route('page.chungnhan') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-award mr-3 text-yellow-500 w-5"></i> Chứng nhận</a></li>
-            <li role="none"><a href="{{ route('page.thungo') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-envelope-open-text mr-3 text-yellow-500 w-5"></i> Thư ngỏ</a></li>
-            <li role="none"><a href="{{ route('page.sodotochuc') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center" role="menuitem"><i class="fas fa-sitemap mr-3 text-yellow-500 w-5"></i> Sơ đồ tổ chức</a></li>
-        </ul>
-    </div>
+        {{-- 2. NGÀNH ĐÀO TẠO --}}
+        <div class="menu-dropdown-container relative group flex-shrink-0" role="menuitem">
+            <button type="button"
+                    class="menu-button font-bevietnam lg:text-[13px] xl:text-[15px] 2xl:text-lg lg:px-2 xl:px-3 py-3 no-underline transition duration-300 uppercase font-semibold text-blue-900 hover:text-yellow-500 flex items-center justify-center focus:outline-none whitespace-nowrap">
+                Ngành Đào Tạo <i class="fas fa-chevron-down ml-1 xl:ml-2 text-[10px] xl:text-xs"></i>
+            </button>
+            <div class="menu-dropdown dropdown-center dropdown-wide bg-white shadow-lg rounded-lg border-t-4 border-yellow-500">
+                <div class="max-h-[400px] overflow-y-auto">
+                    @if(isset($headerMajors) && $headerMajors->count() > 0)
+                        @foreach($headerMajors as $major)
+                            <a href="{{ route('major.detail', $major->slug) }}" class="block px-6 py-3 text-blue-900 hover:bg-gray-50 hover:text-yellow-600 border-b border-gray-100 last:border-0 transition duration-200 whitespace-normal text-sm" role="menuitem">
+                                <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5 text-center"></i> {{ $major->name }}
+                            </a>
+                        @endforeach
+                    @else
+                        <span class="block px-6 py-4 text-gray-400 italic text-sm text-center">Đang cập nhật...</span>
+                    @endif
+                </div>
+            </div>
+        </div>
 
-    {{-- 2. NGÀNH ĐÀO TẠO --}}
-    <div class="menu-dropdown-container relative group" role="menuitem">
-        <button type="button"
-                class="menu-button font-bevietnam text-base xl:text-lg px-3 py-3 no-underline transition duration-300 uppercase font-semibold text-blue-900 hover:text-yellow-500 flex items-center justify-center gap-1 focus:outline-none">
-            Ngành Đào Tạo <i class="fas fa-chevron-down text-xs ml-2"></i>
-        </button>
-        <div class="menu-dropdown dropdown-center dropdown-wide bg-white shadow-lg rounded-lg border-t-4 border-yellow-500">
-            <div class="max-h-[400px] overflow-y-auto">
-                @if(isset($headerMajors) && $headerMajors->count() > 0)
-                    @foreach($headerMajors as $major)
-                        <a href="{{ route('major.detail', $major->slug) }}" 
-                           class="block px-6 py-3 text-blue-900 hover:bg-gray-50 hover:text-yellow-600 border-b border-gray-100 last:border-0 transition duration-200 whitespace-normal"
-                           role="menuitem">
-                            <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> {{ $major->name }}
+        {{-- 3. TUYỂN SINH --}}
+        <div class="menu-dropdown-container relative group flex-shrink-0" role="menuitem">
+            <button type="button"
+                    class="menu-button font-bevietnam lg:text-[13px] xl:text-[15px] 2xl:text-lg lg:px-2 xl:px-3 py-3 no-underline transition duration-300 uppercase font-semibold flex items-center justify-center focus:outline-none whitespace-nowrap {{ request()->routeIs('admission.*') ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }}">
+                Tuyển sinh <i class="fas fa-chevron-down ml-1 xl:ml-2 text-[10px] xl:text-xs"></i>
+            </button>
+            <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg border-t-4 border-yellow-500 overflow-hidden list-none p-0 min-w-[260px]">
+                @if(isset($admissionMenu) && count($admissionMenu) > 0)
+                    @foreach($admissionMenu as $cat)
+                    <li role="none">
+                        <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem">
+                            <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5 text-center"></i> {{ $cat->name }}
                         </a>
+                    </li>
                     @endforeach
                 @else
-                    <span class="block px-6 py-4 text-gray-400 italic text-sm text-center">Đang cập nhật...</span>
+                    <li role="none"><span class="block px-6 py-3 text-gray-400 italic text-sm">Đang cập nhật...</span></li>
                 @endif
+                <li role="none"><a href="{{ route('page.faq') }}" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem"><i class="fas fa-question-circle mr-3 text-yellow-500 w-5 text-center"></i> Câu hỏi thường gặp</a></li>
+                <li role="none"><a href="{{ route('page.register') }}" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center text-sm font-bold text-yellow-600" role="menuitem"><i class="fas fa-edit mr-3 text-yellow-500 w-5 text-center"></i> Đăng ký Tư vấn</a></li>
+            </ul>
+        </div>
+        
+        {{-- 4. KHOA - PHÒNG BAN --}}
+        <div class="menu-dropdown-container relative group flex-shrink-0" role="menuitem">
+            <button type="button" 
+                    class="menu-button font-bevietnam lg:text-[13px] xl:text-[15px] 2xl:text-lg lg:px-2 xl:px-3 py-3 no-underline transition duration-300 uppercase font-semibold text-blue-900 hover:text-yellow-500 flex items-center justify-center focus:outline-none whitespace-nowrap">
+                Khoa - Phòng ban <i class="fas fa-chevron-down ml-1 xl:ml-2 text-[10px] xl:text-xs"></i>
+            </button>
+            <div class="menu-dropdown dropdown-center bg-white shadow-xl rounded-lg border-t-4 border-yellow-500 min-w-[260px]">
+                <div class="py-2">
+                    <h4 class="px-5 py-2 text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Khoa chuyên môn</h4>
+                    @if(isset($globalDepartments))
+                        @foreach($globalDepartments->where('type', 'khoa') as $dept)
+                            <a href="{{ url('/khoa/' . $dept->slug) }}" class="block px-5 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition text-sm font-medium flex items-center">
+                                <i class="fas fa-graduation-cap mr-3 text-blue-500 w-4 text-center"></i> {{ $dept->name }}
+                            </a>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="border-t border-gray-100 my-1"></div>
+                <div class="py-2">
+                    <h4 class="px-5 py-2 text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Phòng ban chức năng</h4>
+                    @if(isset($globalDepartments))
+                        @foreach($globalDepartments->where('type', 'phong_ban') as $dept)
+                            <a href="{{ url('/phong-ban/' . $dept->slug) }}" class="block px-5 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition text-sm font-medium flex items-center">
+                                <i class="fas fa-building mr-3 text-yellow-500 w-4 text-center"></i> {{ $dept->name }}
+                            </a>
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
 
-    {{-- 3. TUYỂN SINH --}}
-    <div class="menu-dropdown-container relative group" role="menuitem">
-        <button type="button"
-                class="menu-button font-bevietnam text-base xl:text-lg px-3 py-3 no-underline transition duration-300 uppercase font-semibold flex items-center justify-center gap-1 focus:outline-none {{ request()->routeIs('admission.*') ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }}">
-            Tuyển sinh <i class="fas fa-chevron-down text-xs ml-2"></i>
-        </button>
+        {{-- 5. TIN TỨC --}}
+        <div role="menuitem" class="flex-shrink-0">
+            <a href="{{ route('news.index') }}" 
+               class="menu-button font-bevietnam lg:text-[13px] xl:text-[15px] 2xl:text-lg lg:px-2 xl:px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'tintuc' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center whitespace-nowrap">
+                Tin tức
+            </a>
+        </div>
 
-        <ul class="menu-dropdown dropdown-center dropdown-wide bg-white text-gray-800 shadow-xl rounded-lg border-t-4 border-yellow-500 overflow-hidden list-none p-0 min-w-[280px]">
-            @if(isset($admissionMenu) && count($admissionMenu) > 0)
-                @foreach($admissionMenu as $cat)
+        {{-- 6. HỌC SINH --}}
+        <div class="menu-dropdown-container relative group flex-shrink-0" role="menuitem">
+            <button type="button"
+                    class="menu-button font-bevietnam lg:text-[13px] xl:text-[15px] 2xl:text-lg lg:px-2 xl:px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'hocsinh' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center focus:outline-none whitespace-nowrap"
+                    aria-haspopup="true" aria-expanded="false">
+                Học sinh <i class="fas fa-chevron-down ml-1 xl:ml-2 text-[10px] xl:text-xs"></i>
+            </button>
+            <ul class="menu-dropdown dropdown-center bg-white text-gray-800 shadow-xl rounded-lg w-56 border-t-4 border-yellow-500 overflow-hidden list-none p-0">
                 <li role="none">
-                    <a href="{{ route('admission.index', ['category' => $cat->slug]) }}" 
-                       class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center"
-                       role="menuitem">
-                        <i class="fas fa-graduation-cap mr-3 text-yellow-500 w-5"></i> 
-                        {{ $cat->name }}
+                    <a href="https://asia.phanmemdaotao.edu.vn/" target="_blank" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem">
+                        <i class="fas fa-file-signature mr-3 text-yellow-500 w-5 text-center"></i> Tra cứu điểm
                     </a>
                 </li>
-                @endforeach
-            @else
-                <li role="none"><span class="block px-6 py-3 text-gray-400 italic text-sm">Đang cập nhật hệ đào tạo...</span></li>
-            @endif
-
-            <li role="none"><a href="{{ route('page.faq') }}" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center" role="menuitem"><i class="fas fa-question-circle mr-3 text-yellow-500 w-5"></i> Câu hỏi thường gặp</a></li>
-            <li role="none"><a href="{{ route('page.register') }}" class="block px-6 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center" role="menuitem"><i class="fas fa-edit mr-3 text-yellow-500 w-5"></i> Đăng ký Tư vấn</a></li>
-        </ul>
-    </div>
-    
-    {{-- 4. KHOA - PHÒNG BAN (MỚI THÊM - CHUẨN STYLE CŨ) --}}
-    <div class="menu-dropdown-container relative group" role="menuitem">
-        <button type="button" 
-                class="menu-button font-bevietnam text-base xl:text-lg px-3 py-3 no-underline transition duration-300 uppercase font-semibold text-blue-900 hover:text-yellow-500 flex items-center justify-center gap-1 focus:outline-none">
-            Khoa - Phòng ban <i class="fas fa-chevron-down ml-2 text-xs"></i>
-        </button>
+                <li role="none"><a href="{{ route('page.tracuu.vanbang') }}" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-b border-gray-100 flex items-center text-sm" role="menuitem"><i class="fas fa-certificate mr-3 text-yellow-500 w-5 text-center"></i> Tra cứu văn bằng</a></li>
+                <li role="none"><a href="#" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition flex items-center text-sm" role="menuitem"><i class="fas fa-users mr-3 text-yellow-500 w-5 text-center"></i> Hoạt động khác</a></li>
+            </ul>
+        </div>
         
-        <div class="menu-dropdown dropdown-center bg-white shadow-xl rounded-lg border-t-4 border-yellow-500 min-w-[260px]">
-            {{-- Nhóm KHOA --}}
-            <div class="py-2">
-                <h4 class="px-5 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Khoa chuyên môn</h4>
-                @if(isset($globalDepartments))
-                    @foreach($globalDepartments->where('type', 'khoa') as $dept)
-                        <a href="{{ url('/khoa/' . $dept->slug) }}" class="block px-5 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition text-sm font-medium flex items-center">
-                            <i class="fas fa-graduation-cap mr-3 text-blue-500 w-4 text-center"></i> {{ $dept->name }}
-                        </a>
-                    @endforeach
-                @endif
-            </div>
-
-            <div class="border-t border-gray-100 my-1"></div>
-
-            {{-- Nhóm PHÒNG BAN --}}
-            <div class="py-2">
-                <h4 class="px-5 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Phòng ban chức năng</h4>
-                @if(isset($globalDepartments))
-                    @foreach($globalDepartments->where('type', 'phong_ban') as $dept)
-                        <a href="{{ url('/phong-ban/' . $dept->slug) }}" class="block px-5 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition text-sm font-medium flex items-center">
-                            <i class="fas fa-building mr-3 text-yellow-500 w-4 text-center"></i> {{ $dept->name }}
-                        </a>
-                    @endforeach
-                @endif
-            </div>
+        {{-- 7. LIÊN HỆ --}}
+        <div role="menuitem" class="flex-shrink-0">
+            <a href="{{ route('page.lienhe') }}" 
+               class="menu-button font-bevietnam lg:text-[13px] xl:text-[15px] 2xl:text-lg lg:px-2 xl:px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'lienhe' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center whitespace-nowrap">
+                Liên hệ
+            </a>
         </div>
     </div>
-
-    {{-- 5. TIN TỨC --}}
-    <div role="menuitem">
-        <a href="{{ route('news.index') }}" 
-           class="menu-button font-bevietnam text-base xl:text-lg px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'tintuc' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
-            Tin tức
-        </a>
-    </div>
-
-    {{-- 6. HỌC SINH --}}
-    <div role="menuitem">
-        <a href="#" 
-           class="menu-button font-bevietnam text-base xl:text-lg px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'hocsinh' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
-            Học sinh
-        </a>
-    </div>
-    
-    {{-- 7. LIÊN HỆ --}}
-    <div role="menuitem">
-        <a href="{{ route('page.lienhe') }}" 
-           class="menu-button font-bevietnam text-base xl:text-lg px-3 py-3 no-underline transition duration-300 uppercase font-semibold {{ $mainMenu === 'lienhe' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'text-blue-900 hover:text-yellow-500' }} flex items-center justify-center">
-            Liên hệ
-        </a>
-    </div>
-</div>
     
     {{-- MOBILE BUTTON --}}
-    <div class="lg:hidden ml-auto">
+    <div class="lg:hidden ml-auto flex-shrink-0">
         <button id="mobile-menu-btn" 
                 class="text-blue-900 text-2xl focus:outline-none p-2 hover:text-yellow-500 transition"
-                aria-label="Mở menu di động"
-                aria-expanded="false"
-                aria-controls="mobile-menu-content">
+                aria-label="Mở menu di động" aria-expanded="false" aria-controls="mobile-menu-content">
             <i class="fas fa-bars"></i>
         </button>
     </div>
@@ -384,7 +374,15 @@
                 </div>
 
                 <a href="{{ route('news.index') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2" role="menuitem">Tin tức</a>
-                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2" role="menuitem">Học sinh</a>
+                {{-- Mobile: HỌC SINH (Đã chuyển thành List con) --}}
+                <div class="border-t pt-2">
+                    <p class="font-bold text-blue-900 uppercase text-sm border-l-4 border-yellow-500 pl-2 mb-2 mt-1">Học sinh</p>
+                    <div class="pl-4 space-y-1" role="group" aria-label="Menu Học sinh">
+                        <a href="https://asia.phanmemdaotao.edu.vn/" target="_blank" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Tra cứu điểm</a>
+                        <a href="{{ route('page.tracuu.vanbang') }} class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Tra cứu văn bằng</a>
+                        <a href="#" class="block text-sm text-gray-600 hover:text-blue-600 py-1" role="menuitem">Hoạt động khác</a>
+                    </div>
+                </div>
                 <a href="{{ route('page.lienhe') }}" class="block font-semibold text-gray-700 hover:text-blue-600 border-t pt-2" role="menuitem">Liên hệ</a>
             </div>
             
