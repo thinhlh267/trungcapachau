@@ -7,10 +7,7 @@ use App\Models\Major;
 
 class MajorController extends Controller
 {
-    /**
-     * CHI TIẾT NGÀNH ĐÀO TẠO
-     * URL: /nganh-dao-tao/{slug}
-     */
+
     public function detail($slug)
     {
         $major = Major::where('slug', $slug)

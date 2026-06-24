@@ -17,7 +17,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Builder as ContentBuilder; // Đặt tên khác để không trùng với Eloquent Builder
+use Filament\Forms\Components\Builder as ContentBuilder;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -35,7 +35,6 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                // --- KHỐI 1: THÔNG TIN CHÍNH ---
                 Section::make('Thông tin bài viết')
                     ->schema([
                         TextInput::make('title')

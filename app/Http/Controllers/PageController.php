@@ -51,22 +51,18 @@ class PageController extends Controller
     // 9. Trang Đăng ký tư vấn
     public function register()
     {
-        // SỬA LỖI: Đổi 'sort_order' thành 'name' để sắp xếp theo tên A-Z
-        // Hoặc bỏ orderBy nếu muốn lấy mặc định theo ID
+
         $majors = Major::where('is_active', true)->orderBy('name', 'asc')->get();
         
         return view('pages.register', compact('majors'));
     }
     public function tracuuVanbang(\Illuminate\Http\Request $request)
     {
-        // Xác định đang tra cứu theo tab nào (mặc định là 'don_vi')
         $searchType = $request->input('search_type', 'don_vi');
         
-        // Nhận dữ liệu từ form
-        $degreeCode = $request->input('degree_code'); // Cả 2 tab đều dùng chung trường này
-        $issuingBody = $request->input('issuing_body'); // Dùng cho tab 1
-        $studentName = $request->input('student_name'); // Dùng cho tab 2
-        
+        $degreeCode = $request->input('degree_code'); 
+        $issuingBody = $request->input('issuing_body'); 
+        $studentName = $request->input('student_name'); 
         $results = collect();
         $searched = false;
 
@@ -83,7 +79,6 @@ class PageController extends Controller
                         ->get();
         }
 
-        // Truyền SEO cơ bản
         $title = 'Tra cứu Văn bằng - Chứng chỉ | Trường Trung cấp Á Châu';
 
         return view('pages.tracuu_vanbang', compact(

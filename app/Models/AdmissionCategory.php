@@ -11,7 +11,6 @@ class AdmissionCategory extends Model
 
     protected $fillable = ['name', 'slug', 'description', 'is_active', 'sort_order'];
 
-    // Quan hệ: Một hệ đào tạo có nhiều bài thông báo
     public function posts()
     {
         return $this->hasMany(AdmissionPost::class);

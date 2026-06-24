@@ -92,7 +92,8 @@
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <style>
+
+<style>
     /* FIX CĂN CHỈNH DROPDOWN CHÍNH XÁC */
     .menu-dropdown-container {
       position: relative;
@@ -249,6 +250,17 @@
                         @foreach($globalDepartments->where('type', 'phong_ban') as $dept)
                             <a href="{{ url('/phong-ban/' . $dept->slug) }}" class="block px-5 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition text-sm font-medium flex items-center">
                                 <i class="fas fa-building mr-3 text-yellow-500 w-4 text-center"></i> {{ $dept->name }}
+                            </a>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="border-t border-gray-100 my-1"></div>
+                <div class="py-2">
+                    <h4 class="px-5 py-2 text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Trung tâm trực thuộc</h4>
+                    @if(isset($globalDepartments))
+                        @foreach($globalDepartments->where('type', 'trung_tam') as $dept)
+                            <a href="{{ url('/trung-tam/' . $dept->slug) }}" class="block px-5 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition text-sm font-medium flex items-center">
+                                <i class="fas fa-laptop-house mr-3 text-green-500 w-4 text-center"></i> {{ $dept->name }}
                             </a>
                         @endforeach
                     @endif

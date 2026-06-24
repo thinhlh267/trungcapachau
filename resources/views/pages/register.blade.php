@@ -2,14 +2,11 @@
 
 <div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 font-bevietnam">
     
-    {{-- Hero Section với ảnh background --}}
     <div class="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 py-12 lg:py-16 overflow-hidden">
-        {{-- Background Pattern với overlay --}}
         <div class="absolute inset-0 bg-blue-900/90">
             <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
         </div>
         
-        {{-- Blob Effects --}}
         <div class="absolute top-10 right-10 w-64 h-64 bg-yellow-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
         <div class="absolute bottom-10 left-10 w-72 h-72 bg-blue-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
         
@@ -29,7 +26,6 @@
                     Để lại thông tin – Chúng tôi sẽ liên hệ tư vấn chi tiết về ngành học, học phí và cơ hội việc làm
                 </p>
                 
-                {{-- Quick Stats --}}
                 <div class="flex flex-wrap justify-center gap-4 md:gap-6 mt-10">
                     <div class="text-center px-4 py-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
                         <div class="text-2xl md:text-3xl font-black text-white">10+</div>
@@ -44,7 +40,7 @@
                         <div class="text-blue-200 text-xs md:text-sm">Có việc làm</div>
                     </div>
                     <div class="text-center px-4 py-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <div class="text-2xl md:text-3xl font-black text-white">Hơn</div>
+                        <div class="text-2xl md:text-3xl font-black text-white">Hơn 20 </div>
                         <div class="text-blue-200 text-xs md:text-sm">Đối tác doanh nghiệp</div>
                     </div>
                 </div>
@@ -55,9 +51,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 -mt-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
             
-            {{-- Left Column: Benefits & Info --}}
             <div class="lg:col-span-4 space-y-6">
-                {{-- Benefits Card --}}
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 lg:p-7">
                     <div class="mb-6 pb-4 border-b border-gray-200">
                         <h2 class="text-xl font-bold text-gray-900">Lợi ích khi đăng ký</h2>
@@ -107,10 +101,8 @@
                     </div>
                 </div>
                 
-                {{-- Quick Contact Card --}}
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100/80 rounded-2xl border border-blue-200 p-6 lg:p-7 shadow-lg">
                     <div class="flex items-center gap-3 mb-5">
-                        {{-- Bỏ icon headset ở đây nếu không hiện --}}
                         <div>
                             <h3 class="text-lg font-bold text-gray-900">Cần hỗ trợ nhanh?</h3>
                             <p class="text-xs text-gray-600 mt-0.5">Chúng tôi luôn sẵn sàng hỗ trợ bạn</p>
@@ -119,7 +111,7 @@
                     
                     <a href="tel:0937404060" class="block group">
                         <div class="bg-white rounded-xl p-6 border border-blue-300 hover:border-blue-500 hover:shadow-xl transition-all duration-300 shadow-md">
-                            <div class="text-center"> {{-- Căn giữa nội dung cho đẹp khi không có icon --}}
+                            <div class="text-center"> 
                                 <div class="font-bold text-gray-900 text-2xl tracking-tight">093 740 40 60</div>
                                 <div class="text-sm text-gray-600 mt-2 flex items-center justify-center gap-2">
                                     <span class="flex items-center gap-1">
@@ -137,12 +129,9 @@
                 </div>
             </div>
             
-            {{-- Right Column: Form --}}
             <div class="lg:col-span-8">
-                {{-- THÊM ID="form-dang-ky" ĐỂ CONTROLLER CUỘN VỀ ĐÂY SAU KHI GỬI --}}
                 <div id="form-dang-ky" class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
                     
-                    {{-- Form Header --}}
                     <div class="bg-blue-900 px-6 py-5 shadow-md">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
                             <div>
@@ -155,7 +144,6 @@
                         </div>
                     </div>
                     
-                    {{-- Progress Steps --}}
                     <div class="px-6 py-8 bg-gradient-to-r from-blue-50 to-gray-50 border-b border-gray-200">
                         <div class="flex items-center justify-center">
                             <div class="flex items-center w-full max-w-lg relative">

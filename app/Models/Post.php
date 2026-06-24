@@ -21,7 +21,7 @@ class Post extends Model
     'image_caption'
 ];
 protected $casts = [
-    'gallery' => 'array',// dòng này để lưu nhiều ảnh
+    'gallery' => 'array',
     'content' => 'array', 
     'is_published' => 'boolean',
 ];

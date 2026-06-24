@@ -3,7 +3,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\HtmlHelper;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use App\Observers\MajorObserver;
 
+#[ObservedBy([MajorObserver::class])]
 class Major extends Model
 {
     use HasFactory;
@@ -19,7 +22,7 @@ class Major extends Model
         'is_active',
         'gallery',
         'intro_image', 
-        'department',
+        'department_id',
         'overview',    
         'why_us_image',
         'why_us_reasons',
@@ -40,9 +43,6 @@ class Major extends Model
         'why_us_reasons' => 'array',
     ];
 
-    /**
-     * Boot the model
-     */
     protected static function booted()
     {
         // Clean HTML trước khi lưu
@@ -51,9 +51,6 @@ class Major extends Model
         });
     }
 
-    /**
-     * Clean all HTML fields to prevent XSS
-     */
     public function cleanHtmlFields()
     {
         $htmlFields = [
@@ -67,13 +64,9 @@ class Major extends Model
             }
         }
 
-        // Clean JSON fields
         $this->cleanJsonFields();
     }
 
-    /**
-     * Clean JSON array fields
-     */
     protected function cleanJsonFields()
     {
         // Clean why_us_reasons
@@ -89,7 +82,6 @@ class Major extends Model
             $this->why_us_reasons = $cleanedReasons;
         }
 
-        // Clean program_advantages
         if (!empty($this->program_advantages) && is_array($this->program_advantages)) {
             $cleanedAdvantages = [];
             foreach ($this->program_advantages as $advantage) {
@@ -102,7 +94,6 @@ class Major extends Model
             $this->program_advantages = $cleanedAdvantages;
         }
 
-        // Clean roadmap
         if (!empty($this->roadmap) && is_array($this->roadmap)) {
             $cleanedRoadmap = [];
             foreach ($this->roadmap as $step) {
@@ -116,9 +107,6 @@ class Major extends Model
         }
     }
 
-    /**
-     * Accessor for why_us_reasons with fallback
-     */
     protected function getWhyUsReasonsAttribute($value)
     {
         if (is_null($value)) {
@@ -133,9 +121,6 @@ class Major extends Model
         return is_array($decoded) ? $decoded : [];
     }
 
-    /**
-     * Accessor for program_advantages with fallback
-     */
     protected function getProgramAdvantagesAttribute($value)
     {
         if (is_null($value)) {
@@ -150,9 +135,6 @@ class Major extends Model
         return is_array($decoded) ? $decoded : [];
     }
 
-    /**
-     * Accessor for roadmap with fallback
-     */
     protected function getRoadmapAttribute($value)
     {
         if (is_null($value)) {
@@ -167,9 +149,6 @@ class Major extends Model
         return is_array($decoded) ? $decoded : [];
     }
 
-    /**
-     * Accessor for gallery with fallback
-     */
     protected function getGalleryAttribute($value)
     {
         if (is_null($value)) {
@@ -184,59 +163,42 @@ class Major extends Model
         return is_array($decoded) ? $decoded : [];
     }
 
-    /**
-     * Mutator for description - Clean HTML
-     */
     public function setDescriptionAttribute($value)
     {
         $this->attributes['description'] = !empty($value) ? HtmlHelper::clean($value) : $value;
     }
 
-    /**
-     * Mutator for overview - Clean HTML
-     */
     public function setOverviewAttribute($value)
     {
         $this->attributes['overview'] = !empty($value) ? HtmlHelper::clean($value) : $value;
     }
 
-    /**
-     * Mutator for career_titles - Clean HTML
-     */
     public function setCareerTitlesAttribute($value)
     {
         $this->attributes['career_titles'] = !empty($value) ? HtmlHelper::clean($value) : $value;
     }
 
-    /**
-     * Mutator for career_places - Clean HTML
-     */
     public function setCareerPlacesAttribute($value)
     {
         $this->attributes['career_places'] = !empty($value) ? HtmlHelper::clean($value) : $value;
     }
 
-    /**
-     * Mutator for benefits - Clean HTML
-     */
     public function setBenefitsAttribute($value)
     {
         $this->attributes['benefits'] = !empty($value) ? HtmlHelper::clean($value) : $value;
     }
 
-    /**
-     * Mutator for content - Clean HTML
-     */
     public function setContentAttribute($value)
     {
         $this->attributes['content'] = !empty($value) ? HtmlHelper::clean($value) : $value;
     }
 
-    /**
-     * Get candidates for this major
-     */
     public function candidates()
     {
         return $this->hasMany(Candidate::class);
+    }
+    public function departmentRel()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 }

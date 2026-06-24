@@ -51,9 +51,9 @@ class MajorResource extends Resource
                                     ->required()
                                     ->unique(ignoreRecord: true),
 
-                                Forms\Components\Select::make('department')
+                                Forms\Components\Select::make('department_id')
                                 ->label('Thuộc Khoa / Tổ bộ môn')
-                                ->options(fn () => \App\Models\Department::where('type', 'khoa')->pluck('name', 'name'))
+                                ->relationship('departmentRel', 'name', fn ($query) => $query->where('type', 'khoa'))
                                 ->searchable()
                                 ->preload()
                                 ->placeholder('Chọn một Khoa đã tạo...')
@@ -80,12 +80,14 @@ class MajorResource extends Resource
                             FileUpload::make('image')
                                 ->label('Ảnh Bìa (Banner to trên cùng)')
                                 ->image()
-                                ->directory('majors'),
+                                ->directory('majors')
+                                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg']),
 
                             FileUpload::make('intro_image')
                                 ->label('Ảnh Giới thiệu (Ảnh bên phải phần Intro)')
                                 ->image()
                                 ->directory('majors/intro')
+                                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg'])
                                 ->helperText('Nên chọn ảnh chân dung sinh viên hoặc ảnh tách nền'),
                         ]),
 
@@ -103,6 +105,7 @@ class MajorResource extends Resource
                                     ->reorderable()
                                     ->maxFiles(3)
                                     ->directory('majors/gallery')
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg'])
                                     ->columnSpanFull(),
                             ])->collapsible(),
 
@@ -114,6 +117,7 @@ class MajorResource extends Resource
                                         ->label('Ảnh minh họa (Bên trái)')
                                         ->image()
                                         ->directory('majors/why_us')
+                                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg'])
                                         ->columnSpan(1),
 
                                     Forms\Components\Repeater::make('why_us_reasons')
@@ -185,6 +189,7 @@ class MajorResource extends Resource
                                         ->label('Ảnh minh họa (Làm gì)')
                                         ->image()
                                         ->directory('majors/career')
+                                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg'])
                                         ->columnSpan(1),
                                     RichEditor::make('career_titles')
                                         ->label('Danh sách nghề nghiệp')
@@ -199,6 +204,7 @@ class MajorResource extends Resource
                                         ->label('Ảnh minh họa (Ở đâu)')
                                         ->image()
                                         ->directory('majors/career')
+                                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg'])
                                         ->columnSpan(1),
                                 ]),
                             ])->collapsible(),
@@ -211,7 +217,10 @@ class MajorResource extends Resource
                                     ->schema([
                                         Grid::make(2)->schema([
                                             TextInput::make('title')->label('Tên giai đoạn')->required(),
-                                            FileUpload::make('image')->label('Ảnh minh họa')->directory('majors/roadmap'),
+                                            FileUpload::make('image')
+                                                ->label('Ảnh minh họa')
+                                                ->directory('majors/roadmap')
+                                                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/jpg']),
                                         ]),
                                         Textarea::make('description')->label('Mô tả')->rows(2)->columnSpanFull(),
                                     ])
@@ -285,7 +294,9 @@ class MajorResource extends Resource
             ->columns([
                 ImageColumn::make('image')->label('Banner'),
                 TextColumn::make('name')->label('Tên ngành')->searchable()->sortable(),
-                TextColumn::make('department')->label('Khoa')->toggleable(isToggledHiddenByDefault: true),
+                
+                TextColumn::make('departmentRel.name')->label('Khoa')->toggleable(isToggledHiddenByDefault: true),
+                
                 TextColumn::make('duration')->label('Thời gian'),
                 ToggleColumn::make('is_active')->label('Hiển thị'),
                 TextColumn::make('created_at')->label('Ngày tạo')->date('d/m/Y'),

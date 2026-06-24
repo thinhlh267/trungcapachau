@@ -18,26 +18,23 @@ class BannerResource extends Resource
 {
     protected static ?string $model = Banner::class;
 
-    // --- CẤU HÌNH TIẾNG VIỆT CHO MENU ---
     protected static ?string $navigationLabel = 'Banner tĩnh';
     protected static ?string $modelLabel = 'Banner';
     protected static ?string $pluralModelLabel = 'Quản lý Banner';
-    protected static ?string $navigationIcon = 'heroicon-o-photo'; // Icon hình ảnh
+    protected static ?string $navigationIcon = 'heroicon-o-photo'; 
     // -------------------------------------
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                // Khu vực upload ảnh
                 FileUpload::make('image')
                     ->label('Ảnh Banner')
-                    ->image() // Chỉ nhận file ảnh
+                    ->image() 
                     ->directory('banners') // Lưu vào thư mục 'banners' trong storage
-                    ->required() // Bắt buộc phải có
+                    ->required() 
                     ->columnSpanFull(), // Cho khung upload to hết chiều ngang
                 
-                // Nút bật/tắt hiển thị
                 Toggle::make('is_active')
                     ->label('Hiển thị ngay?')
                     ->default(true),

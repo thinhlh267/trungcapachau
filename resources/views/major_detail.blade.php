@@ -25,7 +25,7 @@
             <div class="flex-1 relative z-10 space-y-6">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-1 bg-green-500 rounded-full"></div>
-                    <span class="uppercase tracking-widest text-sm font-bold text-gray-500">{{ $major->department ?? 'Khoa Đào Tạo' }}</span>
+                    <span class="uppercase tracking-widest text-sm font-bold text-gray-500">{{ optional($major->departmentRel)->name ?? 'Khoa Đào Tạo' }}</span>
                 </div>
                 <h2 class="text-3xl md:text-5xl font-extrabold text-blue-900 leading-tight text-balance">{{ $major->name }}</h2>
                 <div class="text-gray-600 text-lg leading-relaxed text-justify prose prose-blue max-w-none">
@@ -375,7 +375,7 @@
 
         {{-- 7. ĐIỂM NỔI BẬT --}}
         @if(!empty($major->program_advantages))
-        <div class="mb-24 mt-24">
+        <div class="mt-16 mb-12">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-extrabold text-blue-900 leading-tight">
@@ -410,7 +410,7 @@
     </div> {{-- KẾT THÚC DIV CONTAINER MAX-W-7XL --}}
 
     {{-- 8. FORM ĐĂNG KÝ (NẰM NGOÀI CONTAINER ĐỂ FULL WIDTH, NHƯNG VẪN TRONG MAIN) --}}
-    <section id="dang-ky" class="relative py-16 md:py-24 bg-blue-900 text-white overflow-hidden mt-24">
+    <section id="dang-ky" class="relative py-16 md:py-24 bg-blue-900 text-white overflow-hidden">
         
         {{-- Background Effects --}}
         <div class="absolute inset-0 opacity-10" 
@@ -442,7 +442,7 @@
                         </h2>
                         
                         <p class="text-blue-100 text-lg font-light leading-relaxed">
-                            Điền thông tin để nhận tư vấn lộ trình và <span class="text-white font-bold border-b border-yellow-400">ưu đãi học phí 30%</span> ngay hôm nay.
+                            Điền thông tin để nhận tư vấn lộ trình và <span class="text-white font-bold border-b border-yellow-400">ưu đãi học phí 100% </span> ngay hôm nay.
                         </p>
                     </div>
 

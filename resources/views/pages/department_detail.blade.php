@@ -65,7 +65,7 @@
                     {{-- Xử lý text để dù admin nhập plain text vẫn dễ đọc --}}
                     <div class="custom-content text-gray-700 leading-[1.8] text-[15px] text-justify">
                         @if($department->content)
-                            {!! \App\Helpers\HtmlHelper::rich($department->content) !!}
+                            {!! $department->content !!}
                         @elseif($department->description)
                             {!! nl2br(e($department->description)) !!}
                         @else
@@ -233,7 +233,6 @@
     .custom-content b, 
     .custom-content strong {
         font-weight: 700 !important;
-        color: #1e3a8a; /* Cho chữ in đậm có màu xanh đen quyền lực giống ảnh của bạn */
     }
     .custom-content i, 
     .custom-content em {
@@ -251,7 +250,6 @@
     .custom-content h5, 
     .custom-content h6 {
         font-weight: 800 !important;
-        color: #1e3a8a; /* Màu xanh của trường */
         margin-top: 1.5rem;
         margin-bottom: 0.75rem;
         line-height: 1.3;
