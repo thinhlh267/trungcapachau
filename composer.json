@@ -2,9 +2,6 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
     "require": {
         "php": "^8.3",
         "amidesfahani/filament-tinyeditor": "^3.0",
@@ -13,7 +10,7 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "mews/purifier": "^3.4",
-        "spatie/laravel-backup": "*",
+        "spatie/laravel-backup": "^9.4",
         "spatie/laravel-sitemap": "^7.3"
     },
     "require-dev": {
@@ -26,33 +23,6 @@
         "nunomaduro/collision": "^8.6",
         "phpunit/phpunit": "^11.5.3"
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        },
-        "files": [
-            "app/Helpers/HtmlHelper.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
-        ]
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -62,11 +32,8 @@
             "php-http/discovery": true
         },
         "platform": {
-            "ext-zip": "8.2.0",
-            "ext-intl": "8.2.0"
+            "php": "8.3.32"
         },
         "secure-http": false
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    }
 }
