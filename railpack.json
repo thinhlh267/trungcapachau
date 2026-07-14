@@ -1,3 +1,4 @@
 {
-  "phpExtensions": ["php82-intl", "php82-zip", "php82-gd"]
+  "phpExtensions": ["php82-intl", "php82-zip", "php82-gd"],
+  "aptPackages": ["composer"]
 }
