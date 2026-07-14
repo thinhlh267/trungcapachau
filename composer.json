@@ -32,9 +32,9 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
-    "files": [
-        "app/Helpers/HtmlHelper.php"
-    ]
+        "files": [
+            "app/Helpers/HtmlHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -83,7 +83,7 @@
             "dont-discover": []
         }
     },
-"config": {
+    "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
@@ -91,4 +91,7 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
