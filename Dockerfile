@@ -29,14 +29,20 @@ RUN docker-php-ext-install \
 WORKDIR /app
 COPY . /app
 
-# 3. Cài đặt dependencies (PHP và JS)
-# Chạy composer trước
+# Cài đặt Node.js và NPM
+RUN apk add --no-cache nodejs npm
+
+# Cài đặt PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs
 
-# Cài đặt JS và build Vite (Giải quyết lỗi Vite manifest not found)
-RUN npm install && npm run build
+# Cài đặt Node dependencies và BUILD Vite
+RUN npm install
+RUN npm run build
 
-# 4. Phân quyền (Để Laravel có thể ghi file log/cache)
+# Xóa node_modules để giảm dung lượng image
+RUN rm -rf node_modules
+
+# Phân quyền cho storage và cache
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
     chmod -R 775 /app/storage /app/bootstrap/cache
 
