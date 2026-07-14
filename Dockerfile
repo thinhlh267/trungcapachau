@@ -1,34 +1,45 @@
-FROM php:8.3-cli-alpine
+# Sử dụng image có cả PHP
+FROM php:8.3-fpm-alpine
 
-# 1. Cài đặt các thư viện hệ thống cần thiết
+# 1. Cài đặt các thư viện hệ thống (bao gồm Node.js để build Vite)
 RUN apk add --no-cache \
     libzip-dev \
     icu-dev \
     libpng-dev \
     libxml2-dev \
+    libmbstring \
+    oniguruma-dev \
+    git \
     composer \
-    git
+    nodejs \
+    npm
 
-# 2. Cài đặt các extension PHP cần thiết (Đặc biệt là pdo_mysql)
-# Đây là bước quan trọng nhất để sửa lỗi "Class PDO not found"
+# 2. Cài đặt các extension PHP cần thiết (gộp một lần để tối ưu layer)
 RUN docker-php-ext-install \
     zip \
     intl \
     pdo \
     pdo_mysql \
     bcmath \
-    gd
+    gd \
+    mbstring \
+    pcntl
 
 # Thiết lập thư mục làm việc
-COPY . /app
 WORKDIR /app
+COPY . /app
 
-# 3. Cài đặt thư viện
-# Chúng ta dùng --no-scripts để tránh lỗi package:discover khi chưa sẵn sàng
-# Sau đó sẽ chạy artisan sau nếu cần
+# 3. Cài đặt dependencies (PHP và JS)
+# Chạy composer trước
 RUN composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs
 
-# Khởi động ứng dụng
-CMD php -S 0.0.0.0:8080 -t public
+# Cài đặt JS và build Vite (Giải quyết lỗi Vite manifest not found)
+RUN npm install && npm run build
 
-RUN docker-php-ext-install pdo pdo_mysql tokenizer session mbstring intl zip
+# 4. Phân quyền (Để Laravel có thể ghi file log/cache)
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
+    chmod -R 775 /app/storage /app/bootstrap/cache
+
+# 5. Khởi động ứng dụng bằng PHP built-in server
+EXPOSE 8080
+CMD php -S 0.0.0.0:8080 -t public
