@@ -91,9 +91,4 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         },
-        "platform": {
-            "ext-intl": "8.2.0",
-            "ext-zip": "1.21.0",
-            "ext-gd": "8.2.0"
-        }
     },
