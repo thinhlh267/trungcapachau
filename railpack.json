@@ -1,4 +1,5 @@
 {
-  "phpExtensions": ["intl", "zip", "gd"],
-  "buildPackages": ["composer"]
+  "phpExtensions": ["intl", "zip", "gd", "bcmath", "mbstring", "xml", "curl"],
+  "buildPackages": ["composer"],
+  "installCommand": "composer install --no-dev --optimize-autoloader"
 }
