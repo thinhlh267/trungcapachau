@@ -30,3 +30,5 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts --ignore-platfo
 
 # Khởi động ứng dụng
 CMD php -S 0.0.0.0:8080 -t public
+
+RUN docker-php-ext-install pdo pdo_mysql tokenizer session mbstring intl zip
