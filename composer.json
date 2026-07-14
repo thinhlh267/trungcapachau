@@ -63,9 +63,9 @@
         },
         "platform": {
             "php": "8.3.32",
-            "ext-zip": "*",
-            "ext-intl": "*",
-            "ext-pcntl": "*"
+            "ext-zip": "1.22.3",
+            "ext-intl": "3.0.0",
+            "ext-pcntl": "8.3.32"
         },
         "secure-http": false
     },
