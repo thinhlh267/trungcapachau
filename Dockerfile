@@ -1,15 +1,17 @@
 FROM php:8.3-cli-alpine
 
-# Cài đặt thư viện hệ thống và các extension PHP cần thiết
-RUN apk add --no-cache libzip-dev icu-dev composer git \
-    && docker-php-ext-install zip intl tokenizer session
+# Chỉ cài đặt những gói hệ thống cần thiết (zip và intl)
+RUN apk add --no-cache libzip-dev icu-dev composer git
 
-# Copy mã nguồn vào
+# Cài đặt extension cần thiết (tokenizer & session là mặc định, không cần cài)
+RUN docker-php-ext-install zip intl
+
+# Cấu hình làm việc
 COPY . /app
 WORKDIR /app
 
-# Cài đặt thư viện PHP
+# Cài đặt dependency
 RUN composer install --no-dev --optimize-autoloader
 
-# Lệnh khởi động ứng dụng
+# Khởi động web server
 CMD php -S 0.0.0.0:8080 -t public
