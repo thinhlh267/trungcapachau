@@ -126,10 +126,11 @@
                         @if(is_array($post->content))
                             @foreach($post->content as $block)
                                 @if($block['type'] === 'doan_van')
-                                    <div class="mb-4">{!! \App\Helpers\HtmlHelper::clean($block['data']['noi_dung']) !!}</div>
+                                    {{-- ĐÃ SỬA: Loại bỏ HtmlHelper::clean để hiển thị HTML định dạng thật --}}
+                                    <div class="mb-4">{!! $block['data']['noi_dung'] !!}</div>
                                 @elseif($block['type'] === 'hinh_anh')
                                     <figure class="my-6">
-                                        <img src="{{ asset('storage/' . $block['data']['url']) }}" alt="{{ $block['data']['chu_thich'] }}" class="rounded-lg shadow">
+                                        <img src="{{ asset('storage/' . $block['data']['url']) }}" alt="{{ $block['data']['chu_thich'] ?? '' }}" class="rounded-lg shadow">
                                         @if(!empty($block['data']['chu_thich']))
                                             <figcaption class="text-center text-sm text-gray-500 italic mt-2">{{ $block['data']['chu_thich'] }}</figcaption>
                                         @endif
@@ -137,7 +138,8 @@
                                 @endif
                             @endforeach
                         @else
-                            {!! \App\Helpers\HtmlHelper::clean($post->content) !!}
+                            {{-- ĐÃ SỬA: Loại bỏ HtmlHelper::clean ở phần dự phòng --}}
+                            {!! $post->content !!}
                         @endif
                     </div>
 
