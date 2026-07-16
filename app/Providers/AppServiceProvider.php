@@ -5,11 +5,12 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Route; // <--- THÊM DÒNG NÀY ĐỂ SỬA LỖI
+use Illuminate\Support\Facades\Route; 
 use App\Models\Major;
 use App\Models\AdmissionCategory;
 use App\Models\Department;
 use Illuminate\Support\Facades\App; 
+use Filament\Forms\Components\RichEditor; // <--- THÊM DÒNG NÀY ĐỂ CẤU HÌNH TRÌNH SOẠN THẢO
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,31 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // --- CẤU HÌNH RICH EDITOR ĐẦY ĐỦ CHO FILAMENT V3 ---
+        RichEditor::configureUsing(function (RichEditor $component) {
+            $component->toolbarButtons([
+                'h1',             // Tiêu đề chính 1
+                'h2',             // Tiêu đề phụ 2
+                'h3',             // Tiêu đề phụ 3
+                'bold',           // In đậm
+                'italic',         // In nghiêng
+                'underline',      // Gạch chân (Tính năng cực kỳ cần thiết)
+                'strike',         // Gạch ngang
+                'bulletList',     // Danh sách chấm tròn
+                'orderedList',    // Danh sách số 1, 2, 3
+                'link',           // Chèn link liên kết
+                'blockquote',     // Khối trích dẫn nổi bật
+                'codeBlock',      // Khối mã code (nếu cần)
+                'attachFiles',    // Kéo thả và đính kèm tệp trực tiếp
+                'alignLeft',      // Căn trái
+                'alignCenter',    // Căn giữa
+                'alignRight',     // Căn phải
+                'alignJustify',   // Căn đều 2 bên (Trông cực kỳ trang trọng)
+                'undo',           // Hoàn tác
+                'redo',           // Làm lại
+            ]);
+        });
+
         // --- CHỈ TẠO SYMLINK KHI CHẠY Ở PRODUCTION ---
         if (\Illuminate\Support\Facades\App::environment('production')) {
             if (!file_exists(public_path('storage'))) {
