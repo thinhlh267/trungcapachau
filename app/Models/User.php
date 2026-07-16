@@ -6,8 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser; // <--- THÊM DÒNG NÀY
+use Filament\Panel; // <--- THÊM DÒNG NÀY
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser // <--- THÊM "implements FilamentUser"
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -44,5 +46,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * CẤP QUYỀN TRUY CẬP VÀO FILAMENT ADMIN PANEL
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Cho phép email của bác truy cập
+        return $this->email === 'lehoangthinh2233@gmail.com';
+        
+        // Hoặc nếu muốn cho phép tất cả user trong bảng users đều được vào:
+        // return true;
     }
 }
