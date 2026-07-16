@@ -76,12 +76,6 @@ class PostResource extends Resource
                                     ->schema([
                                         RichEditor::make('noi_dung')
                                             ->label('Nội dung văn bản')
-                                            ->toolbarButtons([
-                                                'bold', 'italic', 'underline', 'strike',
-                                                'bulletList', 'orderedList', 
-                                                'link', 'h2', 'h3', 'blockquote',
-                                                'undo', 'redo',
-                                            ]) // Bỏ nút ảnh vì dùng khối ảnh riêng
                                             ->required(),
                                     ]),
 
