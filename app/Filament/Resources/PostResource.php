@@ -20,7 +20,7 @@ use Filament\Forms\Components\Builder as ContentBuilder;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use AmidEsfahani\FilamentTinyEditor\TinyEditor; // Đã import chính xác class TinyEditor
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 
 class PostResource extends Resource
 {
@@ -70,14 +70,14 @@ class PostResource extends Resource
                         ContentBuilder::make('content')
                             ->label('Soạn thảo nội dung (Thêm từng khối)')
                             ->blocks([
-                                // 1. KHỐI ĐOẠN VĂN (ĐÃ NÂNG CẤP LÊN TINYEDITOR ĐẦY ĐỦ TÍNH NĂNG)
+                                // 1. KHỐI ĐOẠN VĂN (ĐÃ ĐỔI SANG TINYEDITOR CẤU HÌNH FULL)
                                 ContentBuilder\Block::make('doan_van')
                                     ->label('Đoạn văn bản')
                                     ->schema([
                                         TinyEditor::make('noi_dung')
                                             ->label('Nội dung văn bản')
-                                            ->showMenuBar() // Hiển thị thanh File/Edit/Insert/Format/Table phía trên cùng
-                                            ->toolbar('undo redo | blocks | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | link table code fullscreen') // Bộ công cụ soạn thảo đầy đủ
+                                            ->showMenuBar() // Hiển thị thanh menu File/Edit/Insert/Format... phía trên cùng
+                                            ->profile('full') // Kích hoạt bộ công cụ đầy đủ: Màu chữ, bảng biểu, căn lề, kích thước...
                                             ->required(),
                                     ]),
 
@@ -111,7 +111,7 @@ class PostResource extends Resource
                             ->directory('posts')
                             ->columnSpanFull(),
 
-                        // Chú thích ảnh thumbnail (MỚI)
+                        // Chú thích ảnh thumbnail
                         TextInput::make('image_caption')
                             ->label('Chú thích ảnh đại diện')
                             ->placeholder('Nhập chú thích cho ảnh bìa...')
