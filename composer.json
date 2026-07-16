@@ -7,8 +7,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "ext-dom": "*",
-        "ext-xml": "*",
         "amidesfahani/filament-tinyeditor": "^3.0",
         "filament/filament": "^3.2",
         "intervention/image": "^3.11",
@@ -67,9 +65,7 @@
             "php": "8.3.32",
             "ext-zip": "1.22.3",
             "ext-intl": "3.0.0",
-            "ext-pcntl": "8.3.32",
-            "ext-dom": "8.3.32",
-            "ext-xml": "8.3.32"
+            "ext-pcntl": "8.3.32"
         },
         "secure-http": false
     },
