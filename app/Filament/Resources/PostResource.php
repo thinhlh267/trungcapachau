@@ -12,7 +12,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
@@ -21,6 +20,7 @@ use Filament\Forms\Components\Builder as ContentBuilder;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use AmidEsfahani\FilamentTinyEditor\TinyEditor; // Đã import chính xác class TinyEditor
 
 class PostResource extends Resource
 {
@@ -70,12 +70,14 @@ class PostResource extends Resource
                         ContentBuilder::make('content')
                             ->label('Soạn thảo nội dung (Thêm từng khối)')
                             ->blocks([
-                                // 1. KHỐI ĐOẠN VĂN
+                                // 1. KHỐI ĐOẠN VĂN (ĐÃ NÂNG CẤP LÊN TINYEDITOR ĐẦY ĐỦ TÍNH NĂNG)
                                 ContentBuilder\Block::make('doan_van')
                                     ->label('Đoạn văn bản')
                                     ->schema([
-                                        RichEditor::make('noi_dung')
+                                        TinyEditor::make('noi_dung')
                                             ->label('Nội dung văn bản')
+                                            ->showMenuBar() // Hiển thị thanh File/Edit/Insert/Format/Table phía trên cùng
+                                            ->toolbar('undo redo | blocks | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | link table code fullscreen') // Bộ công cụ soạn thảo đầy đủ
                                             ->required(),
                                     ]),
 
