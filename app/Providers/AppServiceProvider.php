@@ -5,10 +5,11 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Route; // <--- THÊM DÒNG NÀY ĐỂ SỬA LỖI
 use App\Models\Major;
 use App\Models\AdmissionCategory;
 use App\Models\Department;
-use Illuminate\Support\Facades\App; // Thêm dòng này
+use Illuminate\Support\Facades\App; 
 
 class AppServiceProvider extends ServiceProvider
 {
