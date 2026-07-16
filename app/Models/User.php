@@ -52,19 +52,7 @@ class User extends Authenticatable implements FilamentUser // <-- Thêm implemen
      * Xác thực quyền truy cập vào trang quản trị Filament trên Production
      */
     public function canAccessPanel(Panel $panel): bool
-    {
-        // Nếu chạy ở môi trường phát triển (Local), cho phép mọi tài khoản đăng nhập
-        if (app()->environment('local')) {
-            return true;
-        }
-
-        // Trên Production (Railway), chỉ cho phép các email được chỉ định truy cập.
-        // Bạn hãy thay thế các email dưới đây bằng email admin thật của bạn nhé:
-        $allowedEmails = [
-            'admin@gmail.com',
-            'your-email@domain.com', // Thay bằng email thật của bạn
-        ];
-
-        return in_array($this->email, $allowedEmails);
-    }
+{
+    return true; 
+}
 }
