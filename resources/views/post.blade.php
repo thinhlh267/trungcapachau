@@ -11,7 +11,8 @@
     .post-content img { border-radius: 0.75rem; margin: 1.5rem auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); width: 100%; height: auto; }
     .post-content blockquote { font-style: italic; background: #eff6ff; padding: 1rem 1.5rem; border-left: 4px solid #3b82f6; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
     
-    /* Sticky Sidebar Fix - Ghim mép trên cách thanh header 100px */
+    /* Tách biệt 2 vùng Sticky để trình duyệt render độc lập */
+    .sticky-leftbar { position: sticky; top: 120px; }
     .sticky-sidebar { position: sticky; top: 100px; }
     
     /* Vertical Text for Share Bar */
@@ -20,7 +21,7 @@
 
 <div class="bg-[#f8fafc] min-h-screen pb-20 font-bevietnam">
     
-    {{-- 1. HERO HEADER (Nới rộng lên khung 1600px cực đại) --}}
+    {{-- 1. HERO HEADER --}}
     <div class="relative bg-blue-900 py-12">
         <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
         <div class="max-w-[1600px] mx-auto px-6 relative z-10">
@@ -39,14 +40,14 @@
         </div>
     </div>
 
-    {{-- 2. MAIN LAYOUT (max-w-[1600px] đẩy 2 thanh công cụ bung ra 2 rìa màn hình lớn) --}}
+    {{-- 2. MAIN LAYOUT (max-w-[1600px] nới cực rộng) --}}
     <main class="max-w-[1600px] mx-auto px-6 py-10">
-        {{-- Sử dụng hệ 12 cột với gap rộng (gap-10) để các phần không bị dính vào nhau khi dạt ra biên --}}
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             
-            {{-- CỘT TRÁI: THANH CÔNG CỤ CHIA SẺ (Sát rìa trái) --}}
-            <div class="hidden lg:block lg:col-span-1">
-                <div class="sticky-sidebar flex flex-col gap-6 items-center">
+            {{-- CỘT TRÁI: THANH CÔNG CỤ SHARING (Sticky-leftbar) --}}
+            <div class="hidden lg:block lg:col-span-1 lg:h-full">
+                {{-- SỬA: Đổi từ sticky-sidebar thành sticky-leftbar để tránh xung đột layout --}}
+                <div class="sticky-leftbar flex flex-col gap-6 items-center">
                     <div class="w-8 h-[1px] bg-gray-200"></div>
 
                     {{-- Công cụ đọc (A+ / A-) --}}
@@ -81,9 +82,9 @@
                 </div>
             </div>
 
-            {{-- CỘT GIỮA: NỘI DUNG BÀI VIẾT (Tăng diện tích lên 8/12 cột cực kỳ rộng rãi) --}}
+            {{-- CỘT GIỮA: NỘI DUNG BÀI VIẾT (8/12) --}}
             <div class="lg:col-span-8">
-                <div class="bg-white p-6 md:p-12 rounded-2xl shadow-sm border border-gray-100 h-fit mb-8">
+                <div id="article-main" class="bg-white p-6 md:p-12 rounded-2xl shadow-sm border border-gray-100 h-fit mb-8">
                     
                     {{-- Ảnh đại diện bài viết --}}
                     @if($post->image)
@@ -172,7 +173,7 @@
                 @endif
             </div>
 
-            {{-- CỘT PHẢI (SIDEBAR): Đẩy sang sát rìa phải (Chiếm 3/12 phần diện tích) --}}
+            {{-- CỘT PHẢI (SIDEBAR): Chiếm 3/12 phần diện tích --}}
             <div class="lg:col-span-3 lg:h-full">
                 
                 {{-- Toàn bộ 3 khối nằm trong cụm .sticky-sidebar sẽ đồng hành trượt cùng nhau cực chuẩn --}}
@@ -329,16 +330,23 @@
         content.style.fontSize = currentFontSize + 'px';
     }
 
+    // TỐI ƯU TOÀN DIỆN: Thuật toán tính phần trăm đọc bám theo container `#article-main` chuẩn xác
     window.addEventListener('scroll', function() {
-        const article = document.querySelector('.post-content');
+        const article = document.getElementById('article-main');
         if (article) {
             const box = article.getBoundingClientRect();
             const totalHeight = box.height;
             const windowHeight = window.innerHeight;
             
-            const scrollPos = -box.top + (windowHeight / 2); 
+            // Tính toán vị trí đọc thực tế từ lúc đỉnh bài viết xuất hiện đến khi khuất màn hình
+            const scrollStart = box.top; 
+            const scrollDistance = totalHeight - windowHeight;
             
-            let percent = (scrollPos / totalHeight) * 100;
+            let percent = 0;
+            if (scrollStart < 0) {
+                percent = (-scrollStart / (totalHeight - (windowHeight / 1.5))) * 100;
+            }
+            
             if (percent < 0) percent = 0;
             if (percent > 100) percent = 100;
 
