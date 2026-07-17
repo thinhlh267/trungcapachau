@@ -11,7 +11,7 @@
     .post-content img { border-radius: 0.75rem; margin: 1.5rem auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); width: 100%; height: auto; }
     .post-content blockquote { font-style: italic; background: #eff6ff; padding: 1rem 1.5rem; border-left: 4px solid #3b82f6; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
     
-    /* Sticky Sidebar Fix */
+    /* Sticky Sidebar Fix - Ghim mép trên cách thanh header 100px */
     .sticky-sidebar { position: sticky; top: 100px; }
     
     /* Vertical Text for Share Bar */
@@ -20,10 +20,10 @@
 
 <div class="bg-[#f8fafc] min-h-screen pb-20 font-bevietnam">
     
-    {{-- 1. COMPACT HERO HEADER --}}
+    {{-- 1. HERO HEADER (Nới rộng lên max-w-[1440px]) --}}
     <div class="relative bg-blue-900 py-12">
         <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <div class="max-w-[1440px] mx-auto px-6 relative z-10">
             <div class="text-sm text-blue-200 mb-3 flex items-center gap-2">
                 <a href="/" class="hover:text-white transition">Trang chủ</a> / 
                 <a href="/tin-tuc" class="hover:text-white transition">Tin tức</a> /
@@ -39,70 +39,55 @@
         </div>
     </div>
 
-    {{-- 2. MAIN LAYOUT (GRID) --}}
-    <main class="max-w-7xl mx-auto px-4 py-10">
-        {{-- THAY ĐỔI: Thêm items-start để các cột độc lập khi cuộn sticky --}}
+    {{-- 2. MAIN LAYOUT (Tăng max-w từ 7xl lên 1440px giúp giảm vùng trống 2 bên) --}}
+    <main class="max-w-[1440px] mx-auto px-6 py-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {{-- CỘT TRÁI: THANH CÔNG CỤ (Sticky) - Chiếm 1/12 cột --}}
+            {{-- CỘT TRÁI: THANH CÔNG CỤ (Sticky) --}}
             <div class="hidden lg:block lg:col-span-1">
                 <div class="sticky-sidebar flex flex-col gap-6 items-center">
-
                     <div class="w-8 h-[1px] bg-gray-200"></div>
 
-                    {{-- 2. Công cụ đọc (A+ / A-) --}}
+                    {{-- Công cụ đọc (A+ / A-) --}}
                     <div class="flex flex-col gap-2">
-                        <button onclick="adjustFontSize(1)" class="w-10 h-10 rounded-full bg-gray-50 text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition flex items-center justify-center font-bold shadow-sm tooltip" title="Tăng cỡ chữ">
+                        <button onclick="adjustFontSize(1)" class="w-10 h-10 rounded-full bg-white text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition flex items-center justify-center font-bold shadow-sm" title="Tăng cỡ chữ">
                             A+
                         </button>
-                        <button onclick="adjustFontSize(-1)" class="w-10 h-10 rounded-full bg-gray-50 text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition flex items-center justify-center font-bold text-xs shadow-sm tooltip" title="Giảm cỡ chữ">
+                        <button onclick="adjustFontSize(-1)" class="w-10 h-10 rounded-full bg-white text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition flex items-center justify-center font-bold text-xs shadow-sm" title="Giảm cỡ chữ">
                             A-
                         </button>
                     </div>
 
                     <div class="w-8 h-[1px] bg-gray-200"></div>
 
-                    {{-- 3. Các nút Share & Copy Link --}}
+                    {{-- Nút Share & Copy Link --}}
                     <div class="flex flex-col gap-3">
                         <span class="text-[10px] font-bold text-gray-400 uppercase vertical-text mb-1">Chia sẻ</span>
-                        
-                        {{-- Facebook --}}
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-blue-600 hover:bg-blue-600 hover:text-white transition flex items-center justify-center shadow-sm tooltip" title="Chia sẻ Facebook">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-blue-600 hover:bg-blue-600 hover:text-white transition flex items-center justify-center shadow-sm">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-
-                        {{-- Zalo --}}
-                        <a href="https://zalo.me/share/?url={{ urlencode(request()->fullUrl()) }}" target="_blank" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-blue-500 hover:bg-blue-500 hover:text-white transition flex items-center justify-center shadow-sm tooltip" title="Chia sẻ Zalo">
-                            <svg width="20" height="20" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M85.42 29.58C86.76 29.58 87.85 28.49 87.85 27.15C87.85 25.81 86.76 24.72 85.42 24.72H14.58C13.24 24.72 12.15 25.81 12.15 27.15C12.15 28.49 13.24 29.58 14.58 29.58H85.42ZM14.58 75.28H85.42C86.76 75.28 87.85 74.19 87.85 72.85C87.85 71.51 86.76 70.42 85.42 70.42H14.58C13.24 70.42 12.15 71.51 12.15 72.85C12.15 74.19 13.24 75.28 14.58 75.28ZM50 52.43C62.06 52.43 71.85 42.64 71.85 30.58H28.15C28.15 42.64 37.94 52.43 50 52.43ZM50 47.57C40.62 47.57 33 39.95 33 30.58H67C67 39.95 59.38 47.57 50 47.57Z" />
-                                <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" font-weight="bold" font-size="35" dy=".3em">Zalo</text>
-                            </svg>
-                        </a>
-
-                        {{-- Copy Link --}}
-                        <button onclick="copyToClipboard()" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-800 hover:text-white transition flex items-center justify-center shadow-sm relative group tooltip" title="Sao chép liên kết">
+                        <button onclick="copyToClipboard()" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-800 hover:text-white transition flex items-center justify-center shadow-sm relative group">
                             <i class="fas fa-link"></i>
                             <span id="copy-success" class="absolute left-full ml-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition pointer-events-none whitespace-nowrap">Đã chép!</span>
                         </button>
                     </div>
 
-                    {{-- 4. Thanh tiến trình đọc --}}
+                    {{-- Thanh tiến trình đọc --}}
                     <div class="h-24 w-1 bg-gray-200 rounded-full mt-4 relative overflow-hidden">
                         <div id="reading-progress" class="absolute top-0 left-0 w-full bg-blue-600 rounded-full transition-all duration-100" style="height: 0%"></div>
                     </div>
                     <span class="text-[10px] text-gray-400 font-bold" id="progress-text">0%</span>
-
                 </div>
             </div>
 
-            {{-- THAY ĐỔI: NỚI RỘNG CỘT GIỮA: NỘI DUNG BÀI VIẾT - Tăng từ lg:col-span-7 lên lg:col-span-8 --}}
+            {{-- CỘT GIỮA: NỘI DUNG BÀI VIẾT (8/12 phần - Đã nới rộng sang 2 bên) --}}
             <div class="lg:col-span-8">
                 <div class="bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-gray-100 h-fit mb-8">
                     
                     {{-- Ảnh đại diện bài viết --}}
                     @if($post->image)
                         <figure class="mb-8">
-                            <img src="{{ asset('storage/' . $post->image) }}" class="w-full h-auto rounded-xl shadow-md object-cover max-h-[500px]" alt="{{ $post->title }}">
+                            <img src="{{ asset('storage/' . $post->image) }}" class="w-full h-auto rounded-xl shadow-md object-cover max-h-[550px]" alt="{{ $post->title }}">
                             @if($post->image_caption)
                                 <figcaption class="text-center text-sm text-gray-500 italic mt-2 bg-gray-50 py-1 rounded">
                                     <i class="fas fa-camera mr-1"></i> {{ $post->image_caption }}
@@ -172,14 +157,12 @@
                                     <h4 class="text-lg font-bold text-gray-800 group-hover:text-blue-700 line-clamp-2 mb-2 transition leading-snug">
                                         {{ $related->title }}
                                     </h4>
-                                    
                                     <div class="flex items-center text-sm text-gray-500 gap-4 mb-2">
                                         <span class="flex items-center"><i class="far fa-calendar-alt mr-1.5 text-blue-400"></i> {{ $related->created_at->format('d/m/Y') }}</span>
                                         <span class="flex items-center text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
                                             {{ $related->category }}
                                         </span>
                                     </div>
-
                                     <p class="text-sm text-gray-600 line-clamp-2 hidden sm:block">
                                         {{ \Illuminate\Support\Str::limit(strip_tags(is_array($related->content) ? ($related->content[0]['data']['noi_dung'] ?? '') : $related->content), 120) }}
                                     </p>
@@ -191,118 +174,103 @@
                 @endif
             </div>
 
-            {{-- THAY ĐỔI: THU GỌN CỘT PHẢI (SIDEBAR) - Giảm từ lg:col-span-4 xuống lg:col-span-3 để nhường chỗ cho nội dung --}}
-            <div class="lg:col-span-3 space-y-8">
+            {{-- CỘT PHẢI (SIDEBAR): Chiếm 3/12 phần diện tích --}}
+            <div class="lg:col-span-3 lg:h-full">
                 
-                {{-- 1. FORM ĐĂNG KÝ --}}
-                <div id="sidebar-register" class="bg-white rounded-2xl shadow-xl border border-blue-100 overflow-hidden scroll-mt-24">
-                    <div class="bg-blue-900 p-5 text-center">
-                        <h3 class="text-lg font-extrabold text-white uppercase flex justify-center items-center gap-2">
-                            <i class="fas fa-edit text-yellow-400"></i> Đăng Ký Ngay
-                        </h3>
-                        <p class="text-blue-100 text-xs mt-1">Nhận tư vấn miễn phí trong 24h</p>
-                    </div>
+                {{-- SỬA ĐỔI QUAN TRỌNG: Bao bọc cả 3 khối độc lập vào div .sticky-sidebar để di chuyển đi cùng nhau --}}
+                <div class="sticky-sidebar space-y-6">
                     
-                    <div class="p-4 bg-white">
-                        @if(session('success'))
-                            <div class="mb-4 bg-green-50 border-l-4 border-green-500 text-green-800 p-3 rounded text-sm animate-pulse">
-                                <p class="font-bold"><i class="fas fa-check mr-1"></i> Gửi thành công!</p>
-                                <p>Chúng tôi sẽ liên hệ sớm nhất.</p>
-                            </div>
-                        @endif
+                    {{-- Khối 1: FORM ĐĂNG KÝ --}}
+                    <div id="sidebar-register" class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden scroll-mt-24">
+                        <div class="bg-blue-900 p-4 text-center">
+                            <h3 class="text-base font-extrabold text-white uppercase flex justify-center items-center gap-2">
+                                <i class="fas fa-edit text-yellow-400"></i> Đăng Ký Ngay
+                            </h3>
+                            <p class="text-blue-100 text-[11px] mt-0.5">Nhận tư vấn miễn phí trong 24h</p>
+                        </div>
+                        
+                        <div class="p-4 bg-white">
+                            @if(session('success'))
+                                <div class="mb-4 bg-green-50 border-l-4 border-green-500 text-green-800 p-3 rounded text-sm">
+                                    <p class="font-bold"><i class="fas fa-check mr-1"></i> Gửi thành công!</p>
+                                </div>
+                            @endif
 
-                        <form action="{{ route('candidate.store') }}" method="POST" class="space-y-4">
-                            @csrf 
-                            <input type="hidden" name="form_anchor" value="sidebar-register">
-                            <input type="hidden" name="note" value="Đăng ký từ bài viết: {{ $post->title }}">
-                            
-                            <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Họ và tên</label>
-                                <input type="text" name="name" required placeholder="Nhập họ tên..." 
-                                       class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-gray-50 text-gray-900 font-medium">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Số điện thoại</label>
-                                <input type="tel" name="phone" required placeholder="Nhập số điện thoại..." 
-                                       class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-gray-50 text-gray-900 font-medium">
-                            </div>
-                            
-                            <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-black py-2.5 rounded-lg transition shadow-md hover:shadow-lg uppercase tracking-wide flex justify-center items-center gap-2 text-xs mt-2">
-                                <i class="fas fa-paper-plane"></i> Gửi Yêu Cầu
-                            </button>
-                            
-                            <p class="text-[11px] text-center text-gray-400 flex justify-center items-center gap-1 mt-2">
-                                <i class="fas fa-shield-alt"></i> Thông tin bảo mật tuyệt đối
-                            </p>
-                        </form>
+                            <form action="{{ route('candidate.store') }}" method="POST" class="space-y-3.5">
+                                @csrf 
+                                <input type="hidden" name="form_anchor" value="sidebar-register">
+                                <input type="hidden" name="note" value="Đăng ký từ bài viết: {{ $post->title }}">
+                                
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1">Họ và tên</label>
+                                    <input type="text" name="name" required placeholder="Nhập họ tên..." 
+                                           class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-gray-50 text-gray-900 font-medium">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1">Số điện thoại</label>
+                                    <input type="tel" name="phone" required placeholder="Nhập số điện thoại..." 
+                                           class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-gray-50 text-gray-900 font-medium">
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-black py-2 rounded-lg transition shadow uppercase tracking-wide flex justify-center items-center gap-2 text-xs">
+                                    <i class="fas fa-paper-plane"></i> Gửi Yêu Cầu
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                {{-- 2. TIN MỚI NHẤT --}}
-                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-                    <h3 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center text-base">
-                        <span class="w-1.5 h-5 bg-red-600 mr-2 rounded-full"></span> Tin mới nhất
-                    </h3>
-                    <div class="space-y-4">
-                        @foreach($recentPosts as $recent)
-                        <a href="{{ route('post.detail', $recent->slug) }}" class="flex gap-3 group items-start">
-                            <div class="w-20 h-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 border border-gray-100">
-                                <img src="{{ $recent->image ? asset('storage/' . $recent->image) : 'https://via.placeholder.com/150' }}" 
-                                     class="w-full h-full object-cover group-hover:scale-110 transition duration-300" 
-                                     alt="{{ $recent->title }}">
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="text-xs font-bold text-gray-800 group-hover:text-blue-600 line-clamp-2 leading-snug transition mb-1">
-                                    {{ $recent->title }}
-                                </h4>
-                                <span class="text-[11px] text-gray-400 flex items-center">
-                                    <i class="far fa-clock mr-1"></i> {{ $recent->created_at->diffForHumans() }}
+                    {{-- Khối 2: TIN MỚI NHẤT --}}
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+                        <h3 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center text-base">
+                            <span class="w-1.5 h-5 bg-red-600 mr-2 rounded-full"></span> Tin mới nhất
+                        </h3>
+                        <div class="space-y-4">
+                            @foreach($recentPosts as $recent)
+                            <a href="{{ route('post.detail', $recent->slug) }}" class="flex gap-3 group items-start">
+                                <div class="w-16 h-12 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 border border-gray-100">
+                                    <img src="{{ $recent->image ? asset('storage/' . $recent->image) : 'https://via.placeholder.com/150' }}" 
+                                         class="w-full h-full object-cover group-hover:scale-110 transition duration-300" 
+                                         alt="{{ $recent->title }}">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-xs font-bold text-gray-700 group-hover:text-blue-600 line-clamp-2 leading-tight transition mb-0.5">
+                                        {{ $recent->title }}
+                                    </h4>
+                                    <span class="text-[10px] text-gray-400 flex items-center">
+                                        <i class="far fa-clock mr-1"></i> {{ $recent->created_at->diffForHumans() }}
+                                    </span>
+                                </div>
+                            </a>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Khối 3: BANNER TUYỂN SINH CŨ --}}
+                    <div>
+                        <a href="{{ route('page.register') }}" class="block rounded-2xl overflow-hidden shadow-md group relative h-[280px] bg-blue-900 text-white">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-800 to-blue-950 z-0"></div>
+                            <div class="absolute inset-0 opacity-20 z-0" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+                            
+                            <div class="relative z-10 h-full flex flex-col items-center justify-center p-5 text-center">
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-2 backdrop-blur-sm border border-white/20">
+                                    <i class="fas fa-graduation-cap text-xl text-yellow-400"></i>
+                                </div>
+                                <h3 class="text-lg font-black uppercase mb-1 leading-tight tracking-wide">
+                                    Tuyển Sinh <br>
+                                    <span class="text-yellow-400 text-xl mt-0.5 block">Năm 2026</span>
+                                </h3>
+                                <p class="text-[11px] text-blue-100 mb-4 max-w-[180px]">
+                                    Đăng ký ngay hôm nay để nhận học bổng lên đến 50%
+                                </p>
+                                <span class="px-6 py-2 bg-yellow-400 text-blue-900 rounded-full font-bold text-xs hover:bg-white hover:text-blue-800 transition shadow">
+                                    Xem chi tiết
                                 </span>
                             </div>
                         </a>
-                        @endforeach
                     </div>
-                </div>
 
-                {{-- 3. BANNER QUẢNG CÁO (STICKY) --}}
-                {{-- THAY ĐỔI: Sử dụng class `sticky-sidebar` có sẵn của bạn để biến khối banner này thành dạng trượt ghim dọc bài viết --}}
-                <div class="sticky-sidebar">
-                    <a href="{{ route('page.register') }}" class="block rounded-2xl overflow-hidden shadow-lg group relative h-[320px] bg-blue-900 text-white">
-                        
-                        {{-- 1. Lớp nền Gradient --}}
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-800 to-blue-950 z-0"></div>
-                        
-                        {{-- 2. Họa tiết trang trí --}}
-                        <div class="absolute inset-0 opacity-20 z-0" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
-                        
-                        {{-- 3. Nội dung chính --}}
-                        <div class="relative z-10 h-full flex flex-col items-center justify-center p-5 text-center">
-                            
-                            {{-- Icon mũ cử nhân --}}
-                            <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-3 backdrop-blur-sm border border-white/20 group-hover:scale-110 transition-transform duration-500">
-                                <i class="fas fa-graduation-cap text-2xl text-yellow-400"></i>
-                            </div>
-                            
-                            {{-- Tiêu đề --}}
-                            <h3 class="text-xl font-black uppercase mb-1 leading-tight tracking-wide">
-                                Tuyển Sinh <br>
-                                <span class="text-yellow-400 text-2xl mt-1 block">Năm 2026</span>
-                            </h3>
-                            
-                            {{-- Mô tả --}}
-                            <p class="text-xs text-blue-100 mb-5 font-medium max-w-[180px]">
-                                Đăng ký ngay hôm nay để nhận học bổng lên đến 50%
-                            </p>
-                            
-                            {{-- Nút bấm --}}
-                            <span class="px-6 py-2 bg-yellow-400 text-blue-900 rounded-full font-bold text-xs hover:bg-white hover:text-blue-800 transition shadow-lg transform group-hover:-translate-y-1">
-                                Xem chi tiết
-                            </span>
-                        </div>
-                    </a>
                 </div>
-
             </div>
 
         </div>
