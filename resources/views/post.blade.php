@@ -35,7 +35,6 @@
             <div class="flex flex-wrap items-center gap-6 text-blue-200 text-sm">
                 <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-yellow-400"></i> {{ $post->created_at->format('d/m/Y') }}</span>
                 <span class="flex items-center"><i class="fas fa-user-edit mr-2 text-yellow-400"></i> {{ $post->department ?? 'Ban Truyền Thông' }}</span>
-                <span class="flex items-center"><i class="fas fa-eye mr-2 text-yellow-400"></i> {{ $post->views ?? 0 }} lượt xem</span>
             </div>
         </div>
     </div>
@@ -47,14 +46,6 @@
             {{-- CỘT TRÁI: THANH CÔNG CỤ (Sticky) --}}
             <div class="hidden lg:block lg:col-span-1">
                 <div class="sticky-sidebar flex flex-col gap-6 items-center">
-                    
-                    {{-- 1. Thông tin tác giả (Thu gọn) --}}
-                    <div class="flex flex-col items-center gap-2 group cursor-default">
-                        <div class="w-12 h-12 rounded-full border-2 border-blue-100 overflow-hidden p-0.5">
-                            <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="w-full h-full rounded-full object-cover" alt="Author">
-                        </div>
-                        <span class="text-[10px] font-bold text-gray-400 uppercase text-center leading-tight">Đăng bởi<br><span class="text-blue-700">Ban TT</span></span>
-                    </div>
 
                     <div class="w-8 h-[1px] bg-gray-200"></div>
 
