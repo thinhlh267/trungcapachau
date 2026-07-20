@@ -11,7 +11,8 @@
         <div class="w-20 h-1 bg-yellow-500 mx-auto mt-4 relative z-10"></div>
     </div>
 
-    <main class="w-full max-w-7xl mx-auto px-4">
+    {{-- ĐÃ SỬA: Tăng max-w-7xl lên max-w-[1600px] và mở px-6 giúp đồng bộ giao diện cực rộng --}}
+    <main class="w-full max-w-[1600px] mx-auto px-6">
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($posts as $post)
@@ -58,9 +59,13 @@
                                         if ($block['type'] === 'doan_van') { $summary .= $block['data']['noi_dung'] . ' '; }
                                     }
                                 } else { $summary = $post->content; }
+
+                                // ĐÃ SỬA: Giải mã HTML entities 2 tầng để bóc sạch ký tự lạ
+                                $cleanSummary = html_entity_decode(html_entity_decode($summary, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
                             @endphp
+                            
                             <div class="text-sm text-gray-600 line-clamp-3 mb-4 text-justify">
-                                {{ Str::limit(App\Helpers\HtmlHelper::plain($summary), 120) }}
+                                {{ Str::limit(App\Helpers\HtmlHelper::plain($cleanSummary), 120) }}
                             </div>
 
                             <div class="mt-auto pt-4 border-t border-gray-100 flex items-center text-blue-600 font-semibold text-sm">

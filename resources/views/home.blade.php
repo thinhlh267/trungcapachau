@@ -16,7 +16,8 @@
 </div>
 
 <div class="relative w-full z-20 mt-8 mb-16 px-4">
-    <div class="max-w-6xl mx-auto">
+    {{-- ĐÃ SỬA: Tăng max-w-6xl lên max-w-[1600px] để đồng bộ khung rộng --}}
+    <div class="max-w-[1600px] mx-auto">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             
             {{-- 1. GIỚI THIỆU --}}
@@ -71,7 +72,8 @@
     </div>
 </div>
 
-<main class="w-full max-w-7xl mx-auto py-10 px-4">
+{{-- ĐÃ SỬA: Tăng max-w-7xl lên max-w-[1600px] để hai bên lề bung rộng --}}
+<main class="w-full max-w-[1600px] mx-auto py-10 px-6">
     
     <div class="swiper mySwiper rounded-xl overflow-hidden shadow-lg mb-16">
         <div class="swiper-wrapper">
@@ -178,7 +180,6 @@
                             
                             if (is_array($post->content)) {
                                 // TRƯỜNG HỢP 1: Bài viết mới (Dạng Block/Mảng)
-                                // Chỉ lấy nội dung của các khối 'doan_van' để làm tóm tắt
                                 foreach ($post->content as $block) {
                                     if ($block['type'] === 'doan_van') {
                                         $summary .= $block['data']['noi_dung'] . ' ';
@@ -188,13 +189,14 @@
                                 // TRƯỜNG HỢP 2: Bài viết cũ (Dạng chuỗi HTML)
                                 $summary = $post->content;
                             }
+
+                            // ĐÃ SỬA: Giải mã HTML entities 2 lớp trước khi bóc plain text để trị dứt điểm ký tự lạ tiếng Việt
+                            $cleanSummary = html_entity_decode(html_entity_decode($summary, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
                         @endphp
 
                         <div class="text-sm text-gray-700 leading-normal line-clamp-3 text-justify mb-4">
-                            {{-- Giờ thì strip_tags() sẽ luôn nhận được chuỗi, không bao giờ lỗi nữa --}}
-                            {{ Str::limit(\App\Helpers\HtmlHelper::plain($summary), 150) }}
+                            {{ Str::limit(\App\Helpers\HtmlHelper::plain($cleanSummary), 150) }}
                         </div>
-                        {{-- --- KẾT THÚC ĐOẠN SỬA LỖI --- --}}
                         
                         <p class="mt-auto inline-block text-blue-600 font-semibold group-hover:text-yellow-500 text-sm transition">
                             Xem chi tiết <i class="fas fa-arrow-right ml-1"></i>

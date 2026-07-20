@@ -264,7 +264,7 @@
                                     <span class="text-yellow-400 text-2xl mt-0.5 block">Năm 2026</span>
                                 </h3>
                                 <p class="text-xs text-blue-100 mb-4 max-w-[200px]">
-                                    Đăng ký ngay hôm nay để nhận học bổng lên đến 50%
+                                    Đăng ký ngay hôm nay để nhận ưu đãi học phí lên đến 100%
                                 </p>
                                 <span class="px-6 py-2 bg-yellow-400 text-blue-900 rounded-full font-bold text-xs hover:bg-white hover:text-blue-800 transition shadow">
                                     Xem chi tiết
