@@ -28,30 +28,29 @@
                     <span class="uppercase tracking-widest text-sm font-bold text-gray-500">{{ optional($major->departmentRel)->name ?? 'Khoa Đào Tạo' }}</span>
                 </div>
                 <h2 class="text-3xl md:text-5xl font-extrabold text-blue-900 leading-tight text-balance">{{ $major->name }}</h2>
+                
                 <div class="text-gray-600 text-lg leading-relaxed text-justify prose prose-blue max-w-none">
-                    {!! \App\Helpers\HtmlHelper::clean($major->description ?? 'Nội dung đang được cập nhật...') !!}
+                    {!! \App\Helpers\HtmlHelper::clean(html_entity_decode(html_entity_decode($major->description ?? 'Nội dung đang được cập nhật...', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8')) !!}
                 </div>
+                
                 <div class="pt-4 flex flex-wrap gap-4">
                     <a href="#dang-ky" class="bg-red-600 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:bg-red-700 transition transform hover:-translate-y-1">Đăng ký ngay</a>
                     <a href="#roadmap" class="text-blue-700 font-bold px-6 py-3 hover:underline flex items-center gap-2">Xem lộ trình <i class="fas fa-arrow-down"></i></a>
                 </div>
             </div>
-            {{-- CỘT BÊN PHẢI: KHUNG ẢNH INTRO (ĐÃ ĐỔI SANG KHUNG CHỮ NHẬT BO GÓC) --}}
+            
+            {{-- CỘT BÊN PHẢI: KHUNG ẢNH INTRO --}}
             <div class="w-full lg:w-5/12 relative z-10 flex justify-center items-center py-6">
                 
-                {{-- Các mảng màu trang trí phía sau (Tùy chỉnh lại cho hợp hình chữ nhật) --}}
                 <div class="absolute w-[110%] h-[110%] bg-blue-50 rounded-[3rem] opacity-60 -z-20 rotate-3"></div>
                 <div class="absolute w-[105%] h-[105%] bg-blue-100 rounded-[2.5rem] opacity-80 -z-10 -rotate-3"></div>
                 
-                {{-- Khung chứa ảnh chính: Bỏ rounded-full, dùng rounded-3xl --}}
                 <div class="relative w-full shadow-2xl border-[8px] border-white bg-white overflow-hidden group rounded-3xl">
                     @if($major->intro_image)
-                        {{-- H-auto để ảnh tự điều chỉnh chiều cao theo tỷ lệ gốc --}}
                         <img src="{{ asset('storage/' . $major->intro_image) }}" 
                              class="w-full h-auto object-cover group-hover:scale-105 transition duration-700" 
                              alt="Hình ảnh {{ $major->name }}">
                     @else
-                        {{-- Placeholder --}}
                         <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
                             <i class="fas fa-graduation-cap text-6xl text-blue-300"></i>
                         </div>
@@ -66,16 +65,13 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($major->gallery as $key => $img)
                 @if($key < 3) 
-                {{-- KHUNG ẢNH THUMBNAIL: Ép tỷ lệ 4:3 và gọi hàm openModal khi click --}}
                 <div onclick="openModal('{{ asset('storage/' . $img) }}')" 
                      class="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer hover:-translate-y-2 transition-all duration-300 border border-gray-100 bg-gray-50">
                     
-                    {{-- Dùng object-cover để lấp đầy khung mà không méo ảnh --}}
                     <img src="{{ asset('storage/' . $img) }}" 
                          class="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
                          alt="Hình ảnh ngành {{ $major->name }}">
                     
-                    {{-- Overlay hiệu ứng khi di chuột --}}
                     <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
                         <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-sm bg-black/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                             <i class="fas fa-search-plus mr-2"></i> Xem ảnh
@@ -99,23 +95,18 @@
                     {{-- ẢNH BÊN TRÁI --}}
                     <div class="w-full lg:w-5/12 relative">
                         <div class="sticky top-24">
-                            {{-- Hiệu ứng phát sáng phía sau --}}
                             <div class="absolute -top-6 -left-6 w-24 h-24 bg-yellow-400/20 rounded-full blur-2xl animate-pulse"></div>
                             
-                            {{-- Khung ảnh chính --}}
                             <div class="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/5] group {{ $major->why_us_image ? 'cursor-pointer' : '' }}"
                                  @if($major->why_us_image) onclick="openModal('{{ asset('storage/' . $major->why_us_image) }}')" @endif>
                                 
                                 @if($major->why_us_image)
-                                    {{-- Ảnh hiển thị ngoài (object-cover để lấp đầy tỷ lệ 4:5) --}}
                                     <img src="{{ asset('storage/' . $major->why_us_image) }}" 
                                          class="w-full h-full object-cover transition duration-1000 group-hover:scale-110"
                                          alt="Vì sao chọn {{ $major->name }}">
                                          
-                                    {{-- Lớp phủ tối màu khi hover --}}
                                     <div class="absolute inset-0 bg-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                                     
-                                    {{-- Nút Xem ảnh gốc ở chính giữa --}}
                                     <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                         <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-md bg-black/40 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
                                             <i class="fas fa-search-plus mr-2"></i> Xem ảnh 
@@ -127,7 +118,6 @@
                                     </div>
                                 @endif
                                 
-                                {{-- Quote ở dưới cùng (dùng z-30 để luôn nổi lên trên, pointer-events-none để không chặn click) --}}
                                 <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-blue-900 via-blue-900/70 to-transparent z-30 pointer-events-none">
                                     <p class="text-white font-medium italic opacity-100 drop-shadow-md">"Môi trường học tập năng động, bám sát thực tế doanh nghiệp."</p>
                                 </div>
@@ -162,10 +152,10 @@
                                     </div>
                                     <div class="space-y-2">
                                         <h3 class="text-xl font-extrabold text-gray-900 group-hover:text-blue-700 transition duration-300 leading-tight">
-                                            {{ $reason['title'] ?? 'Lý do cốt lõi' }}
+                                            {!! html_entity_decode(html_entity_decode($reason['title'] ?? 'Lý do cốt lõi', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') !!}
                                         </h3>
                                         <p class="text-gray-500 leading-relaxed text-sm">
-                                            {{ $reason['description'] ?? 'Nội dung chi tiết' }}
+                                            {!! html_entity_decode(html_entity_decode($reason['description'] ?? 'Nội dung chi tiết', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') !!}
                                         </p>
                                     </div>
                                 </div>
@@ -188,10 +178,9 @@
         </div>
         @endif
 
-       {{-- 5. CAREER (ZIG ZAG) --}}
+        {{-- 5. CAREER (ZIG ZAG) --}}
         @if($major->career_titles || $major->career_places)
         <div class="mb-32 space-y-24 mt-16">
-            {{-- TIÊU ĐỀ CHÍNH --}}
             <div class="text-center mb-16 relative">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-blue-900 uppercase inline-block relative z-10 bg-white px-6">
                     Cơ hội nghề nghiệp của ngành <span class="text-blue-500">{{ $major->name }}</span>
@@ -202,22 +191,16 @@
             {{-- PHẦN 1: LÀM NGHỀ GÌ? --}}
             @if($major->career_titles)
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                
-                {{-- ẢNH BÊN TRÁI --}}
                 <div class="relative group">
-                    {{-- Khối màu vàng trang trí phía sau --}}
                     <div class="absolute -top-6 -bottom-6 -left-6 right-12 bg-yellow-100/50 rounded-[2rem] -z-10 transform -rotate-2"></div>
                     
-                    {{-- Khung ảnh chính --}}
                     <div class="relative z-10 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100 transition-transform duration-500 hover:-translate-y-2 {{ $major->career_titles_image ? 'cursor-pointer' : '' }}"
                          @if($major->career_titles_image) onclick="openModal('{{ asset('storage/' . $major->career_titles_image) }}')" @endif>
                         
-                        {{-- Dùng object-cover và tỷ lệ cố định (vd: 4/3 hoặc vuông) nếu muốn ảnh đều nhau, hoặc để h-auto nếu muốn giữ nguyên tỷ lệ gốc --}}
                         <img src="{{ $major->career_titles_image ? asset('storage/' . $major->career_titles_image) : 'https://via.placeholder.com/600x600' }}" 
                              class="w-full h-auto object-cover" alt="Nghề nghiệp ngành {{ $major->name }}">
                         
                         @if($major->career_titles_image)
-                            {{-- Lớp phủ và nút XEM ẢNH GỐC --}}
                             <div class="absolute inset-0 bg-blue-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                             <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                 <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-md bg-black/40 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
@@ -228,14 +211,14 @@
                     </div>
                 </div>
 
-                {{-- NỘI DUNG BÊN PHẢI --}}
                 <div>
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-1.5 h-10 bg-red-600 rounded-full"></div>
                         <h3 class="text-2xl font-bold text-blue-900 leading-tight">Ngành <span class="text-blue-600">{{ $major->name }}</span> ra trường làm nghề gì?</h3>
                     </div>
+                    
                     <div class="career-content prose prose-lg text-gray-600 max-w-none">
-                        {!! \App\Helpers\HtmlHelper::clean($major->career_titles) !!}
+                        {!! \App\Helpers\HtmlHelper::clean(html_entity_decode(html_entity_decode($major->career_titles, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8')) !!}
                     </div>
                 </div>
             </div>
@@ -244,24 +227,20 @@
             {{-- PHẦN 2: LÀM Ở ĐÂU? --}}
             @if($major->career_places)
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                
-                {{-- NỘI DUNG BÊN TRÁI --}}
                 <div class="order-2 lg:order-1">
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-1.5 h-10 bg-red-600 rounded-full"></div>
                         <h3 class="text-2xl font-bold text-blue-900 leading-tight">Ngành <span class="text-blue-600">{{ $major->name }}</span> ra trường làm ở đâu?</h3>
                     </div>
+                    
                     <div class="career-content prose prose-lg text-gray-600 max-w-none">
-                        {!! \App\Helpers\HtmlHelper::clean($major->career_places) !!}
+                        {!! \App\Helpers\HtmlHelper::clean(html_entity_decode(html_entity_decode($major->career_places, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8')) !!}
                     </div>
                 </div>
 
-                {{-- ẢNH BÊN PHẢI --}}
                 <div class="relative group order-1 lg:order-2">
-                    {{-- Khối màu vàng trang trí phía sau (cắt xéo) --}}
                     <div class="absolute -top-8 -bottom-8 left-12 -right-6 bg-yellow-50 rounded-3xl -z-10 transform rotate-3" style="clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);"></div>
                     
-                    {{-- Khung ảnh chính --}}
                     <div class="relative z-10 rounded-2xl shadow-xl overflow-hidden bg-white border border-gray-100 transition-transform duration-500 hover:-translate-y-2 {{ $major->career_places_image ? 'cursor-pointer' : '' }}"
                          @if($major->career_places_image) onclick="openModal('{{ asset('storage/' . $major->career_places_image) }}')" @endif>
                         
@@ -269,7 +248,6 @@
                              class="w-full h-auto object-cover" alt="Nơi làm việc ngành {{ $major->name }}">
                         
                         @if($major->career_places_image)
-                            {{-- Lớp phủ và nút XEM ẢNH GỐC --}}
                             <div class="absolute inset-0 bg-blue-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                             <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                 <span class="text-white font-bold uppercase tracking-wider text-sm border-2 border-white px-5 py-2 rounded-full backdrop-blur-md bg-black/40 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
@@ -283,7 +261,6 @@
             @endif
         </div>
         
-        {{-- CSS TUỲ CHỈNH CHO LIST TRONG PHẦN CAREER --}}
         <style>
             .career-content p {
                 margin-bottom: 1.5rem;
@@ -291,7 +268,7 @@
                 line-height: 1.7;
             }
             .career-content strong {
-                color: #1e3a8a; /* blue-900 */
+                color: #1e3a8a;
                 display: block;
                 margin-bottom: 1rem;
                 font-size: 1.125rem;
@@ -305,18 +282,18 @@
                 padding-left: 2.5rem; 
                 margin-bottom: 1rem; 
                 line-height: 1.6;
-                color: #4b5563; /* gray-600 */
+                color: #4b5563; 
             }
             .career-content ul li::before { 
-                content: '\f00c'; /* Unicode của dấu tick FontAwesome */
-                font-family: 'Font Awesome 5 Free'; /* Hoặc Font Awesome 6 Free */
+                content: '\f00c'; 
+                font-family: 'Font Awesome 5 Free'; 
                 font-weight: 900;
                 position: absolute; 
                 left: 0; 
                 top: 0.2rem; 
-                color: #3b82f6; /* blue-500 */
+                color: #3b82f6; 
                 font-size: 1rem; 
-                background-color: #eff6ff; /* blue-50 */
+                background-color: #eff6ff; 
                 width: 1.75rem; 
                 height: 1.75rem; 
                 border-radius: 50%; 
@@ -326,7 +303,8 @@
             }
         </style>
         @endif
-        {{-- 6. LỘ TRÌNH HỌC TẬP --}}
+
+        {{-- 6. LỘ TRÌNH HỌC TẬP (ĐÃ SỬA GIẢI MÃ KÝ TỰ MẠNG &AMP; CƠ SỞ DỮ LIỆU) --}}
         @if(!empty($major->roadmap))
         <div id="roadmap" class="mb-24 scroll-mt-24">
             <div class="text-center mb-16">
@@ -357,9 +335,11 @@
                                         Giai đoạn {{ $key + 1 }}
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-bold text-blue-900 mb-2">{{ $step['title'] ?? 'Nội dung học tập' }}</h3>
+                                {{-- FIX TIÊU ĐỀ HỌC KỲ TẠI ĐÂY --}}
+                                <h3 class="text-xl font-bold text-blue-900 mb-2">{!! html_entity_decode(html_entity_decode($step['title'] ?? 'Nội dung học tập', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') !!}</h3>
+                                {{-- FIX MÔ TẢ HỌC KỲ TẠI ĐÂY --}}
                                 <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                                    {{ $step['description'] ?? '' }}
+                                    {!! html_entity_decode(html_entity_decode($step['description'] ?? '', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') !!}
                                 </p>
                             </div>
                         </div>
@@ -373,7 +353,7 @@
         </div>
         @endif
 
-        {{-- 7. ĐIỂM NỔI BẬT --}}
+        {{-- 7. ĐIỂM NỔI BẬT (CŨNG ĐÃ SỬA GIẢI MÃ MÃ HÓA KÝ TỰ) --}}
         @if(!empty($major->program_advantages))
         <div class="mt-16 mb-12">
             <div class="max-w-7xl mx-auto">
@@ -393,12 +373,12 @@
                                 <i class="{{ $item['icon'] ?? 'fas fa-check-circle' }}"></i>
                             </div>
                             <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition leading-snug">
-                                {{ $item['title'] ?? 'Tiêu đề điểm nổi bật' }}
+                                {!! html_entity_decode(html_entity_decode($item['title'] ?? 'Tiêu đề điểm nổi bật', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') !!}
                             </h3>
                         </div>
                         <div class="w-12 h-0.5 bg-gray-100 my-4 group-hover:bg-blue-100 transition"></div>
                         <p class="text-gray-500 leading-relaxed text-sm text-justify">
-                            {{ $item['description'] ?? 'Nội dung mô tả ngắn gọn về điểm nổi bật này.' }}
+                            {!! html_entity_decode(html_entity_decode($item['description'] ?? 'Nội dung mô tả ngắn gọn về điểm nổi bật này.', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') !!}
                         </p>
                     </div>
                     @endforeach
@@ -407,12 +387,11 @@
         </div>
         @endif
 
-    </div> {{-- KẾT THÚC DIV CONTAINER MAX-W-7XL --}}
+    </div> {{-- KẾT THÚC CONTAINER --}}
 
-    {{-- 8. FORM ĐĂNG KÝ (NẰM NGOÀI CONTAINER ĐỂ FULL WIDTH, NHƯNG VẪN TRONG MAIN) --}}
+    {{-- 8. FORM ĐĂNG KÝ --}}
     <section id="dang-ky" class="relative py-16 md:py-24 bg-blue-900 text-white overflow-hidden">
         
-        {{-- Background Effects --}}
         <div class="absolute inset-0 opacity-10" 
              style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); background-repeat: repeat;">
         </div>
@@ -423,7 +402,7 @@
         <div class="relative z-10 max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                 
-                {{-- CỘT TRÁI: TEXT --}}
+                {{-- CỘT TRÁI --}}
                 <div class="lg:col-span-5 space-y-8">
                     <div>
                         <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-2 rounded-full mb-6 backdrop-blur-md shadow-lg">
@@ -458,14 +437,13 @@
                     </ul>
                 </div>
 
-                {{-- CỘT PHẢI: FORM STYLE KÍNH PHA LÊ --}}
+                {{-- CỘT PHẢI --}}
                 <div class="lg:col-span-7">
                     <div class="relative group">
                         <div class="absolute -inset-0.5 bg-gradient-to-b from-white/30 to-white/0 rounded-[2rem] blur-sm opacity-50"></div>
                         
                         <div class="relative bg-white/10 backdrop-blur-2xl rounded-[2rem] p-8 md:p-10 border border-white/20 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]">
                             
-                            {{-- THÔNG BÁO THÀNH CÔNG --}}
                             @if(session('success'))
                             <div id="success-alert" class="mb-8 bg-green-600 border-l-4 border-green-300 p-4 rounded-lg shadow-lg flex items-start gap-4 animate-bounce">
                                 <div class="bg-white/20 rounded-full p-2 mt-1">
@@ -489,7 +467,6 @@
                                 @csrf
                                 <input type="hidden" name="major_id" value="{{ $major->id }}">
 
-                                {{-- Input Họ tên --}}
                                 <div class="group/input">
                                     <label class="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Họ và tên *</label>
                                     <div class="relative">
@@ -503,7 +480,6 @@
                                 </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                    {{-- Input Số điện thoại --}}
                                     <div class="group/input">
                                         <label class="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1">Số điện thoại *</label>
                                         <div class="relative">
@@ -525,7 +501,6 @@
                                         @error('phone') <p class="text-red-300 text-xs mt-1 ml-1 italic"><i class="fas fa-exclamation-triangle mr-1"></i>{{ $message }}</p> @enderror
                                     </div>
 
-                                    {{-- Input Email --}}
                                     <div class="group/input">
                                         <label class="block text-xs font-bold text-blue-200 uppercase mb-2 ml-1 flex justify-between">
                                             <span>Email</span>
@@ -542,7 +517,6 @@
                                     </div>
                                 </div>
 
-                                {{-- Nút Gửi --}}
                                 <button type="submit" 
                                         class="w-full group relative overflow-hidden bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-blue-950 font-black text-lg py-5 rounded-xl shadow-[0_10px_40px_-10px_rgba(234,179,8,0.5)] transform hover:-translate-y-1 transition-all duration-300 mt-4 border border-yellow-300/50">
                                     <span class="relative flex items-center justify-center gap-3 uppercase tracking-wider z-10">
@@ -563,9 +537,8 @@
         </div>
     </section>
 
-</main> {{-- Đóng main --}}
+</main>
 
-{{-- SCRIPT TỰ ĐỘNG CUỘN --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         @if($errors->any() || session('success'))
@@ -577,43 +550,34 @@
     });
 </script>
 
-{{-- STYLE HIỆU ỨNG --}}
 <style>
     @keyframes shine {
         100% { left: 125%; }
     }
 </style>
-{{-- LIGHTBOX MODAL ĐỂ XEM ẢNH GỐC --}}
+
 <div id="imageModal" class="fixed inset-0 z-[9999] bg-black/95 hidden flex-col items-center justify-center backdrop-blur-md transition-opacity duration-300 opacity-0" onclick="closeModal()">
-    
-    {{-- Nút đóng --}}
     <button class="absolute top-6 right-6 text-white/70 hover:text-white text-5xl font-light cursor-pointer focus:outline-none transition-colors duration-200 z-50">
         &times;
     </button>
-    
-    {{-- Nội dung ảnh (Chứa ảnh gốc không bị cắt xén) --}}
     <div class="relative w-full h-full flex items-center justify-center p-4 md:p-12">
-        {{-- Dùng object-contain để hiển thị toàn bộ ảnh gốc (ngang/dọc/vuông) --}}
         <img id="modalImg" src="" class="max-w-full max-h-full rounded-xl shadow-2xl transform scale-95 transition-transform duration-300 object-contain" alt="Phóng to ảnh">
     </div>
 </div>
 
 <script>
-    // Logic xử lý bật/tắt Modal ảnh
     function openModal(src) {
         const modal = document.getElementById('imageModal');
         const img = document.getElementById('modalImg');
         
-        img.src = src; // Gắn link ảnh gốc vào popup
-        modal.classList.remove('hidden'); // Hiển thị khung popup
+        img.src = src;
+        modal.classList.remove('hidden');
         
-        // Timeout nhỏ để tạo hiệu ứng mượt mà
         requestAnimationFrame(() => {
             modal.classList.remove('opacity-0');
             img.classList.replace('scale-95', 'scale-100');
         });
         
-        // Khóa cuộn trang khi đang xem ảnh
         document.body.style.overflow = 'hidden';
     }
 
@@ -626,12 +590,11 @@
         
         setTimeout(() => {
             modal.classList.add('hidden');
-            img.src = ''; // Xóa source cũ đi
-            document.body.style.overflow = ''; // Mở lại cuộn trang
+            img.src = '';
+            document.body.style.overflow = '';
         }, 300);
     }
     
-    // Đóng popup bằng nút ESC trên bàn phím
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && !document.getElementById('imageModal').classList.contains('hidden')) {
             closeModal();
@@ -639,3 +602,4 @@
     });
 </script>
 @include('components.footer')
+ 
