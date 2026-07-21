@@ -180,7 +180,7 @@
                             <div class="text-xs text-gray-600 uppercase tracking-widest">Cơ sở đào tạo</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-3xl font-bold text-blue-900">100+</div>
+                            <div class="text-3xl font-bold text-blue-900">40+</div>
                             <div class="text-xs text-gray-600 uppercase tracking-widest">Giảng viên</div>
                         </div>
                     </div>

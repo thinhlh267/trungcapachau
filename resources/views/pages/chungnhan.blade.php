@@ -200,7 +200,7 @@
                 <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <i class="fas fa-check text-green-600 text-xs"></i>
                 </div>
-                <span class="text-sm text-gray-700">85% sinh viên tốt nghiệp có việc làm đúng ngành</span>
+                <span class="text-sm text-gray-700">90% sinh viên tốt nghiệp có việc làm</span>
             </div>
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">

@@ -66,7 +66,7 @@
                     </h3>
                     <p class="mb-0">
                         Nhà trường luôn lấy mục tiêu phục vụ và chất lượng làm phương châm hàng đầu. Số lượng tuyển sinh qua các năm có chiều hướng tăng dần. Cụ thể: năm 2018 tuyển sinh 230 học sinh, năm 2019 tuyển sinh 350 học sinh (tăng 50%). Đến năm 2026, Trung cấp Á Châu tự hào đã đào tạo và cung ứng hơn 
-                        <strong>10.000 nhân lực chất lượng cao</strong> cho thị trường lao động.
+                        <strong>3.000 nhân lực chất lượng cao</strong> cho thị trường lao động.
                     </p>
                 </div>
 
